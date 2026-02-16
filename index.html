@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Édimbourg en Famille — Février 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1a1f3a;
+  --royal: #2d3561;
+  --gold: #d4a853;
+  --gold-light: #f0d68a;
+  --cream: #faf6ee;
+  --stone: #e8e0d0;
+  --green: #3d6b4f;
+  --green-light: #5a9e6f;
+  --rust: #c4653a;
+  --sky: #6ba3be;
+  --white: #ffffff;
+  --text: #2c2c2c;
+  --text-light: #6b6b6b;
+  --shadow: 0 4px 20px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.15);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  background: var(--cream);
+  overflow-x: hidden;
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1920&q=80') center/cover no-repeat;
+  filter: brightness(0.55);
+  transform: scale(1.1);
+  animation: heroZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom {
+  from { transform: scale(1.1); }
+  to { transform: scale(1.2); }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(26,31,58,0.3) 0%, rgba(26,31,58,0.7) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  padding: 0 20px;
+  animation: fadeUp 1.2s ease-out;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-flag {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  animation: wave 2s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+
+.hero h1 span {
+  color: var(--gold-light);
+}
+
+.hero-subtitle {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  color: var(--gold-light);
+  margin-bottom: 24px;
+}
+
+.hero-dates {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 50px;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 32px;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: white;
+  text-align: center;
+  animation: bounce 2s infinite;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.hero-scroll span {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  opacity: 0.8;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+.scroll-arrow {
+  width: 24px;
+  height: 24px;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(45deg);
+  margin: 0 auto;
+  opacity: 0.7;
+}
+
+/* ===== NAVIGATION ===== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  transition: all 0.3s;
+}
+
+.nav.scrolled {
+  background: rgba(26,31,58,0.95);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow);
+  padding: 10px 24px;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.nav a:hover, .nav a.active {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+/* ===== SECTIONS ===== */
+section {
+  padding: 80px 20px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--navy);
+  margin-bottom: 16px;
+}
+
+.section-desc {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  max-width: 700px;
+  line-height: 1.7;
+}
+
+/* ===== FLIGHT CARDS ===== */
+#vols { background: var(--navy); }
+
+.flights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.flight-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.flight-card:hover { transform: translateY(-4px); }
+
+.flight-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 20%;
+  right: 20%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius: 0 0 4px 4px;
+}
+
+.flight-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gold-light);
+  margin-bottom: 20px;
+}
+
+.flight-route {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.flight-city {
+  text-align: center;
+}
+
+.flight-code {
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+}
+
+.flight-name {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  margin-top: 4px;
+}
+
+.flight-plane {
+  font-size: 1.5rem;
+  color: var(--gold);
+  position: relative;
+}
+
+.flight-plane::before, .flight-plane::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+}
+
+.flight-plane::before { right: 100%; margin-right: 8px; }
+.flight-plane::after { left: 100%; margin-left: 8px; }
+
+.flight-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.flight-detail {
+  background: rgba(255,255,255,0.05);
+  padding: 10px 14px;
+  border-radius: 10px;
+}
+
+.flight-detail-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 4px;
+}
+
+.flight-detail-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+}
+
+/* ===== HOTEL MAP ===== */
+#hotel { background: var(--cream); }
+
+.hotel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 40px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .hotel-grid { grid-template-columns: 1fr; }
+}
+
+.hotel-info-card {
+  background: white;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow);
+}
+
+.hotel-address {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.hotel-neighborhood {
+  color: var(--gold);
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.hotel-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hotel-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-light);
+}
+
+.hotel-features li .icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  background: var(--cream);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.map-container {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  height: 400px;
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ===== TRANSPORT ===== */
+#transport { background: white; }
+
+.transport-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.transport-card {
+  border: 2px solid var(--stone);
+  border-radius: 20px;
+  padding: 28px;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.transport-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.transport-card.recommended {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, rgba(212,168,83,0.05), rgba(212,168,83,0.1));
+}
+
+.transport-card.recommended::after {
+  content: '★ Recommandé';
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.transport-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+.transport-card:nth-child(1) .transport-icon { background: #fff3cd; }
+.transport-card:nth-child(2) .transport-icon { background: #d4edda; }
+.transport-card:nth-child(3) .transport-icon { background: #cce5ff; }
+
+.transport-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.transport-card p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.transport-stat {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.transport-stat-item {
+  background: var(--cream);
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+}
+
+.transport-stat-item strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--navy);
+}
+
+.transport-tips {
+  margin-top: 40px;
+  background: linear-gradient(135deg, var(--navy), var(--royal));
+  border-radius: 20px;
+  padding: 32px;
+  color: white;
+}
+
+.transport-tips h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  color: var(--gold-light);
+}
+
+.transport-tips ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.transport-tips li {
+  padding-left: 24px;
+  position: relative;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.85);
+}
+
+.transport-tips li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* ===== TIMELINE / ITINERARY ===== */
+#itineraire { background: var(--cream); }
+
+.day-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 48px;
+}
+
+.day-card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: all 0.3s;
+}
+
+.day-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.day-header {
+  display: flex;
+  align-items: stretch;
+  cursor: pointer;
+  position: relative;
+}
+
+.day-number {
+  flex-shrink: 0;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  color: white;
+  text-align: center;
+}
+
+.day-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.day-weekday {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+.day-card:nth-child(1) .day-number { background: var(--royal); }
+.day-card:nth-child(2) .day-number { background: var(--rust); }
+.day-card:nth-child(3) .day-number { background: var(--green); }
+.day-card:nth-child(4) .day-number { background: var(--sky); }
+.day-card:nth-child(5) .day-number { background: var(--gold); color: var(--navy); }
+.day-card:nth-child(6) .day-number { background: var(--navy); }
+
+.day-summary {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.day-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.day-tagline {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.day-toggle {
+  flex-shrink: 0;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: var(--text-light);
+  transition: transform 0.3s;
+}
+
+.day-card.open .day-toggle { transform: rotate(180deg); }
+
+.day-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.day-card.open .day-body {
+  max-height: 3000px;
+}
+
+.day-content {
+  padding: 0 32px 32px;
+}
+
+.activity {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--stone);
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.activity:last-child { border-bottom: none; }
+
+@media (max-width: 600px) {
+  .activity { grid-template-columns: 1fr; gap: 8px; }
+}
+
+.activity-time {
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 0.85rem;
+  padding-top: 2px;
+  white-space: nowrap;
+}
+
+.activity-info h4 {
+  font-size: 1.05rem;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.activity-info p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.activity-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.tag {
+  font-size: 0.7rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tag-walk { background: #d4edda; color: #155724; }
+.tag-taxi { background: #fff3cd; color: #856404; }
+.tag-free { background: #cce5ff; color: #004085; }
+.tag-food { background: #f8d7da; color: #721c24; }
+.tag-baby { background: #e2d9f3; color: #4a2d7a; }
+.tag-must { background: var(--gold); color: var(--navy); }
+.tag-paid { background: #fce4ec; color: #880e4f; }
+.tag-rain { background: #b3e5fc; color: #01579b; }
+
+.day-map {
+  margin-top: 20px;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 300px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.day-map iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ===== IMAGE GALLERY ===== */
+.gallery-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin: 60px 0 0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .gallery-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+.gallery-img {
+  aspect-ratio: 1;
+  object-fit: cover;
+  width: 100%;
+  transition: transform 0.5s;
+}
+
+.gallery-img:hover {
+  transform: scale(1.08);
+}
+
+/* ===== RESTAURANTS ===== */
+#restos { background: white; }
+
+.resto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.resto-card {
+  background: var(--cream);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s;
+  border-left: 4px solid var(--gold);
+}
+
+.resto-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.resto-card h3 {
+  font-size: 1.1rem;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.resto-location {
+  font-size: 0.8rem;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.resto-card p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+/* ===== TIPS ===== */
+#tips { background: linear-gradient(135deg, var(--navy) 0%, #2a3a6a 100%); color: white; }
+
+#tips .section-label { color: var(--gold-light); }
+#tips .section-title { color: white; }
+#tips .section-desc { color: rgba(255,255,255,0.7); }
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.tip-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s;
+}
+
+.tip-card:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-4px);
+}
+
+.tip-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.tip-card h3 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: var(--gold-light);
+}
+
+.tip-card p {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+}
+
+/* ===== PACKING ===== */
+#valise { background: var(--cream); }
+
+.packing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.packing-category {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.packing-category h3 {
+  font-size: 1rem;
+  color: var(--navy);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--stone);
+}
+
+.packing-category ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.packing-category li {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  padding-left: 22px;
+  position: relative;
+}
+
+.packing-category li::before {
+  content: '☐';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+  padding: 40px 20px;
+}
+
+footer .heart { color: var(--rust); }
+
+footer p {
+  font-size: 0.85rem;
+  line-height: 1.8;
+}
+
+.footer-flag {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+/* ===== SCROLL ANIMATIONS ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.7s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  section { padding: 50px 16px; }
+  .day-header { flex-wrap: wrap; }
+  .day-number { width: 70px; }
+  .day-content { padding: 0 20px 24px; }
+  .hotel-grid { grid-template-columns: 1fr; }
+  .flight-route { gap: 8px; }
+  .flight-code { font-size: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="mainNav">
+  <a href="#vols">Vols</a>
+  <a href="#hotel">Hôtel</a>
+  <a href="#transport">Transport</a>
+  <a href="#itineraire">Itinéraire</a>
+  <a href="#restos">Restos</a>
+  <a href="#tips">Tips</a>
+  <a href="#valise">Valise</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</div>
+    <h1><span>Édimbourg</span> en Famille</h1>
+    <p class="hero-subtitle">Notre aventure écossaise avec bébé</p>
+    <div class="hero-dates">
+      ✈️ &nbsp;20 – 25 Février 2026 &nbsp;|&nbsp; 5 nuits
+    </div>
+  </div>
+  <a href="#vols" class="hero-scroll">
+    <span>Découvrir</span>
+    <div class="scroll-arrow"></div>
+  </a>
+</section>
+
+<!-- VOLS -->
+<section id="vols">
+  <div class="container">
+    <p class="section-label" style="color: var(--gold-light);">✈️ Nos vols</p>
+    <h2 class="section-title" style="color: white;">Genève → Édimbourg</h2>
+    <p class="section-desc" style="color: rgba(255,255,255,0.6);">EasyJet — vols directs, c'est parti pour l'Écosse !</p>
+    <div class="flights-grid">
+      <!-- Aller -->
+      <div class="flight-card reveal">
+        <div class="flight-label">Aller — Vendredi 20 Février</div>
+        <div class="flight-route">
+          <div class="flight-city">
+            <div class="flight-code">GVA</div>
+            <div class="flight-name">Genève</div>
+          </div>
+          <div class="flight-plane">✈</div>
+          <div class="flight-city">
+            <div class="flight-code">EDI</div>
+            <div class="flight-name">Édimbourg</div>
+          </div>
+        </div>
+        <div class="flight-details">
+          <div class="flight-detail">
+            <div class="flight-detail-label">Vol</div>
+            <div class="flight-detail-value">EZY 3296</div>
+          </div>
+          <div class="flight-detail">
+            <div class="flight-detail-label">Départ</div>
+            <div class="flight-detail-value">20h35</div>
+          </div>
+          <div class="flight-detail">
+            <div class="flight-detail-label">Gate closes</div>
+            <div class="flight-detail-value">20h05</div>
+          </div>
+          <div class="flight-detail">
+            <div class="flight-detail-label">Arrivée ≈</div>
+            <div class="flight-detail-value">21h30 🇬🇧</div>
+          </div>
+        </div>
+      </div>
+      <!-- Retour -->
+      <div class="flight-card reveal">
+        <div class="flight-label">Retour — Mercredi 25 Février</div>
+        <div class="flight-route">
+          <div class="flight-city">
+            <div class="flight-code">EDI</div>
+            <div class="flight-name">Édimbourg</div>
+          </div>
+          <div class="flight-plane">✈</div>
+          <div class="flight-city">
+            <div class="flight-code">GVA</div>
+            <div class="flight-name">Genève</div>
+          </div>
+        </div>
+        <div class="flight-details">
+          <div class="flight-detail">
+            <div class="flight-detail-label">Vol</div>
+            <div class="flight-detail-value">EZS 1562</div>
+          </div>
+          <div class="flight-detail">
+            <div class="flight-detail-label">Départ</div>
+            <div class="flight-detail-value">19h05</div>
+          </div>
+          <div class="flight-detail">
+            <div class="flight-detail-label">Gate closes</div>
+            <div class="flight-detail-value">18h35</div>
+          </div>
+          <div class="flight-detail">
+            <div class="flight-detail-label">Arrivée ≈</div>
+            <div class="flight-detail-value">22h05 🇨🇭</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOTEL -->
+<section id="hotel">
+  <div class="container">
+    <p class="section-label">🏨 Notre base</p>
+    <h2 class="section-title">L'Hôtel — En plein cœur de New Town</h2>
+    <p class="section-desc">Idéalement situé sur Hanover Street, tout est accessible à pied. Princes Street, le château, le Royal Mile... tout est à quelques minutes.</p>
+    <div class="hotel-grid">
+      <div class="hotel-info-card reveal">
+        <div class="hotel-address">4 Hanover Street</div>
+        <div class="hotel-neighborhood">Edinburgh EH2 2EN — New Town</div>
+        <ul class="hotel-features">
+          <li><span class="icon">🏰</span> Edinburgh Castle — 10 min à pied</li>
+          <li><span class="icon">🛤️</span> Royal Mile — 10 min à pied</li>
+          <li><span class="icon">🌳</span> Princes Street Gardens — 3 min à pied</li>
+          <li><span class="icon">🖼️</span> Scottish National Gallery — 5 min à pied</li>
+          <li><span class="icon">🏛️</span> National Museum — 10 min à pied</li>
+          <li><span class="icon">🚋</span> Arrêt tram St Andrew Sq. — 2 min à pied</li>
+          <li><span class="icon">🏘️</span> Dean Village — 15 min à pied</li>
+          <li><span class="icon">🍽️</span> Restaurants sur Hanover Street même !</li>
+        </ul>
+      </div>
+      <div class="map-container reveal">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2233.7!2d-3.1955!3d55.9537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4887c79a2a0078d1%3A0x5c3d0e5b4c5b3b0!2s4+Hanover+St%2C+Edinburgh+EH2+2EN!5e0!3m2!1sen!2suk!4v1708000000000!5m2!1sen!2suk" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSPORT -->
+<section id="transport">
+  <div class="container">
+    <p class="section-label">🚕 Se déplacer</p>
+    <h2 class="section-title">Taxis, Tram & Transports</h2>
+    <p class="section-desc">Avec un bébé de 19 mois, le taxi est votre meilleur ami pour les longs trajets. Mais le centre-ville se fait très bien à pied !</p>
+
+    <div class="transport-grid">
+      <div class="transport-card recommended reveal">
+        <div class="transport-icon">🚕</div>
+        <h3>Taxi — Le plus pratique</h3>
+        <p>Avec un toddler, les bagages, et la fatigue du voyage, le taxi est le choix le plus confortable. Les taxis noirs écossais (Hackney) sont spacieux et ont de la place pour la poussette dans le coffre.</p>
+        <div class="transport-stat">
+          <div class="transport-stat-item"><strong>£25–45</strong>Aéroport → Hôtel</div>
+          <div class="transport-stat-item"><strong>25–35 min</strong>Durée trajet</div>
+        </div>
+        <div style="margin-top: 16px; padding: 14px; background: #fff8e7; border-radius: 12px; font-size: 0.85rem; color: var(--text);">
+          <strong>Comment prendre un taxi à Édimbourg :</strong><br><br>
+          <strong>À l'aéroport :</strong> Sortez du terminal, la station de taxis est juste devant à droite. Faites la queue, un dispatcher vous attribuera un taxi. Dites simplement « 4 Hanover Street, please » au chauffeur. Pas besoin de réserver.<br><br>
+          <strong>En ville :</strong> Levez la main quand vous voyez un taxi noir avec le voyant lumineux allumé (= disponible). Vous pouvez aussi aller aux stations de taxi sur Princes Street, Waverley Bridge ou St Andrew Square.<br><br>
+          <strong>Par téléphone :</strong> Appelez <strong>Central Taxis</strong> au <strong>0131 229 2468</strong> ou <strong>City Cabs</strong> au <strong>0131 228 1211</strong>. Réservez 15–20 min à l'avance.<br><br>
+          <strong>Par app :</strong> Téléchargez <strong>Free Now</strong> (anciennement mytaxi) — ça fonctionne très bien à Édimbourg, comme un Uber mais avec les vrais taxis. Uber marche aussi.<br><br>
+          <strong>Paiement :</strong> Tous les taxis acceptent la carte bancaire et le sans-contact. Pas besoin de cash. Le pourboire n'est pas obligatoire mais arrondir au £ supérieur est apprécié.
+        </div>
+      </div>
+      <div class="transport-card reveal">
+        <div class="transport-icon">🚋</div>
+        <h3>Tram — Aéroport direct</h3>
+        <p>Le tram relie l'aéroport au centre-ville (arrêt St Andrew Square, à 2 min de l'hôtel). Pratique pour le retour quand vous êtes plus légers.</p>
+        <div class="transport-stat">
+          <div class="transport-stat-item"><strong>£6.50</strong>Par adulte</div>
+          <div class="transport-stat-item"><strong>~35 min</strong>Durée</div>
+          <div class="transport-stat-item"><strong>Gratuit</strong>Moins de 5 ans</div>
+        </div>
+        <div style="margin-top: 16px; padding: 14px; background: #e8f5e9; border-radius: 12px; font-size: 0.85rem; color: var(--text);">
+          <strong>Astuce retour :</strong> Pour le vol retour du mercredi, prenez le tram depuis St Andrew Square (juste au bout de Hanover Street). C'est fiable, pas de risque d'embouteillage, et la poussette rentre facilement. Dernier tram vers l'aéroport vers 22h45. Fréquence : toutes les 7–10 min.
+        </div>
+      </div>
+      <div class="transport-card reveal">
+        <div class="transport-icon">🚶</div>
+        <h3>À pied — La meilleure option</h3>
+        <p>Grâce à la position ultra-centrale de l'hôtel, 90% des activités sont à 15 min à pied maximum. Édimbourg est compacte et magnifique à explorer à pied.</p>
+        <div class="transport-stat">
+          <div class="transport-stat-item"><strong>Gratuit</strong>Évidemment 😄</div>
+          <div class="transport-stat-item"><strong>90%</strong>Du programme</div>
+        </div>
+        <div style="margin-top: 16px; padding: 14px; background: #e3f2fd; border-radius: 12px; font-size: 0.85rem; color: var(--text);">
+          <strong>Attention :</strong> Édimbourg = collines + pavés. Prenez une poussette compacte et solide. Pour le château et Calton Hill, un porte-bébé est indispensable. Chaussures imperméables fortement recommandées !
+        </div>
+      </div>
+    </div>
+
+    <div class="transport-tips reveal">
+      <h3>📱 Apps à télécharger avant de partir</h3>
+      <ul>
+        <li><strong>Free Now</strong> — Pour commander un taxi en 2 clics (mieux qu'Uber à Édimbourg)</li>
+        <li><strong>Uber</strong> — Fonctionne aussi, en backup</li>
+        <li><strong>Google Maps</strong> — Indispensable pour les itinéraires piétons et les horaires de bus</li>
+        <li><strong>Edinburgh Trams</strong> — Horaires en temps réel du tram</li>
+        <li><strong>Lothian Buses</strong> — Si vous prenez le bus (n°26 pour le Zoo par exemple), billet à £2 en sans-contact</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY STRIP -->
+<div class="gallery-strip">
+  <img class="gallery-img" src="https://images.unsplash.com/photo-1590490360419-242d0e1bb26c?w=500&q=80" alt="Victoria Street Edinburgh" loading="lazy">
+  <img class="gallery-img" src="https://images.unsplash.com/photo-1600160891866-6cb5f59a40f0?w=500&q=80" alt="Edinburgh Castle" loading="lazy">
+  <img class="gallery-img" src="https://images.unsplash.com/photo-1594803294810-c860e5d29e07?w=500&q=80" alt="Edinburgh Old Town" loading="lazy">
+  <img class="gallery-img" src="https://images.unsplash.com/photo-1583225173760-bac8a27e4a42?w=500&q=80" alt="Dean Village" loading="lazy">
+</div>
+
+<!-- ITINERAIRE -->
+<section id="itineraire">
+  <div class="container">
+    <p class="section-label">📅 Jour par jour</p>
+    <h2 class="section-title">Notre Itinéraire</h2>
+    <p class="section-desc">5 jours d'aventure écossaise, adaptés au rythme de bébé avec des pauses sieste intégrées. Clique sur un jour pour voir le détail !</p>
+
+    <div class="day-cards">
+
+      <!-- JOUR 1 -->
+      <div class="day-card reveal">
+        <div class="day-header" onclick="toggleDay(this)">
+          <div class="day-number">
+            <div class="day-num">20</div>
+            <div class="day-weekday">Vendredi</div>
+          </div>
+          <div class="day-summary">
+            <div class="day-title">Arrivée à Édimbourg</div>
+            <div class="day-tagline">Vol du soir, taxi jusqu'à l'hôtel, première nuit en Écosse</div>
+          </div>
+          <div class="day-toggle">▼</div>
+        </div>
+        <div class="day-body">
+          <div class="day-content">
+            <div class="activity">
+              <div class="activity-time">20h35</div>
+              <div class="activity-info">
+                <h4>✈️ Décollage de Genève</h4>
+                <p>Vol EasyJet EZY3296. Pensez à être à la porte avant 20h05. Environ 2h de vol.</p>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">~21h30</div>
+              <div class="activity-info">
+                <h4>🛬 Arrivée à Édimbourg</h4>
+                <p>Heure locale (−1h par rapport à la Suisse). Récupérez les bagages et direction la file de taxis devant le terminal. Dites « 4 Hanover Street, please » au chauffeur.</p>
+                <div class="activity-tags">
+                  <span class="tag tag-taxi">🚕 Taxi ~£30</span>
+                  <span class="tag tag-baby">👶 30 min trajet</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">~22h15</div>
+              <div class="activity-info">
+                <h4>🏨 Installation à l'hôtel</h4>
+                <p>Check-in, couchez la petite. Si vous avez un second souffle, George Street est à 1 min — magnifique de nuit avec les illuminations.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- JOUR 2 -->
+      <div class="day-card reveal">
+        <div class="day-header" onclick="toggleDay(this)">
+          <div class="day-number">
+            <div class="day-num">21</div>
+            <div class="day-weekday">Samedi</div>
+          </div>
+          <div class="day-summary">
+            <div class="day-title">Old Town, Château & Royal Mile</div>
+            <div class="day-tagline">Le gros morceau ! Château, Grassmarket, Victoria Street, Royal Mile</div>
+          </div>
+          <div class="day-toggle">▼</div>
+        </div>
+        <div class="day-body">
+          <div class="day-content">
+            <div class="activity">
+              <div class="activity-time">9h30</div>
+              <div class="activity-info">
+                <h4>🏰 Edinburgh Castle</h4>
+                <p>Partez tôt pour éviter la foule. 10 min à pied depuis l'hôtel en remontant The Mound. Les Joyaux de la Couronne, la Pierre du Destin, les vues panoramiques depuis les remparts, le canon Mons Meg. Comptez 1h30–2h.</p>
+                <div class="activity-tags">
+                  <span class="tag tag-must">⭐ Incontournable</span>
+                  <span class="tag tag-walk">🚶 10 min</span>
+                  <span class="tag tag-paid">💷 ~£19.50/adulte</span>
+                  <span class="tag tag-baby">👶 Porte-bébé obligatoire</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">12h</div>
+              <div class="activity-info">
+                <h4>🍽️ Déjeuner au Grassmarket</h4>
+                <p>Redescendez vers cette place animée avec ses vieux bâtiments, terrasses et vue sur le château. Un des spots les plus photogéniques de la ville. Plein de pubs et restos family-friendly.</p>
+                <div class="activity-tags">
+                  <span class="tag tag-food">🍴 Restos & pubs</span>
+                  <span class="tag tag-walk">🚶 5 min du château</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">13h30</div>
+              <div class="activity-info">
+                <h4>🌈 Victoria Street & Royal Mile</h4>
+                <p>Victoria Street : la fameuse rue colorée en courbe qui a inspiré le Chemin de Traverse de Harry Potter ! Puis remontez le Royal Mile, explorez les « closes » (ruelles médiévales), goûtez du fudge et du shortbread.</p>
+                <div class="activity-tags">
+                  <span class="tag tag-must">📸 Photo spot</span>
+                  <span class="tag tag-walk">🚶 À pied</span>
+                  <span class="tag tag-free">Gratuit</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">15h–17h</div>
+              <div class="activity-info">
+                <h4>😴 Sieste & repos à l'hôtel</h4>
+                <p>Retour tranquille (10 min à pied). Sieste pour bébé, thé et repos pour les parents.</p>
+                <div class="activity-tags"><span class="tag tag-baby">👶 Nap time</span></div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">19h</div>
+              <div class="activity-info">
+                <h4>🍴 Dîner — Urban Angel ou Bucks Bar</h4>
+                <p>Les deux sont directement sur Hanover Street ! Urban Angel pour un dîner healthy et cosy, Bucks Bar pour des burgers et grillades dans une ambiance décontractée.</p>
+                <div class="activity-tags"><span class="tag tag-food">🍴 Sur votre rue</span></div>
+              </div>
+            </div>
+            <div class="day-map">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m52!1m12!1m3!1d4467.5!2d-3.198!3d55.9495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m37!3e2!4m5!1s0x4887c79a2a0078d1%3A0x5c3d0e5b4c5b3b0!2s4+Hanover+St%2C+Edinburgh!3m2!1d55.954!2d-3.195!4m5!1s0x4887c78985557f65%3A0xf0b7e5a6a4e387eb!2sEdinburgh+Castle!3m2!1d55.9486!2d-3.1999!4m5!1s0x4887c79c19e5fbd5%3A0x11acce06e25e0f44!2sGrassmarket%2C+Edinburgh!3m2!1d55.9469!2d-3.1978!4m5!1s0x4887c79c7c2a0001%3A0x5cc88e2cb9d2adab!2sVictoria+St%2C+Edinburgh!3m2!1d55.9482!2d-3.1959!4m5!1s0x4887c7900dc16945%3A0x506e4de1a3e77e8!2sRoyal+Mile%2C+Edinburgh!3m2!1d55.9508!2d-3.1883!5e0!3m2!1sfr!2suk!4v1708000000001" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- JOUR 3 -->
+      <div class="day-card reveal">
+        <div class="day-header" onclick="toggleDay(this)">
+          <div class="day-number">
+            <div class="day-num">22</div>
+            <div class="day-weekday">Dimanche</div>
+          </div>
+          <div class="day-summary">
+            <div class="day-title">Dean Village, Stockbridge & Galeries</div>
+            <div class="day-tagline">Village pittoresque, quartier bohème et art gratuit</div>
+          </div>
+          <div class="day-toggle">▼</div>
+        </div>
+        <div class="day-body">
+          <div class="day-content">
+            <div class="activity">
+              <div class="activity-time">10h</div>
+              <div class="activity-info">
+                <h4>🏘️ Dean Village & Water of Leith</h4>
+                <p>Un ancien village de meuniers niché au bord de la rivière — hors du temps, architecture en pierre, rivière, verdure. Suivez ensuite le Water of Leith Walkway vers Stockbridge (~20 min de marche plate, praticable en poussette).</p>
+                <div class="activity-tags">
+                  <span class="tag tag-must">💎 Pépite cachée</span>
+                  <span class="tag tag-walk">🚶 15 min de l'hôtel</span>
+                  <span class="tag tag-free">Gratuit</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">12h</div>
+              <div class="activity-info">
+                <h4>🍽️ Déjeuner à Stockbridge</h4>
+                <p>Quartier bohème adorable. The Scran & Scallie — gastropub recommandé par les familles locales, ambiance décontractée, super cuisine. Explorez les boutiques vintage de Raeburn Place.</p>
+                <div class="activity-tags">
+                  <span class="tag tag-food">🍴 The Scran & Scallie</span>
+                  <span class="tag tag-baby">👶 Family-friendly</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">14h–15h</div>
+              <div class="activity-info">
+                <h4>😴 Sieste & repos</h4>
+                <p>Retour à l'hôtel (~10 min depuis Stockbridge). Pause bien méritée.</p>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">15h30</div>
+              <div class="activity-info">
+                <h4>🖼️ Scottish National Gallery</h4>
+                <p>À 5 min à pied de l'hôtel sur The Mound. Gratuit et accessible en poussette. Rembrandt, Monet, Van Gogh, Botticelli... Votre fille sera fascinée par les grands tableaux colorés. 1h suffit.</p>
+                <div class="activity-tags">
+                  <span class="tag tag-free">Gratuit</span>
+                  <span class="tag tag-walk">🚶 5 min</span>
+                  <span class="tag tag-rain">☔ Parfait si pluie</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">17h30</div>
+              <div class="activity-info">
+                <h4>🌅 Balade sur Princes Street</h4>
+                <p>Le château illuminé au coucher du soleil avec les jardins en contrebas — c'est magique. C'est au bout de votre rue.</p>
+                <div class="activity-tags"><span class="tag tag-must">📸 Sunset spot</span></div>
+              </div>
+            </div>
+            <div class="day-map">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m40!1m12!1m3!1d8935!2d-3.215!3d55.955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m25!3e2!4m5!1s0x4887c79a2a0078d1%3A0x5c3d0e5b4c5b3b0!2s4+Hanover+St%2C+Edinburgh!3m2!1d55.954!2d-3.195!4m5!1s0x4887c7a2f2e49f01%3A0xfe53a3740baeb9c7!2sDean+Village%2C+Edinburgh!3m2!1d55.9525!2d-3.2193!4m5!1s0x4887c7bb8b7a1e2d%3A0x5cc88e2cb9d2adab!2sStockbridge%2C+Edinburgh!3m2!1d55.9574!2d-3.2088!5e0!3m2!1sfr!2suk!4v1708000000002" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- JOUR 4 -->
+      <div class="day-card reveal">
+        <div class="day-header" onclick="toggleDay(this)">
+          <div class="day-number">
+            <div class="day-num">23</div>
+            <div class="day-weekday">Lundi</div>
+          </div>
+          <div class="day-summary">
+            <div class="day-title">Musée National & Jardins</div>
+            <div class="day-tagline">Dinosaures, sciences interactives, playground avec vue sur le château</div>
+          </div>
+          <div class="day-toggle">▼</div>
+        </div>
+        <div class="day-body">
+          <div class="day-content">
+            <div class="activity">
+              <div class="activity-time">10h</div>
+              <div class="activity-info">
+                <h4>🏛️ National Museum of Scotland</h4>
+                <p>LE spot avec un toddler ! Gratuit, accessible en poussette, tables à langer, café. Dinosaures, étage interactif des sciences (montgolfière, mini voiture), animaux naturalisés. Expo « Giants » en cours — fossiles grandeur nature. Facile d'y passer 2h.</p>
+                <div class="activity-tags">
+                  <span class="tag tag-must">⭐ Top avec bébé</span>
+                  <span class="tag tag-free">Gratuit</span>
+                  <span class="tag tag-walk">🚶 10 min</span>
+                  <span class="tag tag-rain">☔ Indoor</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">12h30</div>
+              <div class="activity-info">
+                <h4>🍽️ Déjeuner</h4>
+                <p>Au café du musée ou sur Forrest Road / George IV Bridge pour plus d'options.</p>
+                <div class="activity-tags"><span class="tag tag-food">🍴 Options multiples</span></div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">14h30</div>
+              <div class="activity-info">
+                <h4>🌳 Princes Street Gardens & Playground</h4>
+                <p>Le grand parc entre New Town et Old Town avec le château en toile de fond. Aire de jeux côté ouest, parfaite pour votre fille. Un des plus beaux panoramas d'Édimbourg.</p>
+                <div class="activity-tags">
+                  <span class="tag tag-baby">👶 Playground</span>
+                  <span class="tag tag-free">Gratuit</span>
+                  <span class="tag tag-walk">🚶 3 min</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">16h30</div>
+              <div class="activity-info">
+                <h4>⛰️ Calton Hill (optionnel)</h4>
+                <p>Si la météo est clémente et bébé en forme : 15 min à pied depuis l'hôtel via Waterloo Place. Montée courte (~10 min), vue à 360° spectaculaire sur la ville en fin de journée. Porte-bébé recommandé.</p>
+                <div class="activity-tags">
+                  <span class="tag tag-must">📸 Vue 360°</span>
+                  <span class="tag tag-walk">🚶 15 min</span>
+                  <span class="tag tag-baby">👶 Porte-bébé</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">19h</div>
+              <div class="activity-info">
+                <h4>🍴 Dîner — Society ou Down the Hatch</h4>
+                <p>Society : vue panoramique sur Princes Street. Down the Hatch : ambiance diner, comfort food (Antigua Street, New Town).</p>
+                <div class="activity-tags"><span class="tag tag-food">🍴 New Town</span></div>
+              </div>
+            </div>
+            <div class="day-map">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m40!1m12!1m3!1d4467!2d-3.19!3d55.952!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m25!3e2!4m5!1s0x4887c79a2a0078d1%3A0x5c3d0e5b4c5b3b0!2s4+Hanover+St%2C+Edinburgh!3m2!1d55.954!2d-3.195!4m5!1s0x4887c7908dcbb8c7%3A0x7b8c2bb18a150363!2sNational+Museum+of+Scotland!3m2!1d55.9470!2d-3.1901!4m5!1s0x4887c7856b8e5b91%3A0x3a2b79e1b379bb33!2sCalton+Hill%2C+Edinburgh!3m2!1d55.9553!2d-3.1826!5e0!3m2!1sfr!2suk!4v1708000000003" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- JOUR 5 -->
+      <div class="day-card reveal">
+        <div class="day-header" onclick="toggleDay(this)">
+          <div class="day-number">
+            <div class="day-num">24</div>
+            <div class="day-weekday">Mardi</div>
+          </div>
+          <div class="day-summary">
+            <div class="day-title">Zoo ou Dynamic Earth + Shopping</div>
+            <div class="day-tagline">Parade des manchots, volcans 4D, shopping & dernier dîner</div>
+          </div>
+          <div class="day-toggle">▼</div>
+        </div>
+        <div class="day-body">
+          <div class="day-content">
+            <div style="background: #f0f7ff; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+              <p style="font-weight: 600; color: var(--navy); margin-bottom: 8px;">🤔 Deux options selon la météo :</p>
+              <p style="font-size: 0.9rem; color: var(--text-light);"><strong>Beau temps →</strong> Edinburgh Zoo (extérieur, manchots !)<br><strong>Pluie →</strong> Dynamic Earth (intérieur, volcans 4D)</p>
+            </div>
+            <div class="activity">
+              <div class="activity-time">10h</div>
+              <div class="activity-info">
+                <h4>🐧 Option A : Edinburgh Zoo</h4>
+                <p>20 min en bus (Lothian n°26 depuis Princes Street) ou 15 min en taxi. Gratuit pour les moins de 3 ans ! Parade des manchots à 14h15, tigres, koalas, pandas roux. Comptez 2–3h. Le zoo est en pente mais les allées sont praticables en poussette.</p>
+                <div class="activity-tags">
+                  <span class="tag tag-must">🐧 Parade manchots 14h15</span>
+                  <span class="tag tag-taxi">🚌 Bus ou taxi</span>
+                  <span class="tag tag-baby">👶 Gratuit &lt;3 ans</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">10h</div>
+              <div class="activity-info">
+                <h4>🌍 Option B : Dynamic Earth</h4>
+                <p>Musée interactif sur la formation de la Terre, au pied d'Arthur's Seat. 15 min à pied ou 5 min en taxi. Volcans, glaciers, aventure 4D. Captivant même pour les petits ! ~£17/adulte, gratuit &lt;3 ans.</p>
+                <div class="activity-tags">
+                  <span class="tag tag-rain">☔ Indoor</span>
+                  <span class="tag tag-walk">🚶 15 min</span>
+                  <span class="tag tag-baby">👶 Gratuit &lt;3 ans</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">14h30</div>
+              <div class="activity-info">
+                <h4>🛍️ Shopping & flânerie</h4>
+                <p>George Street : boutiques élégantes et cafés. Multrees Walk : shopping haut de gamme. Princes Street : souvenirs — whisky, tartan, shortbread. Ou simplement sieste et détente.</p>
+                <div class="activity-tags">
+                  <span class="tag tag-walk">🚶 Centre-ville</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">19h</div>
+              <div class="activity-info">
+                <h4>🥂 Dîner d'adieu</h4>
+                <p>Dernière soirée ! Evergreen (West End, à 1 min de Princes Street) — restaurant indépendant, cuisine moderne, ambiance chaleureuse. Ou retournez dans votre spot préféré du séjour.</p>
+                <div class="activity-tags"><span class="tag tag-food">🍴 Last supper</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- JOUR 6 -->
+      <div class="day-card reveal">
+        <div class="day-header" onclick="toggleDay(this)">
+          <div class="day-number">
+            <div class="day-num">25</div>
+            <div class="day-weekday">Mercredi</div>
+          </div>
+          <div class="day-summary">
+            <div class="day-title">Dernière Matinée & Retour</div>
+            <div class="day-tagline">Coups de cœur, derniers souvenirs, tram vers l'aéroport</div>
+          </div>
+          <div class="day-toggle">▼</div>
+        </div>
+        <div class="day-body">
+          <div class="day-content">
+            <div class="activity">
+              <div class="activity-time">10h</div>
+              <div class="activity-info">
+                <h4>💛 Vos coups de cœur</h4>
+                <p>Revisitez un spot favori (Grassmarket, Royal Mile), découvrez Circus Lane (petite ruelle instagrammable à Stockbridge, 10 min à pied), ou le Palace of Holyroodhouse (espace famille avec déguisements).</p>
+                <div class="activity-tags">
+                  <span class="tag tag-walk">🚶 À pied</span>
+                  <span class="tag tag-must">📸 Dernières photos</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">12h30</div>
+              <div class="activity-info">
+                <h4>🍽️ Dernier brunch — Urban Angel</h4>
+                <p>Un dernier repas sur Hanover Street, juste à côté de l'hôtel, avant de partir.</p>
+                <div class="activity-tags"><span class="tag tag-food">🍴 Hanover Street</span></div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">~16h</div>
+              <div class="activity-info">
+                <h4>🚋 Départ vers l'aéroport</h4>
+                <p>Tram depuis St Andrew Square (2 min de l'hôtel) → Aéroport, ~35 min, £6.50/adulte. Vol à 19h05, soyez à l'aéroport vers 17h. Alternative : taxi ~£30.</p>
+                <div class="activity-tags">
+                  <span class="tag tag-taxi">🚋 Tram recommandé</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY STRIP 2 -->
+<div class="gallery-strip">
+  <img class="gallery-img" src="https://images.unsplash.com/photo-1572883454114-efb8e4e5bb17?w=500&q=80" alt="Edinburgh streets" loading="lazy">
+  <img class="gallery-img" src="https://images.unsplash.com/photo-1565624560498-67bf0bf21e3c?w=500&q=80" alt="Calton Hill view" loading="lazy">
+  <img class="gallery-img" src="https://images.unsplash.com/photo-1508766206392-8bd5cf550d1c?w=500&q=80" alt="Edinburgh architecture" loading="lazy">
+  <img class="gallery-img" src="https://images.unsplash.com/photo-1571167530149-c1105da4c2c7?w=500&q=80" alt="Scottish landscape" loading="lazy">
+</div>
+
+<!-- RESTAURANTS -->
+<section id="restos">
+  <div class="container">
+    <p class="section-label">🍽️ Où manger</p>
+    <h2 class="section-title">Nos restos repérés</h2>
+    <p class="section-desc">Tous testés et approuvés par des familles avec enfants. Highchairs dispo, ambiance détendue, bonne bouffe !</p>
+    <div class="resto-grid">
+      <div class="resto-card reveal">
+        <h3>Urban Angel</h3>
+        <div class="resto-location">📍 Hanover Street — 0 min de l'hôtel</div>
+        <p>Brunch/dîner healthy, produits bio et locaux. Ambiance cosy et chaleureuse, parfait avec un enfant. Avocado toast, bagels, smoothies.</p>
+      </div>
+      <div class="resto-card reveal">
+        <h3>Bucks Bar</h3>
+        <div class="resto-location">📍 Hanover Street — 0 min de l'hôtel</div>
+        <p>Bar & grill décontracté. Burgers, grillades, ambiance cool. Juste à côté de l'hôtel pour les soirs de flemme.</p>
+      </div>
+      <div class="resto-card reveal">
+        <h3>The Scran & Scallie</h3>
+        <div class="resto-location">📍 Stockbridge — 15 min à pied</div>
+        <p>Gastropub recommandé par les familles locales. Cuisine écossaise moderne, ambiance très relax. Totally fine for kids.</p>
+      </div>
+      <div class="resto-card reveal">
+        <h3>Society</h3>
+        <div class="resto-location">📍 New Town — 5 min à pied</div>
+        <p>Vue panoramique sur Princes Street et St James. Breakfast Bun iconique, pizzas, salades. Idéal pour un brunch avec vue.</p>
+      </div>
+      <div class="resto-card reveal">
+        <h3>Down the Hatch</h3>
+        <div class="resto-location">📍 Antigua Street, New Town — 5 min</div>
+        <p>Ambiance diner canadien, comfort food, gros burgers. Family-friendly en journée (avant 20h).</p>
+      </div>
+      <div class="resto-card reveal">
+        <h3>Evergreen</h3>
+        <div class="resto-location">📍 West End — 10 min à pied</div>
+        <p>Restaurant indépendant tout nouveau. Cuisine moderne, ambiance chaleureuse, à 1 min de Princes Street. Parfait pour le dîner d'adieu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section id="tips">
+  <div class="container">
+    <p class="section-label">💡 Bon à savoir</p>
+    <h2 class="section-title">Tips & Astuces</h2>
+    <p class="section-desc">Les petits trucs qui font la différence pour un séjour réussi avec un toddler en Écosse.</p>
+    <div class="tips-grid">
+      <div class="tip-card reveal">
+        <div class="tip-icon">👶</div>
+        <h3>Rythme bébé</h3>
+        <p>On a prévu des demi-journées avec pauses sieste intégrées. N'hésitez pas à zapper une activité. Moins c'est plus avec un bébé de 19 mois.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-icon">☕</div>
+        <h3>La ville du café</h3>
+        <p>Édimbourg est LA ville du café en Europe. Arrêtez-vous partout, c'est toujours bon et toujours cosy. Flat white obligatoire.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-icon">🌦️</div>
+        <h3>Météo capricieuse</h3>
+        <p>On dit qu'Édimbourg peut offrir les 4 saisons en une journée. Imperméable toujours à portée de main, même si le matin est ensoleillé !</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-icon">🏴󠁧󠁢󠁳󠁣󠁴󠁿</div>
+        <h3>Haggis à goûter</h3>
+        <p>C'est bien meilleur que ce qu'on imagine ! Essayez les « haggis bon bons » (beignets de haggis) — excellent snack dans les pubs.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-icon">🏘️</div>
+        <h3>Explorez les Closes</h3>
+        <p>Les petites ruelles qui partent du Royal Mile s'appellent des « closes ». Chacune a son charme et son histoire — poussez les portes !</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-icon">🍺</div>
+        <h3>Pubs family-friendly</h3>
+        <p>Les pubs écossais sont souvent family-friendly en journée. N'hésitez pas à entrer pour un lunch ou une pinte. Ambiance garantie.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-icon">💷</div>
+        <h3>Paiement</h3>
+        <p>Le sans-contact fonctionne partout (y compris les taxis). Pas besoin de retirer du cash. Apple Pay / Google Pay acceptés quasi partout.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-icon">🕐</div>
+        <h3>Décalage horaire</h3>
+        <p>UK = GMT, soit 1h de moins que la Suisse. Quand il est midi à Genève, il est 11h à Édimbourg. Ça joue surtout pour le rythme de bébé.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALISE -->
+<section id="valise">
+  <div class="container">
+    <p class="section-label">🧳 Checklist</p>
+    <h2 class="section-title">Ce qu'il faut dans la valise</h2>
+    <p class="section-desc">Février à Édimbourg = froid, vent et pluie possible. Voilà l'essentiel à ne pas oublier.</p>
+    <div class="packing-grid">
+      <div class="packing-category reveal">
+        <h3>🧥 Vêtements</h3>
+        <ul>
+          <li>Manteau chaud + imperméable</li>
+          <li>Sous-couches thermiques</li>
+          <li>Polaire ou pull chaud</li>
+          <li>Écharpe, bonnet, gants</li>
+          <li>Chaussures imperméables</li>
+          <li>Chaussettes chaudes</li>
+        </ul>
+      </div>
+      <div class="packing-category reveal">
+        <h3>👶 Pour bébé</h3>
+        <ul>
+          <li>Porte-bébé (indispensable !)</li>
+          <li>Poussette compacte</li>
+          <li>Habillage pluie poussette</li>
+          <li>Combinaison chaude</li>
+          <li>Snacks & eau</li>
+          <li>Jouets de voyage</li>
+        </ul>
+      </div>
+      <div class="packing-category reveal">
+        <h3>📱 Tech & Pratique</h3>
+        <ul>
+          <li>Adaptateur prise UK (type G)</li>
+          <li>Chargeurs / batterie externe</li>
+          <li>App Free Now installée</li>
+          <li>App Google Maps offline</li>
+          <li>Parapluie compact</li>
+          <li>Sac à dos journée</li>
+        </ul>
+      </div>
+      <div class="packing-category reveal">
+        <h3>📄 Documents</h3>
+        <ul>
+          <li>Passeports (CH → UK post-Brexit)</li>
+          <li>Cartes d'embarquement</li>
+          <li>Confirmation hôtel</li>
+          <li>Assurance voyage</li>
+          <li>Carte européenne d'assurance maladie</li>
+          <li>Carnet de santé bébé</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</div>
+  <p>Préparé avec <span class="heart">❤️</span> pour notre aventure en famille</p>
+  <p style="margin-top: 8px; opacity: 0.5;">Édimbourg — Février 2026</p>
+</footer>
+
+<script>
+// Toggle day cards
+function toggleDay(header) {
+  const card = header.closest('.day-card');
+  card.classList.toggle('open');
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Nav scroll effect
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 100);
+});
+
+// Active nav link
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const top = section.offsetTop - 120;
+    if (window.scrollY >= top) current = section.getAttribute('id');
+  });
+  document.querySelectorAll('.nav a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+// Auto-open first day card
+document.querySelector('.day-card').classList.add('open');
+</script>
+
+</body>
+</html>
