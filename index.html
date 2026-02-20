@@ -924,6 +924,465 @@ footer p {
   transform: translateY(0);
 }
 
+/* ===== AI ADAPT FEATURE ===== */
+.adapt-btn {
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: auto 8px;
+  white-space: nowrap;
+  transition: all 0.25s;
+  font-family: 'Inter', sans-serif;
+}
+
+.adapt-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.5);
+}
+
+.adapt-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.adapt-modal-overlay.open { display: flex; }
+
+.adapt-modal {
+  background: white;
+  border-radius: 24px;
+  padding: 32px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalIn 0.3s ease-out;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.adapt-modal-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.adapt-modal-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+.adapt-field { margin-bottom: 20px; }
+
+.adapt-field label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.adapt-field input[type="time"] {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--stone);
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--navy);
+  background: var(--cream);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.adapt-field input[type="time"]:focus { border-color: #667eea; }
+
+.adapt-options { display: flex; gap: 8px; }
+
+.adapt-option {
+  flex: 1;
+  padding: 10px 8px;
+  border: 2px solid var(--stone);
+  border-radius: 12px;
+  background: var(--cream);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  text-align: center;
+}
+
+.adapt-option:hover { border-color: #667eea; background: white; }
+
+.adapt-option.active {
+  border-color: #667eea;
+  background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
+  color: #5a67d8;
+  font-weight: 700;
+}
+
+.adapt-modal-footer {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.adapt-cancel {
+  padding: 12px 20px;
+  border: 2px solid var(--stone);
+  border-radius: 12px;
+  background: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--text-light);
+  transition: all 0.2s;
+}
+
+.adapt-cancel:hover { border-color: var(--text-light); }
+
+.adapt-generate {
+  flex: 1;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.adapt-generate:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(102,126,234,0.4); }
+.adapt-generate:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+.ai-result {
+  display: none;
+  margin: 0 32px 32px;
+  background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+  border: 2px solid rgba(102, 126, 234, 0.25);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.ai-result.visible { display: block; }
+
+.ai-result-header {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ai-result-header h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ai-result-meta { font-size: 0.75rem; opacity: 0.8; margin-top: 2px; }
+
+.ai-result-close {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.ai-result-close:hover { background: rgba(255,255,255,0.35); }
+
+.ai-result-body { padding: 20px 24px; }
+
+.ai-activity {
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.15);
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.ai-activity:last-child { border-bottom: none; }
+
+.ai-activity-time {
+  font-weight: 700;
+  color: #5a67d8;
+  font-size: 0.85rem;
+  padding-top: 2px;
+}
+
+.ai-activity-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.ai-activity-desc {
+  font-size: 0.88rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+.ai-activity-conseil {
+  font-size: 0.8rem;
+  color: #5a67d8;
+  font-style: italic;
+  margin-top: 5px;
+}
+
+.adapt-loading {
+  text-align: center;
+  padding: 36px;
+  color: #667eea;
+}
+
+.adapt-loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(102, 126, 234, 0.2);
+  border-top: 3px solid #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 600px) {
+  .adapt-btn { padding: 6px 10px; font-size: 0.68rem; margin: auto 4px; }
+  .ai-result { margin: 0 16px 24px; }
+  .ai-activity { grid-template-columns: 68px 1fr; }
+}
+
+/* ===== QUE FAIRE FEATURE ===== */
+.qf-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 24px;
+  z-index: 200;
+  background: linear-gradient(135deg, var(--royal), var(--navy));
+  color: white;
+  border: 2px solid rgba(255,255,255,0.15);
+  padding: 13px 22px;
+  border-radius: 50px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(26,31,58,0.45);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
+  font-family: 'Inter', sans-serif;
+}
+
+.qf-fab:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(26,31,58,0.55); }
+
+.qf-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 299;
+  backdrop-filter: blur(4px);
+}
+
+.qf-overlay.open { display: block; }
+
+.qf-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 300;
+  background: white;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.2);
+  max-height: 88vh;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.38s cubic-bezier(0.34, 1.15, 0.64, 1);
+  padding-bottom: 24px;
+}
+
+.qf-panel.open { transform: translateY(0); }
+
+.qf-handle { width: 40px; height: 4px; background: var(--stone); border-radius: 4px; margin: 12px auto 0; }
+
+.qf-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px 0;
+}
+
+.qf-panel-header h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); }
+
+.qf-close {
+  background: var(--stone);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-light);
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.qf-close:hover { background: var(--text-light); color: white; }
+
+.qf-main-choices {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 16px 20px 0;
+}
+
+.qf-choice {
+  padding: 16px 6px;
+  border: 2px solid var(--stone);
+  border-radius: 16px;
+  background: var(--cream);
+  cursor: pointer;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+  line-height: 1.5;
+}
+
+.qf-choice:hover { border-color: var(--gold); }
+.qf-choice-icon { font-size: 1.5rem; display: block; margin-bottom: 5px; }
+.qf-choice.active { border-color: var(--navy); background: var(--navy); color: white; box-shadow: 0 4px 12px rgba(26,31,58,0.28); }
+
+.qf-specific-inner { padding: 0 20px; }
+
+.qf-field { margin-top: 16px; }
+
+.qf-field label {
+  display: block;
+  font-size: 0.73rem;
+  font-weight: 700;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  margin-bottom: 8px;
+}
+
+.qf-options { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.qf-opt {
+  padding: 7px 13px;
+  border: 2px solid var(--stone);
+  border-radius: 20px;
+  background: white;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.qf-opt:hover { border-color: var(--gold); }
+.qf-opt.active { border-color: var(--navy); background: var(--navy); color: white; font-weight: 600; }
+
+.qf-context { display: none; margin: 16px 20px 0; padding: 16px 0 0; border-top: 1px solid var(--stone); }
+.qf-context.visible { display: block; }
+
+.qf-context-inline { display: flex; gap: 20px; }
+.qf-context-inline .qf-field { flex: 1; }
+
+.qf-cta-wrap { display: none; padding: 18px 20px 0; }
+.qf-cta-wrap.visible { display: block; }
+
+.qf-cta-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--royal), var(--navy));
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.25s;
+}
+
+.qf-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,31,58,0.35); }
+.qf-cta-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+.qf-results { padding: 0 20px 24px; }
+
+.qf-results-header { font-size: 0.73rem; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1.2px; padding: 20px 0 10px; }
+
+.qf-suggestion {
+  background: var(--cream);
+  border: 1px solid var(--stone);
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--gold);
+  animation: fadeUp 0.35s ease-out both;
+}
+
+.qf-sug-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+.qf-sug-emoji { font-size: 1.7rem; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+.qf-sug-name { font-size: 1.02rem; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+.qf-sug-badge { font-size: 0.75rem; font-weight: 600; color: var(--gold); }
+.qf-sug-pourquoi { font-size: 0.88rem; color: var(--text); line-height: 1.55; margin-bottom: 8px; }
+.qf-sug-detail { font-size: 0.82rem; color: var(--text-light); margin-bottom: 10px; font-style: italic; }
+.qf-sug-footer { display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.78rem; color: var(--text-light); border-top: 1px solid var(--stone); padding-top: 10px; }
+
+.qf-loading { text-align: center; padding: 32px 20px; color: var(--text-light); }
+.qf-spinner { width: 32px; height: 32px; border: 3px solid var(--stone); border-top: 3px solid var(--navy); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 14px; }
+.qf-error { padding: 16px; background: #fff5f5; border-radius: 12px; color: #c53030; font-size: 0.88rem; margin-top: 16px; }
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   section { padding: 50px 16px; }
@@ -1742,6 +2201,106 @@ footer p {
   </div>
 </section>
 
+<!-- QUE FAIRE FAB + PANEL -->
+<button class="qf-fab" onclick="openQF()">
+  🧭 <span>Que faire ?</span>
+</button>
+
+<div class="qf-overlay" id="qfOverlay" onclick="closeQF()"></div>
+
+<div class="qf-panel" id="qfPanel">
+  <div class="qf-handle"></div>
+  <div class="qf-panel-header">
+    <h3>🧭 Que faire maintenant ?</h3>
+    <button class="qf-close" onclick="closeQF()">✕</button>
+  </div>
+
+  <div class="qf-main-choices">
+    <button class="qf-choice" onclick="selectQFMode('manger',this)">
+      <span class="qf-choice-icon">🍴</span>Manger
+    </button>
+    <button class="qf-choice" onclick="selectQFMode('activite',this)">
+      <span class="qf-choice-icon">🗺️</span>Activité
+    </button>
+    <button class="qf-choice" onclick="selectQFMode('balade',this)">
+      <span class="qf-choice-icon">🚶</span>Balade
+    </button>
+  </div>
+
+  <div id="qfSpecific"></div>
+
+  <div class="qf-context" id="qfContext">
+    <div class="qf-field">
+      <label>📍 Où êtes-vous ?</label>
+      <div class="qf-options">
+        <button class="qf-opt active" data-qfgroup="location" data-value="hotel" onclick="selectQFCtx('location','hotel',this)">🏨 Hôtel</button>
+        <button class="qf-opt" data-qfgroup="location" data-value="oldtown" onclick="selectQFCtx('location','oldtown',this)">🏰 Old Town</button>
+        <button class="qf-opt" data-qfgroup="location" data-value="stockbridge" onclick="selectQFCtx('location','stockbridge',this)">🌿 Stockbridge</button>
+      </div>
+    </div>
+    <div class="qf-context-inline">
+      <div class="qf-field">
+        <label>⚡ Énergie</label>
+        <div class="qf-options">
+          <button class="qf-opt" data-qfgroup="energie" data-value="tired" onclick="selectQFCtx('energie','tired',this)">😴</button>
+          <button class="qf-opt active" data-qfgroup="energie" data-value="normal" onclick="selectQFCtx('energie','normal',this)">😊</button>
+          <button class="qf-opt" data-qfgroup="energie" data-value="energetic" onclick="selectQFCtx('energie','energetic',this)">💪</button>
+        </div>
+      </div>
+      <div class="qf-field">
+        <label>🌤️ Météo</label>
+        <div class="qf-options">
+          <button class="qf-opt active" data-qfgroup="meteo" data-value="sun" onclick="selectQFCtx('meteo','sun',this)">☀️</button>
+          <button class="qf-opt" data-qfgroup="meteo" data-value="rain" onclick="selectQFCtx('meteo','rain',this)">☔</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qf-cta-wrap" id="qfCTA">
+    <button class="qf-cta-btn" id="qfCTABtn" onclick="runQFSearch()">✨ Trouver !</button>
+  </div>
+
+  <div id="qfResults"></div>
+</div>
+
+<!-- AI ADAPT MODAL -->
+<div id="adaptModal" class="adapt-modal-overlay" onclick="closeAdaptModal(event)">
+  <div class="adapt-modal" onclick="event.stopPropagation()">
+    <div class="adapt-modal-header">
+      <h3>✨ Adapter mon planning</h3>
+      <p id="adaptModalDayTitle" class="adapt-modal-subtitle"></p>
+    </div>
+    <div class="adapt-field">
+      <label>Heure de réveil</label>
+      <input type="time" id="wakeUpTime" value="08:30">
+    </div>
+    <div class="adapt-field">
+      <label>Notre énergie du jour</label>
+      <div class="adapt-options">
+        <button class="adapt-option" data-group="energy" data-value="tired" onclick="selectAdaptOption('energy','tired',this)">😴 Fatigués</button>
+        <button class="adapt-option active" data-group="energy" data-value="normal" onclick="selectAdaptOption('energy','normal',this)">😊 Normal</button>
+        <button class="adapt-option" data-group="energy" data-value="energetic" onclick="selectAdaptOption('energy','energetic',this)">💪 En forme</button>
+      </div>
+    </div>
+    <div class="adapt-field">
+      <label>Sieste de Giulia</label>
+      <input type="time" id="napTime" value="14:00">
+    </div>
+    <div class="adapt-field">
+      <label>Météo prévue</label>
+      <div class="adapt-options">
+        <button class="adapt-option active" data-group="weather" data-value="sun" onclick="selectAdaptOption('weather','sun',this)">☀️ Soleil</button>
+        <button class="adapt-option" data-group="weather" data-value="rain" onclick="selectAdaptOption('weather','rain',this)">☔ Pluie</button>
+      </div>
+    </div>
+    <div class="adapt-modal-footer">
+      <button class="adapt-cancel" onclick="closeAdaptModal()">Annuler</button>
+      <button class="adapt-generate" id="adaptGenerateBtn" onclick="generateAdaptedPlan()">✨ Générer le planning</button>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</div>
@@ -1788,6 +2347,364 @@ window.addEventListener('scroll', () => {
 
 // Auto-open first day card
 document.querySelector('.day-card').classList.add('open');
+
+// ===== AI ADAPT FEATURE =====
+let currentAdaptCard = null;
+let selectedAdaptEnergy = 'normal';
+let selectedAdaptWeather = 'sun';
+
+// Inject adapt buttons and result containers into each day card
+document.querySelectorAll('.day-card').forEach((card) => {
+  const dayTitle = card.querySelector('.day-title')?.textContent?.trim() || '';
+  const toggle = card.querySelector('.day-toggle');
+  const btn = document.createElement('button');
+  btn.className = 'adapt-btn';
+  btn.innerHTML = '✨ Adapter';
+  btn.title = 'Adapter ce planning avec l\'IA selon votre forme du jour';
+  btn.onclick = (e) => { e.stopPropagation(); openAdaptModal(card, dayTitle); };
+  toggle.before(btn);
+
+  const dayContent = card.querySelector('.day-content');
+  if (dayContent) {
+    const resultDiv = document.createElement('div');
+    resultDiv.className = 'ai-result';
+    dayContent.appendChild(resultDiv);
+  }
+});
+
+function openAdaptModal(card, dayTitle) {
+  currentAdaptCard = card;
+  document.getElementById('adaptModalDayTitle').textContent = dayTitle;
+  document.getElementById('adaptModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  selectedAdaptEnergy = 'normal';
+  selectedAdaptWeather = 'sun';
+  document.querySelectorAll('[data-group="energy"]').forEach(b => b.classList.toggle('active', b.dataset.value === 'normal'));
+  document.querySelectorAll('[data-group="weather"]').forEach(b => b.classList.toggle('active', b.dataset.value === 'sun'));
+  const genBtn = document.getElementById('adaptGenerateBtn');
+  genBtn.disabled = false;
+  genBtn.textContent = '✨ Générer le planning';
+}
+
+function closeAdaptModal(event) {
+  if (event && event.target !== event.currentTarget) return;
+  document.getElementById('adaptModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function selectAdaptOption(group, value, btn) {
+  if (group === 'energy') selectedAdaptEnergy = value;
+  if (group === 'weather') selectedAdaptWeather = value;
+  document.querySelectorAll(`[data-group="${group}"]`).forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function extractDayActivities(dayCard) {
+  const activities = [];
+  dayCard.querySelectorAll('.activity').forEach(activity => {
+    const time = activity.querySelector('.activity-time')?.textContent?.trim() || '';
+    const title = activity.querySelector('.activity-info h4')?.textContent?.trim() || '';
+    const descEl = activity.querySelector('.activity-info p');
+    const desc = descEl ? descEl.innerText.replace(/📞.*/g, '').trim() : '';
+    if (title) activities.push({ time, title, description: desc });
+  });
+  return activities;
+}
+
+async function generateAdaptedPlan() {
+  if (!currentAdaptCard) return;
+
+  const wakeUpTime = document.getElementById('wakeUpTime').value.replace(':', 'h');
+  const napTime = document.getElementById('napTime').value.replace(':', 'h');
+  const dayTitle = document.getElementById('adaptModalDayTitle').textContent;
+  const dayNum = currentAdaptCard.querySelector('.day-num')?.textContent?.trim() || '';
+  const dayWeekday = currentAdaptCard.querySelector('.day-weekday')?.textContent?.trim() || '';
+  const dayDate = `${dayNum} Février (${dayWeekday})`;
+  const activities = extractDayActivities(currentAdaptCard);
+
+  const genBtn = document.getElementById('adaptGenerateBtn');
+  genBtn.disabled = true;
+  genBtn.textContent = '⏳ Génération...';
+
+  const resultDiv = currentAdaptCard.querySelector('.ai-result');
+  if (resultDiv) {
+    resultDiv.innerHTML = `<div class="adapt-loading"><div class="adapt-loading-spinner"></div><p style="font-size:0.95rem">L'IA adapte votre planning...</p></div>`;
+    resultDiv.classList.add('visible');
+    currentAdaptCard.classList.add('open');
+  }
+
+  document.getElementById('adaptModal').classList.remove('open');
+  document.body.style.overflow = '';
+
+  setTimeout(() => currentAdaptCard.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+
+  const energyLabels = { tired: '😴 Fatigués', normal: '😊 Normal', energetic: '💪 En forme' };
+  const weatherLabels = { sun: '☀️ Soleil', rain: '☔ Pluie' };
+
+  try {
+    const response = await fetch('/.netlify/functions/adapt-plan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        dayTitle, dayDate, activities,
+        wakeUpTime, energyLevel: selectedAdaptEnergy,
+        napTime, weather: selectedAdaptWeather
+      })
+    });
+
+    if (!response.ok) throw new Error(`Erreur serveur : ${response.status}`);
+    const data = await response.json();
+    if (data.error) throw new Error(data.error);
+
+    let adapted;
+    try {
+      const cleaned = data.adapted.trim().replace(/^```json\n?/, '').replace(/\n?```$/, '').trim();
+      adapted = JSON.parse(cleaned);
+    } catch {
+      if (resultDiv) renderRawResult(resultDiv, data.adapted, wakeUpTime, energyLabels, weatherLabels);
+      return;
+    }
+
+    if (resultDiv && Array.isArray(adapted)) {
+      const meta = `${energyLabels[selectedAdaptEnergy]} · Réveil ${wakeUpTime} · ${weatherLabels[selectedAdaptWeather]}`;
+      const activitiesHTML = adapted.map(act => `
+        <div class="ai-activity">
+          <div class="ai-activity-time">${act.heure || ''}</div>
+          <div>
+            <div class="ai-activity-title">${act.titre || ''}</div>
+            <div class="ai-activity-desc">${act.description || ''}</div>
+            ${act.conseil ? `<div class="ai-activity-conseil">💡 ${act.conseil}</div>` : ''}
+          </div>
+        </div>`).join('');
+      resultDiv.innerHTML = `
+        <div class="ai-result-header">
+          <div>
+            <h4>✨ Planning adapté par l'IA</h4>
+            <div class="ai-result-meta">${meta}</div>
+          </div>
+          <button class="ai-result-close" onclick="this.closest('.ai-result').classList.remove('visible')">Fermer ✕</button>
+        </div>
+        <div class="ai-result-body">${activitiesHTML}</div>`;
+    }
+  } catch (err) {
+    if (resultDiv) {
+      resultDiv.innerHTML = `
+        <div class="ai-result-header" style="background:#c53030">
+          <div><h4>Erreur de génération</h4></div>
+          <button class="ai-result-close" onclick="this.closest('.ai-result').classList.remove('visible')">Fermer ✕</button>
+        </div>
+        <div class="ai-result-body">
+          <p style="color:#c53030;font-weight:600">${err.message}</p>
+          <p style="color:var(--text-light);font-size:0.85rem;margin-top:8px">Vérifiez que la variable GEMINI_API_KEY est bien configurée dans Netlify.</p>
+        </div>`;
+    }
+  }
+}
+
+function renderRawResult(resultDiv, text, wakeUpTime, energyLabels, weatherLabels) {
+  const meta = `${energyLabels[selectedAdaptEnergy]} · Réveil ${wakeUpTime} · ${weatherLabels[selectedAdaptWeather]}`;
+  resultDiv.innerHTML = `
+    <div class="ai-result-header">
+      <div><h4>✨ Planning adapté</h4><div class="ai-result-meta">${meta}</div></div>
+      <button class="ai-result-close" onclick="this.closest('.ai-result').classList.remove('visible')">Fermer ✕</button>
+    </div>
+    <div class="ai-result-body"><p style="white-space:pre-line;font-size:0.9rem;line-height:1.7">${text}</p></div>`;
+}
+
+// ===== QUE FAIRE FEATURE =====
+const qfState = {
+  mode: null,
+  preferences: {},
+  context: { location: 'hotel', energie: 'normal', meteo: 'sun', heure: '' }
+};
+
+const QF_DEFAULTS = {
+  manger: { repas: 'snack', budget: 'petit', ambiance: 'peu_importe' },
+  activite: { type: 'peu_importe', duree: 'moyen', budget: 'ok' },
+  balade: { duree: 'moyen', poussette: 'oui', envie: 'peu_importe' }
+};
+
+function openQF() {
+  document.getElementById('qfPanel').classList.add('open');
+  document.getElementById('qfOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  const now = new Date();
+  qfState.context.heure = `${now.getHours()}h${String(now.getMinutes()).padStart(2,'0')}`;
+}
+
+function closeQF() {
+  document.getElementById('qfPanel').classList.remove('open');
+  document.getElementById('qfOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function selectQFMode(mode, btn) {
+  qfState.mode = mode;
+  qfState.preferences = { ...QF_DEFAULTS[mode] };
+  document.querySelectorAll('.qf-choice').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('qfContext').classList.add('visible');
+  document.getElementById('qfCTA').classList.add('visible');
+  document.getElementById('qfResults').innerHTML = '';
+  renderQFSpecific(mode);
+  // Reset CTA
+  const ctaBtn = document.getElementById('qfCTABtn');
+  ctaBtn.disabled = false;
+  ctaBtn.textContent = '✨ Trouver !';
+}
+
+function renderQFSpecific(mode) {
+  const container = document.getElementById('qfSpecific');
+  const templates = {
+    manger: `<div class="qf-specific-inner">
+      <div class="qf-field">
+        <label>Type de repas</label>
+        <div class="qf-options">
+          <button class="qf-opt active" data-qfpref="repas" data-value="snack" onclick="setQFPref('repas','snack',this)">☕ Snack / café</button>
+          <button class="qf-opt" data-qfpref="repas" data-value="repas" onclick="setQFPref('repas','repas',this)">🍽️ Vrai repas</button>
+        </div>
+      </div>
+      <div class="qf-field">
+        <label>Budget</label>
+        <div class="qf-options">
+          <button class="qf-opt active" data-qfpref="budget" data-value="petit" onclick="setQFPref('budget','petit',this)">£ Petit</button>
+          <button class="qf-opt" data-qfpref="budget" data-value="moyen" onclick="setQFPref('budget','moyen',this)">££ Moyen</button>
+          <button class="qf-opt" data-qfpref="budget" data-value="libre" onclick="setQFPref('budget','libre',this)">£££ Libre</button>
+        </div>
+      </div>
+      <div class="qf-field">
+        <label>Ambiance</label>
+        <div class="qf-options">
+          <button class="qf-opt active" data-qfpref="ambiance" data-value="peu_importe" onclick="setQFPref('ambiance','peu_importe',this)">Peu importe</button>
+          <button class="qf-opt" data-qfpref="ambiance" data-value="calme" onclick="setQFPref('ambiance','calme',this)">🕯️ Calme</button>
+          <button class="qf-opt" data-qfpref="ambiance" data-value="anime" onclick="setQFPref('ambiance','anime',this)">🎉 Animé</button>
+        </div>
+      </div>
+    </div>`,
+    activite: `<div class="qf-specific-inner">
+      <div class="qf-field">
+        <label>Intérieur ou extérieur ?</label>
+        <div class="qf-options">
+          <button class="qf-opt active" data-qfpref="type" data-value="peu_importe" onclick="setQFPref('type','peu_importe',this)">Peu importe</button>
+          <button class="qf-opt" data-qfpref="type" data-value="indoor" onclick="setQFPref('type','indoor',this)">🏛️ Intérieur</button>
+          <button class="qf-opt" data-qfpref="type" data-value="outdoor" onclick="setQFPref('type','outdoor',this)">🌳 Extérieur</button>
+        </div>
+      </div>
+      <div class="qf-field">
+        <label>Temps disponible</label>
+        <div class="qf-options">
+          <button class="qf-opt" data-qfpref="duree" data-value="court" onclick="setQFPref('duree','court',this)">⚡ 30–45 min</button>
+          <button class="qf-opt active" data-qfpref="duree" data-value="moyen" onclick="setQFPref('duree','moyen',this)">🕐 1–2h</button>
+          <button class="qf-opt" data-qfpref="duree" data-value="long" onclick="setQFPref('duree','long',this)">☀️ Demi-journée</button>
+        </div>
+      </div>
+      <div class="qf-field">
+        <label>Budget</label>
+        <div class="qf-options">
+          <button class="qf-opt" data-qfpref="budget" data-value="gratuit" onclick="setQFPref('budget','gratuit',this)">💚 Gratuit</button>
+          <button class="qf-opt active" data-qfpref="budget" data-value="ok" onclick="setQFPref('budget','ok',this)">💳 Payant OK</button>
+        </div>
+      </div>
+    </div>`,
+    balade: `<div class="qf-specific-inner">
+      <div class="qf-field">
+        <label>Durée</label>
+        <div class="qf-options">
+          <button class="qf-opt" data-qfpref="duree" data-value="court" onclick="setQFPref('duree','court',this)">⚡ 20–30 min</button>
+          <button class="qf-opt active" data-qfpref="duree" data-value="moyen" onclick="setQFPref('duree','moyen',this)">🚶 45min–1h</button>
+          <button class="qf-opt" data-qfpref="duree" data-value="long" onclick="setQFPref('duree','long',this)">🥾 1h30+</button>
+        </div>
+      </div>
+      <div class="qf-field">
+        <label>Avec poussette ?</label>
+        <div class="qf-options">
+          <button class="qf-opt active" data-qfpref="poussette" data-value="oui" onclick="setQFPref('poussette','oui',this)">🍼 Oui, poussette</button>
+          <button class="qf-opt" data-qfpref="poussette" data-value="non" onclick="setQFPref('poussette','non',this)">🎒 Porte-bébé OK</button>
+        </div>
+      </div>
+      <div class="qf-field">
+        <label>Envie de voir ?</label>
+        <div class="qf-options">
+          <button class="qf-opt active" data-qfpref="envie" data-value="peu_importe" onclick="setQFPref('envie','peu_importe',this)">🌟 Peu importe</button>
+          <button class="qf-opt" data-qfpref="envie" data-value="vue" onclick="setQFPref('envie','vue',this)">🔭 Vue</button>
+          <button class="qf-opt" data-qfpref="envie" data-value="pittoresque" onclick="setQFPref('envie','pittoresque',this)">📸 Pittoresque</button>
+          <button class="qf-opt" data-qfpref="envie" data-value="nature" onclick="setQFPref('envie','nature',this)">🌿 Nature</button>
+        </div>
+      </div>
+    </div>`
+  };
+  container.innerHTML = templates[mode] || '';
+}
+
+function setQFPref(key, value, btn) {
+  qfState.preferences[key] = value;
+  document.querySelectorAll(`#qfSpecific [data-qfpref="${key}"]`).forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function selectQFCtx(group, value, btn) {
+  qfState.context[group] = value;
+  document.querySelectorAll(`#qfContext [data-qfgroup="${group}"]`).forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+async function runQFSearch() {
+  if (!qfState.mode) return;
+  const btn = document.getElementById('qfCTABtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Recherche...';
+  const resultsDiv = document.getElementById('qfResults');
+  resultsDiv.innerHTML = `<div class="qf-loading"><div class="qf-spinner"></div><p style="font-size:0.9rem">L'IA cherche la meilleure option pour vous...</p></div>`;
+
+  const now = new Date();
+  qfState.context.heure = `${now.getHours()}h${String(now.getMinutes()).padStart(2,'0')}`;
+
+  try {
+    const res = await fetch('/.netlify/functions/que-faire', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(qfState)
+    });
+    if (!res.ok) throw new Error(`Erreur ${res.status}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    let suggestions;
+    try {
+      const cleaned = data.suggestions.trim().replace(/^```json\n?/, '').replace(/\n?```$/, '').trim();
+      suggestions = JSON.parse(cleaned);
+    } catch {
+      resultsDiv.innerHTML = `<div class="qf-results-header">✨ Suggestions</div><div style="padding:12px 0;font-size:0.9rem;line-height:1.6;white-space:pre-line">${data.suggestions}</div>`;
+      return;
+    }
+
+    if (Array.isArray(suggestions) && suggestions.length) {
+      resultsDiv.innerHTML = `
+        <div class="qf-results-header">✨ Voici nos suggestions</div>
+        ${suggestions.map((s, i) => `
+          <div class="qf-suggestion" style="animation-delay:${i * 0.1}s">
+            <div class="qf-sug-top">
+              <span class="qf-sug-emoji">${s.emoji || '📍'}</span>
+              <div>
+                <div class="qf-sug-name">${s.nom || ''}</div>
+                <div class="qf-sug-badge">${s.badge || ''}</div>
+              </div>
+            </div>
+            <div class="qf-sug-pourquoi">${s.pourquoi || ''}</div>
+            ${s.detail ? `<div class="qf-sug-detail">${s.detail}</div>` : ''}
+            <div class="qf-sug-footer">
+              ${s.adresse ? `<span>📍 ${s.adresse}</span>` : ''}
+              ${s.contact ? `<span>📞 ${s.contact}</span>` : ''}
+            </div>
+          </div>`).join('')}`;
+    }
+  } catch (err) {
+    resultsDiv.innerHTML = `<div class="qf-error"><strong>Erreur :</strong> ${err.message}<br><small style="color:var(--text-light);margin-top:6px;display:block">Vérifiez que GEMINI_API_KEY est configurée dans Netlify.</small></div>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✨ Trouver !';
+  }
+}
 </script>
 
 </body>
