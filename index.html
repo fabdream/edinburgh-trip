@@ -969,6 +969,279 @@ footer p {
 }
 .activity-maps-btn:active { transform: scale(0.96); }
 
+/* ===== EXPLORER TOOL ===== */
+.explorer-fab {
+  position: fixed;
+  bottom: 90px;
+  right: 24px;
+  z-index: 200;
+  background: linear-gradient(135deg, #3d6b4f, #2a8a5a);
+  color: white;
+  border: 2px solid rgba(255,255,255,0.2);
+  padding: 12px 20px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(61,107,79,0.45);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.explorer-fab:active { transform: scale(0.95); }
+
+.explorer-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--cream);
+  flex-direction: column;
+  overflow: hidden;
+}
+.explorer-overlay.open { display: flex; }
+
+.explorer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--navy);
+  color: white;
+  flex-shrink: 0;
+}
+.explorer-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  margin: 0;
+}
+.explorer-close {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.explorer-map-container {
+  height: 40vh;
+  min-height: 200px;
+  flex-shrink: 0;
+  position: relative;
+}
+#explorerMap { width: 100%; height: 100%; }
+
+.explorer-gps-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  z-index: 500;
+  background: white;
+  border: 2px solid var(--stone);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.explorer-gps-btn.active { border-color: #3d6b4f; background: #eef7f1; }
+
+.explorer-filters {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  overflow-x: auto;
+  flex-shrink: 0;
+  background: white;
+  border-bottom: 1px solid var(--stone);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.explorer-filters::-webkit-scrollbar { display: none; }
+
+.explorer-filter-pill {
+  background: var(--cream);
+  border: 1.5px solid var(--stone);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+  color: var(--navy);
+}
+.explorer-filter-pill.active {
+  background: var(--navy);
+  color: white;
+  border-color: var(--navy);
+}
+
+.explorer-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: white;
+  font-size: 0.78rem;
+  color: var(--text-light);
+  flex-shrink: 0;
+}
+.explorer-sort {
+  display: flex;
+  gap: 6px;
+}
+.explorer-sort button {
+  background: none;
+  border: 1px solid var(--stone);
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-light);
+}
+.explorer-sort button.active {
+  background: var(--gold);
+  color: var(--navy);
+  border-color: var(--gold);
+  font-weight: 600;
+}
+
+.explorer-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 12px 80px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.explorer-card {
+  background: white;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.explorer-card:active { transform: scale(0.985); }
+.explorer-card.highlighted {
+  border-color: var(--gold);
+  box-shadow: 0 2px 12px rgba(212,168,83,0.3);
+}
+
+.explorer-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+.explorer-card-emoji {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.explorer-card-info { flex: 1; min-width: 0; }
+.explorer-card-name {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--navy);
+  margin-bottom: 3px;
+}
+.explorer-card-desc {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+.explorer-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  text-align: right;
+}
+.explorer-card-dist {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #3d6b4f;
+  white-space: nowrap;
+}
+.explorer-card-price {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--gold);
+  background: #fdf6e3;
+  padding: 2px 8px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.explorer-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+.explorer-tag {
+  font-size: 0.68rem;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+}
+.explorer-tag-indoor { background: #e8f4fd; color: #2563eb; }
+.explorer-tag-outdoor { background: #ecfdf5; color: #059669; }
+.explorer-tag-free { background: #f0fdf4; color: #16a34a; }
+.explorer-tag-baby-top { background: #fef3c7; color: #d97706; }
+.explorer-tag-baby-ok { background: #f3f4f6; color: #6b7280; }
+
+.explorer-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.explorer-maps-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, #3d6b4f, #5a9e6f);
+  color: white;
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+}
+
+.explorer-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+  .explorer-fab { bottom: 80px; right: 16px; padding: 10px 16px; font-size: 0.8rem; }
+  .explorer-map-container { height: 35vh; min-height: 180px; }
+  .explorer-card { padding: 12px; }
+}
+
 .adapt-modal-overlay {
   display: none;
   position: fixed;
@@ -1942,7 +2215,7 @@ footer p {
           <div class="day-content">
             <div style="background: #f0f7ff; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
               <p style="font-weight: 600; color: var(--navy); margin-bottom: 8px;">🤔 Deux options selon la météo :</p>
-              <p style="font-size: 0.9rem; color: var(--text-light);"><strong>Beau temps →</strong> Royal Botanic Garden (extérieur, écureuils, serres !)<br><strong>Pluie →</strong> National Museum of Scotland (intérieur, gratuit, galerie toddler)</p>
+              <p style="font-size: 0.9rem; color: var(--text-light);"><strong>Beau temps →</strong> Royal Botanic Garden (extérieur, écureuils, serres !)<br><strong>Pluie →</strong> Museum of Childhood (intérieur, gratuit, jouets !)</p>
             </div>
             <div class="activity">
               <div class="activity-time">10h</div>
@@ -1960,13 +2233,13 @@ footer p {
             <div class="activity">
               <div class="activity-time">10h</div>
               <div class="activity-info">
-                <h4>🏛️ Option B : National Museum (2e visite)</h4>
-                <p>Retour au musée pour explorer ce que vous avez manqué ! 10 min à pied. La galerie « Imagine » au niveau 1 est spécialement conçue pour les moins de 5 ans : déguisements, blocs de construction, instruments de musique. Gratuit, chauffé, poussette OK.</p>
+                <h4>🧸 Option B : Museum of Childhood</h4>
+                <p>Sur le Royal Mile, 10 min à pied. Le premier musée au monde dédié à l'enfance ! Jouets anciens et modernes, poupées, trains miniatures, maisons de poupées — Giulia va adorer. Gratuit, petit et parfait pour 1h avec un toddler.</p>
                 <div class="activity-tags">
                   <span class="tag tag-rain">☔ Indoor</span>
                   <span class="tag tag-walk">🚶 10 min</span>
                   <span class="tag tag-free">Gratuit</span>
-                  <span class="tag tag-baby">👶 Galerie Imagine 0–5 ans</span>
+                  <span class="tag tag-baby">👶 Jouets & poupées</span>
                 </div>
               </div>
             </div>
@@ -2069,7 +2342,7 @@ footer p {
         <div style="margin-top:10px;font-size:0.85rem;display:flex;flex-wrap:wrap;gap:8px;">
           <a href="tel:+441312251740" style="background:var(--gold);color:var(--navy);padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">📞 0131 225 1740</a>
           <a href="https://www.vittoriagroup.co.uk/" target="_blank" style="background:var(--navy);color:white;padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">Réserver</a>
-          <a href="https://www.google.com/maps/dir/?api=1&destination=55.9488,-3.1920&travelmode=walking" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Vittoria+Restaurant,+Edinburgh" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
         </div>
       </div>
       <div class="resto-card reveal">
@@ -2079,7 +2352,7 @@ footer p {
         <div style="margin-top:10px;font-size:0.85rem;display:flex;flex-wrap:wrap;gap:8px;">
           <a href="tel:+441312256215" style="background:var(--gold);color:var(--navy);padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">📞 0131 225 6215</a>
           <a href="https://www.urban-angel.co.uk/bookings" target="_blank" style="background:var(--navy);color:white;padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">Réserver</a>
-          <a href="https://www.google.com/maps/dir/?api=1&destination=55.9547,-3.1958&travelmode=walking" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Urban+Angel,+Edinburgh" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
         </div>
       </div>
       <div class="resto-card reveal">
@@ -2089,7 +2362,7 @@ footer p {
         <div style="margin-top:10px;font-size:0.85rem;display:flex;flex-wrap:wrap;gap:8px;">
           <a href="tel:+441312609806" style="background:var(--gold);color:var(--navy);padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">📞 0131 260 9806</a>
           <a href="https://www.monsfood.com/" target="_blank" style="background:var(--navy);color:white;padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">Site web</a>
-          <a href="https://www.google.com/maps/dir/?api=1&destination=55.9468,-3.1917&travelmode=walking" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Mums+Great+Comfort+Food,+Edinburgh" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
         </div>
       </div>
       <div class="resto-card reveal">
@@ -2099,7 +2372,7 @@ footer p {
         <div style="margin-top:10px;font-size:0.85rem;display:flex;flex-wrap:wrap;gap:8px;">
           <a href="tel:+441313326281" style="background:var(--gold);color:var(--navy);padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">📞 0131 332 6281</a>
           <a href="https://scranandscallie.com/table-reservations/" target="_blank" style="background:var(--navy);color:white;padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">Réserver</a>
-          <a href="https://www.google.com/maps/dir/?api=1&destination=55.9612,-3.2150&travelmode=walking" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=The+Scran+%26+Scallie,+Edinburgh" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
         </div>
       </div>
       <div class="resto-card reveal">
@@ -2109,7 +2382,7 @@ footer p {
         <div style="margin-top:10px;font-size:0.85rem;display:flex;flex-wrap:wrap;gap:8px;">
           <a href="tel:+441315570066" style="background:var(--gold);color:var(--navy);padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">📞 0131 557 0066</a>
           <a href="https://www.newtownfox.com/" target="_blank" style="background:var(--navy);color:white;padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">Site web</a>
-          <a href="https://www.google.com/maps/dir/?api=1&destination=55.9560,-3.1925&travelmode=walking" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Newtown+Fox,+Edinburgh" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
         </div>
       </div>
       <div class="resto-card reveal">
@@ -2119,7 +2392,7 @@ footer p {
         <div style="margin-top:10px;font-size:0.85rem;display:flex;flex-wrap:wrap;gap:8px;">
           <a href="tel:+441313221000" style="background:var(--gold);color:var(--navy);padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">📞 0131 322 1000</a>
           <a href="https://www.bertiesfishandchips.com/" target="_blank" style="background:var(--navy);color:white;padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">Site web</a>
-          <a href="https://www.google.com/maps/dir/?api=1&destination=55.9489,-3.1946&travelmode=walking" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Bertie%27s+Fish+%26+Chips,+Edinburgh" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
         </div>
       </div>
     </div>
@@ -2136,7 +2409,7 @@ footer p {
           <div style="display:flex;flex-wrap:wrap;gap:8px;">
             <a href="tel:+441312267614" style="background:var(--gold);color:var(--navy);padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;font-size:0.85rem;">📞 0131 226 7614</a>
             <a href="https://chaophraya.co.uk/edinburgh" target="_blank" style="background:white;color:var(--navy);padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;font-size:0.85rem;">Réserver</a>
-            <a href="https://www.google.com/maps/dir/?api=1&destination=55.9522,-3.2020&travelmode=walking" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=Chaophraya,+Edinburgh" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
           </div>
         </div>
         <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:20px;">
@@ -2146,7 +2419,7 @@ footer p {
           <div style="display:flex;flex-wrap:wrap;gap:8px;">
             <a href="tel:+441312262211" style="background:var(--gold);color:var(--navy);padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;font-size:0.85rem;">📞 0131 226 2211</a>
             <a href="https://www.cafesthonore.com/book-online" target="_blank" style="background:white;color:var(--navy);padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;font-size:0.85rem;">Réserver</a>
-            <a href="https://www.google.com/maps/dir/?api=1&destination=55.9542,-3.2035&travelmode=walking" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=Caf%C3%A9+St+Honor%C3%A9,+Edinburgh" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
           </div>
         </div>
       </div>
@@ -2326,6 +2599,39 @@ footer p {
   <div id="qfResults"></div>
 </div>
 
+<!-- EXPLORER FAB -->
+<button class="explorer-fab" onclick="openExplorer()">🗺️ Explorer</button>
+
+<!-- EXPLORER OVERLAY -->
+<div id="explorerOverlay" class="explorer-overlay">
+  <div class="explorer-header">
+    <h3>🗺️ Explorer Édimbourg</h3>
+    <button class="explorer-close" onclick="closeExplorer()">✕</button>
+  </div>
+  <div class="explorer-map-container">
+    <div id="explorerMap"></div>
+    <button class="explorer-gps-btn" id="explorerGpsBtn" onclick="toggleExplorerGps()">📍</button>
+  </div>
+  <div class="explorer-filters" id="explorerFilters">
+    <button class="explorer-filter-pill active" data-cat="all" onclick="filterExplorer('all',this)">Tout</button>
+    <button class="explorer-filter-pill" data-cat="culture" onclick="filterExplorer('culture',this)">🏛️ Culture</button>
+    <button class="explorer-filter-pill" data-cat="nature" onclick="filterExplorer('nature',this)">🌿 Nature</button>
+    <button class="explorer-filter-pill" data-cat="jeux" onclick="filterExplorer('jeux',this)">🎪 Jeux</button>
+    <button class="explorer-filter-pill" data-cat="manger" onclick="filterExplorer('manger',this)">🍴 Manger</button>
+    <button class="explorer-filter-pill" data-cat="shopping" onclick="filterExplorer('shopping',this)">🛍️ Shopping</button>
+    <button class="explorer-filter-pill" data-cat="balade" onclick="filterExplorer('balade',this)">🚶 Balades</button>
+  </div>
+  <div class="explorer-controls">
+    <span id="explorerCount"></span>
+    <div class="explorer-sort">
+      <button class="active" onclick="sortExplorer('distance',this)">Plus proche</button>
+      <button onclick="sortExplorer('free',this)">Gratuit d'abord</button>
+      <button onclick="sortExplorer('baby',this)">Top bébé</button>
+    </div>
+  </div>
+  <div class="explorer-list" id="explorerList"></div>
+</div>
+
 <!-- AI ADAPT MODAL -->
 <div id="adaptModal" class="adapt-modal-overlay" onclick="closeAdaptModal(event)">
   <div class="adapt-modal" onclick="event.stopPropagation()">
@@ -2458,6 +2764,7 @@ const ACTIVITY_COORDS = {
   'Scottish National Gallery': [55.9510, -3.1958],
   'Princes Street': [55.9520, -3.1980],
   'National Museum': [55.9470, -3.1893],
+  'Museum of Childhood': [55.9504, -3.1865],
   'Princes Street Gardens': [55.9510, -3.2000],
   'Calton Hill': [55.9548, -3.1825],
   'Mums': [55.9468, -3.1917],
@@ -2480,13 +2787,13 @@ document.querySelectorAll('.day-card .activity').forEach(activity => {
   if (/sieste|repos|décollage|arrivée|installation|départ|aéroport/i.test(title)) return;
   const descEl = activity.querySelector('.activity-info p');
   const searchText = title.toLowerCase() + ' ' + (descEl ? descEl.textContent.toLowerCase() : '');
-  let coords = null;
-  for (const [name, c] of Object.entries(ACTIVITY_COORDS)) {
-    if (searchText.includes(name.toLowerCase())) { coords = c; break; }
+  let matchedName = null;
+  for (const name of Object.keys(ACTIVITY_COORDS)) {
+    if (searchText.includes(name.toLowerCase())) { matchedName = name; break; }
   }
-  if (!coords) return;
+  if (!matchedName) return;
   const link = document.createElement('a');
-  link.href = `https://www.google.com/maps/search/?api=1&query=${coords[0]},${coords[1]}`;
+  link.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(matchedName + ', Edinburgh, Scotland')}`;
   link.target = '_blank';
   link.rel = 'noopener';
   link.className = 'activity-maps-btn';
@@ -3001,10 +3308,9 @@ function makeIcon(html, size) {
 }
 
 function getNavButton(name, address) {
-  const coords = PLACE_COORDS[name];
   let url;
-  if (coords) url = `https://www.google.com/maps/dir/?api=1&destination=${coords[0]},${coords[1]}&travelmode=walking`;
-  else if (address) url = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address + ', Edinburgh')}&travelmode=walking`;
+  if (name) url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ', Edinburgh')}`;
+  else if (address) url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address + ', Edinburgh')}`;
   else return '';
   return `<a href="${url}" target="_blank" rel="noopener" class="yaller-btn" onclick="event.stopPropagation()">🧭 Y aller</a>`;
 }
@@ -3034,7 +3340,7 @@ function initQFMap(suggestions) {
     const coords = PLACE_COORDS[s.nom];
     if (!coords) return;
     const marker = L.marker(coords, { icon: makeIcon(`<div class="map-pin map-pin-suggestion">${i+1}</div>`, 30) }).addTo(qfMapInstance);
-    const navUrl = `https://www.google.com/maps/dir/?api=1&destination=${coords[0]},${coords[1]}&travelmode=walking`;
+    const navUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.nom + ', Edinburgh')}`;
     marker.bindPopup(`<div class="map-popup"><strong>${s.emoji||''} ${s.nom}</strong><p>${s.badge||''}</p><a href="${navUrl}" target="_blank" class="map-popup-nav">🧭 Y aller</a></div>`);
     marker.on('click', () => highlightSuggestionCard(i));
     bounds.extend(coords);
@@ -3071,7 +3377,7 @@ function showAlternatives(mode, currentName, event) {
   items.forEach(item => {
     if (item.nom === currentName || !item.lat) return;
     const marker = L.marker([item.lat, item.lng], { icon: makeIcon('<div class="map-pin map-pin-alt">+</div>', 22) }).addTo(qfMapInstance);
-    const navUrl = `https://www.google.com/maps/dir/?api=1&destination=${item.lat},${item.lng}&travelmode=walking`;
+    const navUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.nom + ', Edinburgh')}`;
     marker.bindPopup(`<div class="map-popup"><strong>${item.nom}</strong><p>${item.short}</p><a href="${navUrl}" target="_blank" class="map-popup-nav">🧭 Y aller</a></div>`);
     altMarkers.push(marker);
     bounds.extend([item.lat, item.lng]);
@@ -3139,7 +3445,7 @@ const DAY_MAPS = {
   ],
   5: [
     { n: 'Royal Botanic Garden', e: '🌿', c: [55.9650, -3.2090] },
-    { n: 'National Museum (Imagine)', e: '🏛️', c: [55.9470, -3.1893] },
+    { n: 'Museum of Childhood', e: '🧸', c: [55.9504, -3.1865] },
     { n: 'Shopping George St', e: '🛍️', c: [55.9535, -3.2020] },
     { n: 'Chaophraya', e: '🎂', c: [55.9522, -3.2020] }
   ]
@@ -3165,6 +3471,266 @@ function initDayMap(dayNum) {
   L.polyline(routeCoords, { color: '#2d3561', weight: 2, opacity: 0.4, dashArray: '6 8' }).addTo(map);
   map.fitBounds(bounds, { padding: [30, 30] });
   setTimeout(() => map.invalidateSize(), 400);
+}
+
+// ===== EXPLORER TOOL =====
+const EXPLORER_POIS = [
+  // Culture
+  { id:'castle', nom:'Edinburgh Castle', cat:'culture', emoji:'🏰', desc:'Château emblématique, Joyaux de la Couronne, vue panoramique', lat:55.9486, lng:-3.1999, prix:'£19.50', indoor:true, baby:'ok', duree:'1h30–2h' },
+  { id:'national-museum', nom:'National Museum of Scotland', cat:'culture', emoji:'🏛️', desc:'Dinosaures, sciences interactives, galerie Imagine pour toddlers', lat:55.9470, lng:-3.1893, prix:'Gratuit', indoor:true, baby:'top', duree:'1h30–2h' },
+  { id:'camera-obscura', nom:'Camera Obscura & World of Illusions', cat:'culture', emoji:'🔮', desc:'Illusions d\'optique, miroirs déformants, magie — super interactif', lat:55.9498, lng:-3.1985, prix:'£19.50', indoor:true, baby:'ok', duree:'1h–1h30' },
+  { id:'national-gallery', nom:'Scottish National Gallery', cat:'culture', emoji:'🖼️', desc:'Monet, Rembrandt, Van Gogh — gratuit, accessible poussette', lat:55.9510, lng:-3.1958, prix:'Gratuit', indoor:true, baby:'ok', duree:'1h' },
+  { id:'museum-childhood', nom:'Museum of Childhood', cat:'culture', emoji:'🧸', desc:'Jouets anciens et modernes, poupées, trains miniatures', lat:55.9504, lng:-3.1865, prix:'Gratuit', indoor:true, baby:'top', duree:'45min–1h' },
+  { id:'holyroodhouse', nom:'Palace of Holyroodhouse', cat:'culture', emoji:'👑', desc:'Résidence royale, espace famille avec déguisements', lat:55.9527, lng:-3.1718, prix:'£18', indoor:true, baby:'ok', duree:'1h–1h30' },
+  { id:'britannia', nom:'Royal Yacht Britannia', cat:'culture', emoji:'🚢', desc:'Yacht royal à explorer, audio-guide famille', lat:55.9820, lng:-3.1770, prix:'£18.50', indoor:true, baby:'ok', duree:'1h30' },
+  { id:'storytelling', nom:'Scottish Storytelling Centre', cat:'culture', emoji:'📖', desc:'Contes et histoires écossaises, sessions pour enfants', lat:55.9510, lng:-3.1850, prix:'Gratuit', indoor:true, baby:'ok', duree:'30min–1h' },
+  { id:'mod-art', nom:'Gallery of Modern Art', cat:'culture', emoji:'🎨', desc:'Art moderne + parc de sculptures en plein air', lat:55.9520, lng:-3.2190, prix:'Gratuit', indoor:true, baby:'ok', duree:'1h' },
+  // Nature
+  { id:'botanic', nom:'Royal Botanic Garden', cat:'nature', emoji:'🌿', desc:'Serres tropicales, écureuils, pelouses, aire de jeux', lat:55.9650, lng:-3.2090, prix:'Gratuit', indoor:false, baby:'top', duree:'1h30–2h' },
+  { id:'princes-gardens', nom:'Princes Street Gardens', cat:'nature', emoji:'🌳', desc:'Parc avec vue château, playground côté ouest', lat:55.9510, lng:-3.2000, prix:'Gratuit', indoor:false, baby:'top', duree:'1h' },
+  { id:'holyrood-park', nom:'Holyrood Park & St Margaret\'s Loch', cat:'nature', emoji:'🦆', desc:'Canards, cygnes, nature sauvage au cœur de la ville', lat:55.9445, lng:-3.1620, prix:'Gratuit', indoor:false, baby:'ok', duree:'1h' },
+  { id:'calton', nom:'Calton Hill', cat:'nature', emoji:'⛰️', desc:'Vue 360° panoramique, montée courte (~10 min), sunset', lat:55.9548, lng:-3.1825, prix:'Gratuit', indoor:false, baby:'ok', duree:'30–45min' },
+  { id:'dean', nom:'Dean Village', cat:'nature', emoji:'🏘️', desc:'Village de meuniers au bord de la rivière, hors du temps', lat:55.9530, lng:-3.2170, prix:'Gratuit', indoor:false, baby:'ok', duree:'30min–1h' },
+  { id:'portobello', nom:'Portobello Beach', cat:'nature', emoji:'🏖️', desc:'Plage de sable, promenade, cafés sur le front de mer', lat:55.9530, lng:-3.1140, prix:'Gratuit', indoor:false, baby:'ok', duree:'1h–2h' },
+  { id:'gorgie', nom:'Gorgie City Farm', cat:'nature', emoji:'🐑', desc:'Ferme gratuite en ville : moutons, cochons, poules, lapins', lat:55.9385, lng:-3.2380, prix:'Gratuit', indoor:false, baby:'top', duree:'1h' },
+  { id:'water-leith', nom:'Water of Leith Walkway', cat:'nature', emoji:'🌊', desc:'Rivière en ville, balade plate praticable en poussette', lat:55.9540, lng:-3.2170, prix:'Gratuit', indoor:false, baby:'ok', duree:'45min–1h' },
+  // Jeux
+  { id:'little-foxes', nom:'Little Foxes Play Cafe', cat:'jeux', emoji:'🦊', desc:'Soft play dédié 0–4 ans + café pour les parents', lat:55.9275, lng:-3.2060, prix:'£6', indoor:true, baby:'top', duree:'1h–1h30' },
+  { id:'playtown', nom:'Playtown Edinburgh', cat:'jeux', emoji:'🎪', desc:'Soft play géant avec zone Toddler Town dédiée aux petits', lat:55.9818, lng:-3.1775, prix:'£7–9', indoor:true, baby:'top', duree:'1h30–2h' },
+  { id:'clambers', nom:'Clambers (Commonwealth Pool)', cat:'jeux', emoji:'🧗', desc:'Aire de jeux indoor au Royal Commonwealth Pool', lat:55.9400, lng:-3.1760, prix:'£5', indoor:true, baby:'ok', duree:'1h' },
+  { id:'butterfly', nom:'Edinburgh Butterfly & Insect World', cat:'jeux', emoji:'🦋', desc:'Serre tropicale, papillons en liberté — magique pour les petits', lat:55.8785, lng:-3.1385, prix:'£7.95', indoor:true, baby:'top', duree:'1h' },
+  { id:'bookbug', nom:'Bookbug (Bibliothèque Centrale)', cat:'jeux', emoji:'📚', desc:'Session gratuite de chansons et histoires pour bébés/toddlers', lat:55.9482, lng:-3.1920, prix:'Gratuit', indoor:true, baby:'top', duree:'30min' },
+  { id:'toddler-splash', nom:'Toddler Splash (Commonwealth Pool)', cat:'jeux', emoji:'🏊', desc:'Session piscine dédiée aux tout-petits, eau chaude', lat:55.9400, lng:-3.1760, prix:'£4', indoor:true, baby:'top', duree:'45min' },
+  // Manger
+  { id:'urban-angel', nom:'Urban Angel', cat:'manger', emoji:'🥑', desc:'Brunch bio et healthy, avocado toast, smoothies', lat:55.9547, lng:-3.1958, prix:'€€', indoor:true, baby:'ok' },
+  { id:'scran', nom:'The Scran & Scallie', cat:'manger', emoji:'🍽️', desc:'Gastropub du chef Tom Kitchin + salle de jeux enfants', lat:55.9612, lng:-3.2150, prix:'€€€', indoor:true, baby:'top' },
+  { id:'vittoria', nom:'Vittoria', cat:'manger', emoji:'🍝', desc:'Trattoria italienne familiale, menu kids, crayons', lat:55.9488, lng:-3.1920, prix:'€€', indoor:true, baby:'top' },
+  { id:'berties', nom:"Bertie's Fish & Chips", cat:'manger', emoji:'🍟', desc:'Fish & chips authentique sur Victoria Street', lat:55.9489, lng:-3.1946, prix:'€', indoor:true, baby:'ok' },
+  { id:'mums', nom:'Mums Great Comfort Food', cat:'manger', emoji:'🥧', desc:'Saucisses-purée, mac & cheese, haggis — zéro chichi', lat:55.9468, lng:-3.1917, prix:'€€', indoor:true, baby:'ok' },
+  { id:'chaophraya', nom:'Chaophraya', cat:'manger', emoji:'🥢', desc:'Rooftop thaï, vue château illuminé, cuisine raffinée', lat:55.9522, lng:-3.2020, prix:'€€€€', indoor:true, baby:'ok' },
+  { id:'piemaker', nom:'The Piemaker', cat:'manger', emoji:'🥧', desc:'Pies écossaises maison £4–7', lat:55.9492, lng:-3.1878, prix:'€', indoor:true, baby:'ok' },
+  { id:'civerinos', nom:'Civerinos', cat:'manger', emoji:'🍕', desc:'Pizza New York à la part, rapide et bon', lat:55.9503, lng:-3.1882, prix:'€', indoor:true, baby:'ok' },
+  { id:'cambridge', nom:'The Cambridge Bar', cat:'manger', emoji:'🍔', desc:'Burgers de qualité dans un pub victorien', lat:55.9538, lng:-3.2010, prix:'€€', indoor:true, baby:'ok' },
+  { id:'st-honore', nom:'Café St Honoré', cat:'manger', emoji:'🥐', desc:'Bistrot français, cuisine saisonnière écossaise', lat:55.9542, lng:-3.2035, prix:'€€€', indoor:true, baby:'ok' },
+  { id:'bmb', nom:'Bread Meats Bread', cat:'manger', emoji:'🍔', desc:'Smash burgers cultes, frites maison', lat:55.9493, lng:-3.2055, prix:'€€', indoor:true, baby:'ok' },
+  { id:'alba', nom:"L'Alba D'Oro", cat:'manger', emoji:'🐟', desc:'Chippy italo-écossais, portions généreuses', lat:55.9580, lng:-3.2010, prix:'€', indoor:true, baby:'ok' },
+  { id:'last-drop', nom:'The Last Drop', cat:'manger', emoji:'🍺', desc:'Pub écossais historique sur Grassmarket', lat:55.9474, lng:-3.1955, prix:'€€', indoor:true, baby:'ok' },
+  { id:'marys', nom:"Mary's Milk Bar", cat:'manger', emoji:'🍦', desc:'Gelato artisanal + hot chocolate, Grassmarket', lat:55.9477, lng:-3.1970, prix:'€', indoor:true, baby:'top' },
+  { id:'pantry', nom:'The Pantry', cat:'manger', emoji:'🥞', desc:'Brunch cozy à Stockbridge, pancakes', lat:55.9585, lng:-3.2085, prix:'€€', indoor:true, baby:'ok' },
+  { id:'cannonball', nom:'Cannonball Restaurant', cat:'manger', emoji:'🏴', desc:'Cuisine écossaise avec vue directe sur le château', lat:55.9491, lng:-3.1968, prix:'€€€', indoor:true, baby:'ok' },
+  { id:'loudons', nom:"Loudon's Cafe & Bakery", cat:'manger', emoji:'☕', desc:'Café-boulangerie avec aire de jeux enfants', lat:55.9443, lng:-3.2120, prix:'€€', indoor:true, baby:'top' },
+  { id:'la-favorita', nom:'La Favorita', cat:'manger', emoji:'🍕', desc:'Pizza napolitaine au feu de bois, Leith Walk', lat:55.9655, lng:-3.1730, prix:'€€', indoor:true, baby:'ok' },
+  { id:'newtown-fox', nom:'Newtown Fox', cat:'manger', emoji:'🦊', desc:'Café-resto brunch all-day, décontracté', lat:55.9560, lng:-3.1925, prix:'€€', indoor:true, baby:'ok' },
+  // Shopping
+  { id:'victoria-st', nom:'Victoria Street', cat:'shopping', emoji:'🌈', desc:'Rue colorée en courbe, boutiques indépendantes, Harry Potter vibes', lat:55.9489, lng:-3.1948, prix:'Gratuit', indoor:false, baby:'ok' },
+  { id:'george-st', nom:'George Street', cat:'shopping', emoji:'🛍️', desc:'Boutiques élégantes, cafés chics, New Town', lat:55.9535, lng:-3.2020, prix:'Gratuit', indoor:false, baby:'ok' },
+  { id:'grassmarket', nom:'Grassmarket', cat:'shopping', emoji:'🏴', desc:'Place historique, pubs, boutiques vintage, marchés', lat:55.9474, lng:-3.1955, prix:'Gratuit', indoor:false, baby:'ok' },
+  { id:'stockbridge', nom:'Stockbridge', cat:'shopping', emoji:'🎨', desc:'Quartier bohème, charity shops, marché le dimanche', lat:55.9580, lng:-3.2080, prix:'Gratuit', indoor:false, baby:'ok' },
+  { id:'royal-mile', nom:'Royal Mile', cat:'shopping', emoji:'🏰', desc:'Souvenirs, whisky, tartan, shortbread, closes médiévales', lat:55.9505, lng:-3.1895, prix:'Gratuit', indoor:false, baby:'ok' },
+  // Balades
+  { id:'circus-lane', nom:'Circus Lane', cat:'balade', emoji:'📸', desc:'Petite ruelle pavée ultra-instagrammable à Stockbridge', lat:55.9575, lng:-3.2085, prix:'Gratuit', indoor:false, baby:'ok', duree:'15min' },
+  { id:'new-town-walk', nom:'New Town Architecture Walk', cat:'balade', emoji:'🏛️', desc:'Architecture géorgienne, Charlotte Square, crescents', lat:55.9535, lng:-3.2070, prix:'Gratuit', indoor:false, baby:'ok', duree:'45min' },
+  { id:'old-town-walk', nom:'Old Town Discovery', cat:'balade', emoji:'🏰', desc:'Royal Mile, closes secrètes, Grassmarket, histoire', lat:55.9500, lng:-3.1900, prix:'Gratuit', indoor:false, baby:'ok', duree:'1h–1h30' },
+  { id:'calton-sunset', nom:'Calton Hill Sunset Walk', cat:'balade', emoji:'🌅', desc:'Montée douce pour un panorama magique au coucher du soleil', lat:55.9548, lng:-3.1825, prix:'Gratuit', indoor:false, baby:'ok', duree:'30–40min' },
+  { id:'dean-loop', nom:'Dean Village Loop', cat:'balade', emoji:'🏘️', desc:'Village de meuniers, rivière, ponts — parcours en boucle', lat:55.9530, lng:-3.2170, prix:'Gratuit', indoor:false, baby:'ok', duree:'45min–1h' },
+  { id:'leith-walk', nom:'Leith & The Shore', cat:'balade', emoji:'⚓', desc:'Quartier portuaire branché, restaurants, galeries, Royal Yacht', lat:55.9740, lng:-3.1700, prix:'Gratuit', indoor:false, baby:'ok', duree:'1h–2h' }
+];
+
+let explorerMap = null;
+let explorerMarkers = [];
+let explorerGpsActive = false;
+let explorerUserPos = null;
+let explorerUserMarker = null;
+let explorerCurrentCat = 'all';
+let explorerCurrentSort = 'distance';
+const explorerRefPoint = { lat: HOTEL_COORDS[0], lng: HOTEL_COORDS[1] };
+
+function haversine(lat1, lng1, lat2, lng2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function getDistanceLabel(poi) {
+  const ref = explorerGpsActive && explorerUserPos ? explorerUserPos : explorerRefPoint;
+  const km = haversine(ref.lat, ref.lng, poi.lat, poi.lng);
+  if (km < 1) return Math.round(km * 1000) + 'm';
+  return km.toFixed(1) + 'km';
+}
+
+function getDistanceKm(poi) {
+  const ref = explorerGpsActive && explorerUserPos ? explorerUserPos : explorerRefPoint;
+  return haversine(ref.lat, ref.lng, poi.lat, poi.lng);
+}
+
+function openExplorer() {
+  document.getElementById('explorerOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (!explorerMap) {
+    setTimeout(() => {
+      explorerMap = L.map('explorerMap', { zoomControl: false, tap: false }).setView(HOTEL_COORDS, 14);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19, attribution: '&copy; OSM &copy; Carto'
+      }).addTo(explorerMap);
+      L.marker(HOTEL_COORDS, { icon: makeIcon('<div class="map-pin map-pin-hotel">🏨</div>', 36) })
+        .addTo(explorerMap).bindPopup('<strong>🏨 Destiny Scotland</strong><br>Votre hôtel');
+      renderExplorer();
+    }, 200);
+  } else {
+    setTimeout(() => explorerMap.invalidateSize(), 200);
+    renderExplorer();
+  }
+}
+
+function closeExplorer() {
+  document.getElementById('explorerOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function filterExplorer(cat, btn) {
+  explorerCurrentCat = cat;
+  document.querySelectorAll('.explorer-filter-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  renderExplorer();
+}
+
+function sortExplorer(mode, btn) {
+  explorerCurrentSort = mode;
+  document.querySelectorAll('.explorer-sort button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderExplorer();
+}
+
+function toggleExplorerGps() {
+  const gpsBtn = document.getElementById('explorerGpsBtn');
+  if (explorerGpsActive) {
+    explorerGpsActive = false;
+    gpsBtn.classList.remove('active');
+    if (explorerUserMarker) { explorerMap.removeLayer(explorerUserMarker); explorerUserMarker = null; }
+    renderExplorer();
+    return;
+  }
+  gpsBtn.textContent = '⏳';
+  navigator.geolocation.getCurrentPosition(pos => {
+    explorerUserPos = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+    explorerGpsActive = true;
+    gpsBtn.classList.add('active');
+    gpsBtn.textContent = '📍';
+    if (explorerUserMarker) explorerMap.removeLayer(explorerUserMarker);
+    explorerUserMarker = L.marker([explorerUserPos.lat, explorerUserPos.lng], {
+      icon: makeIcon('<div style="width:14px;height:14px;background:#4285f4;border:3px solid white;border-radius:50%;box-shadow:0 0 8px rgba(66,133,244,0.6);"></div>', 20)
+    }).addTo(explorerMap).bindPopup('📍 Vous êtes ici');
+    explorerMap.panTo([explorerUserPos.lat, explorerUserPos.lng]);
+    renderExplorer();
+  }, () => {
+    gpsBtn.textContent = '📍';
+  }, { enableHighAccuracy: true, timeout: 8000 });
+}
+
+const CAT_COLORS = {
+  culture: '#6366f1', nature: '#059669', jeux: '#ea580c',
+  manger: '#dc2626', shopping: '#8b5cf6', balade: '#0891b2'
+};
+
+function renderExplorer() {
+  let pois = explorerCurrentCat === 'all' ? [...EXPLORER_POIS] : EXPLORER_POIS.filter(p => p.cat === explorerCurrentCat);
+
+  // Sort
+  if (explorerCurrentSort === 'distance') {
+    pois.sort((a, b) => getDistanceKm(a) - getDistanceKm(b));
+  } else if (explorerCurrentSort === 'free') {
+    pois.sort((a, b) => {
+      const aFree = a.prix === 'Gratuit' ? 0 : 1;
+      const bFree = b.prix === 'Gratuit' ? 0 : 1;
+      return aFree - bFree || getDistanceKm(a) - getDistanceKm(b);
+    });
+  } else if (explorerCurrentSort === 'baby') {
+    pois.sort((a, b) => {
+      const aTop = a.baby === 'top' ? 0 : 1;
+      const bTop = b.baby === 'top' ? 0 : 1;
+      return aTop - bTop || getDistanceKm(a) - getDistanceKm(b);
+    });
+  }
+
+  // Update count
+  document.getElementById('explorerCount').textContent = pois.length + ' lieu' + (pois.length > 1 ? 'x' : '');
+
+  // Clear markers
+  explorerMarkers.forEach(m => explorerMap.removeLayer(m));
+  explorerMarkers = [];
+
+  // Add markers
+  const bounds = L.latLngBounds([HOTEL_COORDS]);
+  pois.forEach((poi, i) => {
+    const color = CAT_COLORS[poi.cat] || '#2d3561';
+    const marker = L.marker([poi.lat, poi.lng], {
+      icon: makeIcon(`<div style="background:${color};color:white;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);">${poi.emoji}</div>`, 26)
+    }).addTo(explorerMap);
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(poi.nom + ', Edinburgh')}`;
+    marker.bindPopup(`<strong>${poi.emoji} ${poi.nom}</strong><br><span style="font-size:0.8rem;color:#666">${poi.desc}</span><br><a href="${mapsUrl}" target="_blank" style="color:#3d6b4f;font-weight:600;font-size:0.8rem">📍 Google Maps</a>`);
+    marker.on('click', () => {
+      const card = document.getElementById('exc-' + poi.id);
+      if (card) {
+        document.querySelectorAll('.explorer-card').forEach(c => c.classList.remove('highlighted'));
+        card.classList.add('highlighted');
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+    explorerMarkers.push(marker);
+    bounds.extend([poi.lat, poi.lng]);
+  });
+  if (pois.length > 0) explorerMap.fitBounds(bounds, { padding: [40, 40], maxZoom: 15 });
+
+  // Render cards
+  const list = document.getElementById('explorerList');
+  if (pois.length === 0) {
+    list.innerHTML = '<div class="explorer-empty">Aucun lieu trouvé dans cette catégorie.</div>';
+    return;
+  }
+
+  list.innerHTML = pois.map(poi => {
+    const dist = getDistanceLabel(poi);
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(poi.nom + ', Edinburgh')}`;
+    const isFree = poi.prix === 'Gratuit';
+    let tags = '';
+    if (poi.indoor) tags += '<span class="explorer-tag explorer-tag-indoor">Indoor</span>';
+    else tags += '<span class="explorer-tag explorer-tag-outdoor">Outdoor</span>';
+    if (isFree) tags += '<span class="explorer-tag explorer-tag-free">Gratuit</span>';
+    if (poi.baby === 'top') tags += '<span class="explorer-tag explorer-tag-baby-top">Top bébé</span>';
+    if (poi.duree) tags += '<span class="explorer-tag" style="background:#f3f4f6;color:#6b7280">⏱️ ' + poi.duree + '</span>';
+
+    return `<div class="explorer-card" id="exc-${poi.id}" onclick="focusExplorerPoi('${poi.id}')">
+      <div class="explorer-card-top">
+        <div class="explorer-card-emoji">${poi.emoji}</div>
+        <div class="explorer-card-info">
+          <div class="explorer-card-name">${poi.nom}</div>
+          <div class="explorer-card-desc">${poi.desc}</div>
+        </div>
+        <div class="explorer-card-meta">
+          <div>
+            <div class="explorer-card-dist">${dist}</div>
+            ${!isFree ? '<div class="explorer-card-price">' + poi.prix + '</div>' : ''}
+          </div>
+        </div>
+      </div>
+      <div class="explorer-card-tags">${tags}</div>
+      <div class="explorer-card-actions">
+        <a href="${mapsUrl}" target="_blank" rel="noopener" class="explorer-maps-link" onclick="event.stopPropagation()">📍 Ouvrir dans Google Maps</a>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function focusExplorerPoi(id) {
+  const poi = EXPLORER_POIS.find(p => p.id === id);
+  if (!poi) return;
+  explorerMap.setView([poi.lat, poi.lng], 16, { animate: true });
+  const markerIdx = (explorerCurrentCat === 'all' ? EXPLORER_POIS : EXPLORER_POIS.filter(p => p.cat === explorerCurrentCat)).findIndex(p => p.id === id);
+  if (markerIdx >= 0 && explorerMarkers[markerIdx]) explorerMarkers[markerIdx].openPopup();
+  document.querySelectorAll('.explorer-card').forEach(c => c.classList.remove('highlighted'));
+  document.getElementById('exc-' + id)?.classList.add('highlighted');
 }
 </script>
 
