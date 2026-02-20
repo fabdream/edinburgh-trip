@@ -6,6 +6,8 @@
 <title>Édimbourg en Famille — Février 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <style>
 :root {
   --navy: #1a1f3a;
@@ -1383,6 +1385,29 @@ footer p {
 .qf-spinner { width: 32px; height: 32px; border: 3px solid var(--stone); border-top: 3px solid var(--navy); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 14px; }
 .qf-error { padding: 16px; background: #fff5f5; border-radius: 12px; color: #c53030; font-size: 0.88rem; margin-top: 16px; }
 
+/* ===== LEAFLET MAPS ===== */
+.qf-map-container { height: 280px; border-radius: 16px; margin: 16px 0 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.1); position: relative; z-index: 1; }
+.day-leaflet-map { width: 100%; height: 100%; }
+.custom-pin { background: transparent !important; border: none !important; }
+.map-pin { display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,0.25); text-align: center; line-height: 1; }
+.map-pin-hotel { width: 36px; height: 36px; background: var(--gold); font-size: 1.1rem; border: 2px solid white; }
+.map-pin-suggestion { width: 30px; height: 30px; background: var(--navy); color: white; font-size: 0.85rem; border: 2px solid white; }
+.map-pin-landmark { width: 28px; height: 28px; background: white; font-size: 0.85rem; border: 2px solid var(--stone); }
+.map-pin-day { width: 26px; height: 26px; background: var(--royal); color: white; font-size: 0.78rem; border: 2px solid white; }
+.map-pin-alt { width: 22px; height: 22px; background: var(--stone); color: var(--text-light); font-size: 0.75rem; border: 1px solid white; opacity: 0.85; }
+.map-popup { font-family: 'Inter', sans-serif; }
+.map-popup strong { font-size: 0.9rem; color: var(--navy); }
+.map-popup p { font-size: 0.78rem; color: var(--gold); margin: 4px 0 8px; }
+.map-popup-nav { display: inline-block; background: #3d6b4f; color: white; padding: 5px 12px; border-radius: 20px; text-decoration: none; font-size: 0.78rem; font-weight: 600; }
+.yaller-btn { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #3d6b4f, #5a9e6f); color: white; text-decoration: none; padding: 10px 18px; border-radius: 12px; font-size: 0.88rem; font-weight: 700; font-family: 'Inter', sans-serif; transition: all 0.25s; box-shadow: 0 2px 8px rgba(61,107,79,0.3); }
+.yaller-btn:active { transform: scale(0.97); }
+.voir-autres-btn { background: white; border: 2px solid var(--stone); color: var(--text-light); padding: 8px 14px; border-radius: 12px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; }
+.voir-autres-btn:active { border-color: var(--gold); color: var(--navy); }
+.qf-sug-actions { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+.qf-map-container .leaflet-top, .qf-map-container .leaflet-bottom { z-index: 10 !important; }
+.map-container .leaflet-top, .map-container .leaflet-bottom { z-index: 10 !important; }
+.day-map .leaflet-top, .day-map .leaflet-bottom { z-index: 10 !important; }
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   section { padding: 50px 16px; }
@@ -1507,11 +1532,11 @@ footer p {
 <section id="hotel">
   <div class="container">
     <p class="section-label">🏨 Notre base</p>
-    <h2 class="section-title">L'Hôtel — En plein cœur de New Town</h2>
-    <p class="section-desc">Idéalement situé sur Hanover Street, tout est accessible à pied. Princes Street, le château, le Royal Mile... tout est à quelques minutes.</p>
+    <h2 class="section-title">Destiny Scotland — Hanover Apartments</h2>
+    <p class="section-desc">Appart'hôtel idéalement situé sur Hanover Street, tout est accessible à pied. Princes Street, le château, le Royal Mile... tout est à quelques minutes.</p>
     <div class="hotel-grid">
       <div class="hotel-info-card reveal">
-        <div class="hotel-address">4 Hanover Street</div>
+        <div class="hotel-address">4 & 18 Hanover Street</div>
         <div class="hotel-neighborhood">Edinburgh EH2 2EN — New Town</div>
         <ul class="hotel-features">
           <li><span class="icon">🏰</span> Edinburgh Castle — 10 min à pied</li>
@@ -1525,7 +1550,7 @@ footer p {
         </ul>
       </div>
       <div class="map-container reveal">
-        <iframe src="https://maps.google.com/maps?q=4+Hanover+Street,+Edinburgh+EH2+2EN&z=16&output=embed" allowfullscreen="" loading="lazy"></iframe>
+        <div id="hotelMap" style="width:100%;height:100%;"></div>
       </div>
     </div>
   </div>
@@ -1726,7 +1751,7 @@ footer p {
               </div>
             </div>
             <div class="day-map">
-              <iframe src="https://maps.google.com/maps?q=Edinburgh+Castle,+Grassmarket,+Victoria+Street,+Royal+Mile&z=15&output=embed" allowfullscreen="" loading="lazy"></iframe>
+              <div id="dayMap2" class="day-leaflet-map"></div>
             </div>
           </div>
         </div>
@@ -1798,7 +1823,7 @@ footer p {
               </div>
             </div>
             <div class="day-map">
-              <iframe src="https://maps.google.com/maps?q=Dean+Village,+Edinburgh&z=15&output=embed" allowfullscreen="" loading="lazy"></iframe>
+              <div id="dayMap3" class="day-leaflet-map"></div>
             </div>
           </div>
         </div>
@@ -1873,7 +1898,7 @@ footer p {
               </div>
             </div>
             <div class="day-map">
-              <iframe src="https://maps.google.com/maps?q=National+Museum+of+Scotland,+Edinburgh&z=15&output=embed" allowfullscreen="" loading="lazy"></iframe>
+              <div id="dayMap4" class="day-leaflet-map"></div>
             </div>
           </div>
         </div>
@@ -2313,6 +2338,11 @@ footer p {
 function toggleDay(header) {
   const card = header.closest('.day-card');
   card.classList.toggle('open');
+  const dayMapEl = card.querySelector('[id^="dayMap"]');
+  if (dayMapEl && card.classList.contains('open')) {
+    const dayNum = dayMapEl.id.replace('dayMap', '');
+    setTimeout(() => initDayMap(parseInt(dayNum)), 350);
+  }
 }
 
 // Scroll reveal
@@ -2690,7 +2720,7 @@ async function runQFSearch() {
       resultsDiv.innerHTML = `
         <div class="qf-results-header">✨ Voici nos suggestions</div>
         ${suggestions.map((s, i) => `
-          <div class="qf-suggestion" style="animation-delay:${i * 0.1}s">
+          <div class="qf-suggestion" style="animation-delay:${i * 0.1}s" onclick="panToSuggestion(${i})">
             <div class="qf-sug-top">
               <span class="qf-sug-emoji">${s.emoji || '📍'}</span>
               <div>
@@ -2704,7 +2734,13 @@ async function runQFSearch() {
               ${s.adresse ? `<span>📍 ${s.adresse}</span>` : ''}
               ${s.contact ? `<span>📞 ${s.contact}</span>` : ''}
             </div>
-          </div>`).join('')}`;
+            <div class="qf-sug-actions">
+              ${getNavButton(s.nom, s.adresse)}
+              <button class="voir-autres-btn" onclick="showAlternatives('${qfState.mode}','${(s.nom||'').replace(/'/g,"\\'")}',event)">👀 Voir d'autres</button>
+            </div>
+          </div>`).join('')}
+        <div id="qfMap" class="qf-map-container"></div>`;
+      setTimeout(() => initQFMap(suggestions), 100);
     }
   } catch (err) {
     resultsDiv.innerHTML = `<div class="qf-error"><strong>Erreur :</strong> ${err.message}<br><small style="color:var(--text-light);margin-top:6px;display:block">Vérifiez que GEMINI_API_KEY est configurée dans Netlify.</small></div>`;
@@ -2712,6 +2748,262 @@ async function runQFSearch() {
     btn.disabled = false;
     btn.textContent = '✨ Trouver !';
   }
+}
+
+// ===== LEAFLET MAPS =====
+const HOTEL_COORDS = [55.9533, -3.1955];
+
+const PLACE_COORDS = {
+  'Urban Angel': [55.9547, -3.1958], 'Newtown Fox': [55.9560, -3.1925], 'The Cambridge Bar': [55.9538, -3.2010],
+  'Café St Honoré': [55.9542, -3.2035], 'Chaophraya': [55.9522, -3.2020], 'The Piemaker': [55.9492, -3.1878],
+  'Civerinos': [55.9503, -3.1882], 'Vittoria': [55.9488, -3.1920], "Bertie's Fish & Chips": [55.9489, -3.1946],
+  'Mums Great Comfort Food': [55.9468, -3.1917], 'Bread Meats Bread': [55.9493, -3.2055],
+  "L'Alba D'Oro": [55.9580, -3.2010], 'The Last Drop': [55.9474, -3.1955], "Mary's Milk Bar": [55.9477, -3.1970],
+  'The Pantry': [55.9585, -3.2085], 'Cannonball Restaurant': [55.9491, -3.1968],
+  'The Scran & Scallie': [55.9612, -3.2150], "Loudon's Cafe & Bakery": [55.9443, -3.2120],
+  'La Favorita': [55.9655, -3.1730], 'Little Foxes Play Cafe': [55.9275, -3.2060],
+  'National Museum of Scotland': [55.9470, -3.1893], 'Dynamic Earth': [55.9510, -3.1744],
+  'Camera Obscura & World of Illusions': [55.9498, -3.1985], 'Camera Obscura': [55.9498, -3.1985],
+  'Scottish National Gallery': [55.9510, -3.1958], 'Museum of Childhood': [55.9504, -3.1865],
+  'Edinburgh Butterfly & Insect World': [55.8785, -3.1385], 'Royal Yacht Britannia': [55.9820, -3.1770],
+  'Palace of Holyroodhouse': [55.9527, -3.1718], 'Scottish Storytelling Centre': [55.9510, -3.1850],
+  'Playtown Edinburgh': [55.9818, -3.1775], 'Clambers (Royal Commonwealth Pool)': [55.9400, -3.1760],
+  'Bookbug Session (Bibliothèque Centrale)': [55.9482, -3.1920], 'Edinburgh Castle': [55.9486, -3.1999],
+  'Edinburgh Zoo': [55.9425, -3.2685], 'Princes Street Gardens & Playground': [55.9510, -3.2000],
+  'Princes Street Gardens': [55.9510, -3.2000], 'Royal Botanic Garden': [55.9650, -3.2090],
+  'Gorgie City Farm': [55.9385, -3.2380], "Holyrood Park & St Margaret's Loch": [55.9445, -3.1620],
+  'Holyrood Park & Loch': [55.9445, -3.1620], 'Portobello Beach': [55.9530, -3.1140],
+  'Toddler Splash (Royal Commonwealth Pool)': [55.9400, -3.1760],
+  'Victoria Street & Grassmarket': [55.9484, -3.1948], 'Royal Mile & Closes': [55.9505, -3.1895],
+  'Calton Hill': [55.9548, -3.1825], 'Stockbridge': [55.9580, -3.2080],
+  'Dean Village & Water of Leith': [55.9530, -3.2170], 'Dean Village': [55.9530, -3.2170],
+  'Gallery of Modern Art + Sculpture Park': [55.9520, -3.2190],
+  'Water of Leith Walkway': [55.9540, -3.2170], 'Old Town Discovery': [55.9500, -3.1900],
+  'New Town Architecture Walk': [55.9535, -3.2070], 'Dean Village Loop': [55.9530, -3.2170],
+  'Calton Hill Sunset Walk': [55.9548, -3.1825], 'Stockbridge & Circus Lane': [55.9580, -3.2080],
+  'Mums': [55.9468, -3.1917], 'Bertie\'s': [55.9489, -3.1946]
+};
+
+const CLIENT_DB = {
+  manger: [
+    { nom: 'Urban Angel', lat: 55.9547, lng: -3.1958, short: 'Brunch bio, healthy', budget: '€€' },
+    { nom: 'Newtown Fox', lat: 55.9560, lng: -3.1925, short: 'Café-resto brunch all-day', budget: '€€' },
+    { nom: 'The Cambridge Bar', lat: 55.9538, lng: -3.2010, short: 'Burgers pub', budget: '€€' },
+    { nom: 'Café St Honoré', lat: 55.9542, lng: -3.2035, short: 'Bistrot français', budget: '€€€' },
+    { nom: 'Chaophraya', lat: 55.9522, lng: -3.2020, short: 'Thaï rooftop, anniversaire', budget: '€€€€' },
+    { nom: 'The Piemaker', lat: 55.9492, lng: -3.1878, short: 'Pies écossaises £4–7', budget: '€' },
+    { nom: 'Civerinos', lat: 55.9503, lng: -3.1882, short: 'Pizza NY à la part', budget: '€' },
+    { nom: 'Vittoria', lat: 55.9488, lng: -3.1920, short: 'Trattoria italienne familiale', budget: '€€' },
+    { nom: "Bertie's Fish & Chips", lat: 55.9489, lng: -3.1946, short: 'Fish & chips authentique', budget: '€' },
+    { nom: 'Mums Great Comfort Food', lat: 55.9468, lng: -3.1917, short: 'Comfort food, zéro chichi', budget: '€€' },
+    { nom: 'Bread Meats Bread', lat: 55.9493, lng: -3.2055, short: 'Smash burgers cultes', budget: '€€' },
+    { nom: "L'Alba D'Oro", lat: 55.9580, lng: -3.2010, short: 'Chippy italo-écossais', budget: '€' },
+    { nom: 'The Last Drop', lat: 55.9474, lng: -3.1955, short: 'Pub écossais, Grassmarket', budget: '€€' },
+    { nom: "Mary's Milk Bar", lat: 55.9477, lng: -3.1970, short: 'Gelato + hot chocolate', budget: '€' },
+    { nom: 'The Pantry', lat: 55.9585, lng: -3.2085, short: 'Brunch Stockbridge', budget: '€€' },
+    { nom: 'Cannonball Restaurant', lat: 55.9491, lng: -3.1968, short: 'Écossais, vue château', budget: '€€€' },
+    { nom: 'The Scran & Scallie', lat: 55.9612, lng: -3.2150, short: 'Gastropub + salle de jeux', budget: '€€€' },
+    { nom: "Loudon's Cafe & Bakery", lat: 55.9443, lng: -3.2120, short: 'Brunch + aire de jeux', budget: '€€' },
+    { nom: 'La Favorita', lat: 55.9655, lng: -3.1730, short: 'Pizza napolitaine feu de bois', budget: '€€' },
+    { nom: 'Little Foxes Play Cafe', lat: 55.9275, lng: -3.2060, short: 'Café + soft play 0–4 ans', budget: '€' }
+  ],
+  activite: [
+    { nom: 'National Museum of Scotland', lat: 55.9470, lng: -3.1893, short: 'Musée gratuit, galerie toddler', prix: 'Gratuit' },
+    { nom: 'Dynamic Earth', lat: 55.9510, lng: -3.1744, short: 'Volcans 4D, forêt tropicale', prix: '£17.50' },
+    { nom: 'Camera Obscura', lat: 55.9498, lng: -3.1985, short: 'Illusions, miroirs, lumières', prix: '£19.50' },
+    { nom: 'Scottish National Gallery', lat: 55.9510, lng: -3.1958, short: 'Monet, Rembrandt — gratuit', prix: 'Gratuit' },
+    { nom: 'Museum of Childhood', lat: 55.9504, lng: -3.1865, short: 'Jouets historiques', prix: 'Gratuit' },
+    { nom: 'Butterfly World', lat: 55.8785, lng: -3.1385, short: 'Serre tropicale, papillons', prix: '£7.95' },
+    { nom: 'Royal Yacht Britannia', lat: 55.9820, lng: -3.1770, short: 'Yacht royal à explorer', prix: '£18.50' },
+    { nom: 'Edinburgh Castle', lat: 55.9486, lng: -3.1999, short: 'Château, joyaux, vue', prix: '£19.50' },
+    { nom: 'Edinburgh Zoo', lat: 55.9425, lng: -3.2685, short: 'Zoo, parade manchots 14h15', prix: '£20' },
+    { nom: 'Princes St Gardens', lat: 55.9510, lng: -3.2000, short: 'Playground + vue château', prix: 'Gratuit' },
+    { nom: 'Royal Botanic Garden', lat: 55.9650, lng: -3.2090, short: 'Serres tropicales, playground', prix: 'Gratuit' },
+    { nom: 'Gorgie City Farm', lat: 55.9385, lng: -3.2380, short: 'Ferme en ville, animaux', prix: 'Gratuit' },
+    { nom: 'Little Foxes Play Cafe', lat: 55.9275, lng: -3.2060, short: 'Soft play 0–4 ans', prix: '£6' },
+    { nom: 'Playtown Edinburgh', lat: 55.9818, lng: -3.1775, short: 'Soft play géant + Toddler Town', prix: '£7–9' },
+    { nom: 'Portobello Beach', lat: 55.9530, lng: -3.1140, short: 'Plage de sable', prix: 'Gratuit' },
+    { nom: 'Calton Hill', lat: 55.9548, lng: -3.1825, short: 'Vue 360° panoramique', prix: 'Gratuit' },
+    { nom: 'Victoria Street', lat: 55.9484, lng: -3.1948, short: 'Rue colorée Harry Potter', prix: 'Gratuit' },
+    { nom: 'Holyrood Park', lat: 55.9445, lng: -3.1620, short: 'Loch, canards, nature', prix: 'Gratuit' }
+  ],
+  balade: [
+    { nom: 'Princes Street Gardens', lat: 55.9510, lng: -3.2000, short: 'Vue château, plat', duree: '20–30 min' },
+    { nom: 'Water of Leith', lat: 55.9540, lng: -3.2170, short: 'Rivière, Dean Village', duree: '45min–1h' },
+    { nom: 'Old Town Discovery', lat: 55.9500, lng: -3.1900, short: 'Royal Mile, closes', duree: '1h–1h30' },
+    { nom: 'New Town Walk', lat: 55.9535, lng: -3.2070, short: 'Architecture géorgienne', duree: '45 min' },
+    { nom: 'Dean Village Loop', lat: 55.9530, lng: -3.2170, short: 'Village de meuniers', duree: '45min–1h' },
+    { nom: 'Calton Hill Sunset', lat: 55.9548, lng: -3.1825, short: 'Panorama coucher de soleil', duree: '30–40 min' },
+    { nom: 'Stockbridge & Circus Lane', lat: 55.9580, lng: -3.2080, short: 'Bohème, instagrammable', duree: '1h' },
+    { nom: 'Royal Botanic Garden', lat: 55.9650, lng: -3.2090, short: 'Serres, écureuils', duree: '1h–1h30' },
+    { nom: 'Portobello Beach', lat: 55.9530, lng: -3.1140, short: 'Plage, promenade', duree: '1h' },
+    { nom: 'Holyrood Park & Loch', lat: 55.9445, lng: -3.1620, short: 'Canards, cygnes', duree: '45 min' }
+  ]
+};
+
+function makeIcon(html, size) {
+  return L.divIcon({ html: html, className: 'custom-pin', iconSize: [size, size], iconAnchor: [size/2, size], popupAnchor: [0, -size] });
+}
+
+function getNavButton(name, address) {
+  const coords = PLACE_COORDS[name];
+  let url;
+  if (coords) url = `https://www.google.com/maps/dir/?api=1&destination=${coords[0]},${coords[1]}&travelmode=walking`;
+  else if (address) url = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address + ', Edinburgh')}&travelmode=walking`;
+  else return '';
+  return `<a href="${url}" target="_blank" rel="noopener" class="yaller-btn" onclick="event.stopPropagation()">🧭 Y aller</a>`;
+}
+
+// === QF Map ===
+let qfMapInstance = null;
+
+function initQFMap(suggestions) {
+  const mapEl = document.getElementById('qfMap');
+  if (!mapEl) return;
+  if (qfMapInstance) { qfMapInstance.remove(); qfMapInstance = null; }
+
+  qfMapInstance = L.map('qfMap', {
+    zoomControl: false, dragging: !L.Browser.mobile, tap: false, touchZoom: true, scrollWheelZoom: false
+  });
+  L.control.zoom({ position: 'bottomright' }).addTo(qfMapInstance);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19, attribution: '&copy; OSM &copy; Carto'
+  }).addTo(qfMapInstance);
+
+  L.marker(HOTEL_COORDS, { icon: makeIcon('<div class="map-pin map-pin-hotel">🏨</div>', 36) })
+    .addTo(qfMapInstance).bindPopup('<strong>🏨 Notre hôtel</strong><br>4 & 18 Hanover Street');
+
+  const bounds = L.latLngBounds([HOTEL_COORDS]);
+
+  suggestions.forEach((s, i) => {
+    const coords = PLACE_COORDS[s.nom];
+    if (!coords) return;
+    const marker = L.marker(coords, { icon: makeIcon(`<div class="map-pin map-pin-suggestion">${i+1}</div>`, 30) }).addTo(qfMapInstance);
+    const navUrl = `https://www.google.com/maps/dir/?api=1&destination=${coords[0]},${coords[1]}&travelmode=walking`;
+    marker.bindPopup(`<div class="map-popup"><strong>${s.emoji||''} ${s.nom}</strong><p>${s.badge||''}</p><a href="${navUrl}" target="_blank" class="map-popup-nav">🧭 Y aller</a></div>`);
+    marker.on('click', () => highlightSuggestionCard(i));
+    bounds.extend(coords);
+  });
+
+  qfMapInstance.fitBounds(bounds, { padding: [40, 40], maxZoom: 16 });
+  setTimeout(() => qfMapInstance.invalidateSize(), 400);
+}
+
+function highlightSuggestionCard(index) {
+  document.querySelectorAll('.qf-suggestion').forEach((card, i) => {
+    card.style.boxShadow = i === index ? '0 0 0 3px var(--gold), 0 4px 20px rgba(0,0,0,0.15)' : '';
+    if (i === index) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+}
+
+function panToSuggestion(index) {
+  const cards = document.querySelectorAll('.qf-suggestion');
+  const nameEl = cards[index]?.querySelector('.qf-sug-name');
+  if (!nameEl || !qfMapInstance) return;
+  const coords = PLACE_COORDS[nameEl.textContent.trim()];
+  if (coords) qfMapInstance.setView(coords, 17, { animate: true });
+}
+
+// === Voir d'autres ===
+let altMarkers = [];
+function showAlternatives(mode, currentName, event) {
+  event.stopPropagation();
+  if (!qfMapInstance) return;
+  altMarkers.forEach(m => qfMapInstance.removeLayer(m));
+  altMarkers = [];
+  const items = CLIENT_DB[mode] || [];
+  const bounds = L.latLngBounds([HOTEL_COORDS]);
+  items.forEach(item => {
+    if (item.nom === currentName || !item.lat) return;
+    const marker = L.marker([item.lat, item.lng], { icon: makeIcon('<div class="map-pin map-pin-alt">+</div>', 22) }).addTo(qfMapInstance);
+    const navUrl = `https://www.google.com/maps/dir/?api=1&destination=${item.lat},${item.lng}&travelmode=walking`;
+    marker.bindPopup(`<div class="map-popup"><strong>${item.nom}</strong><p>${item.short}</p><a href="${navUrl}" target="_blank" class="map-popup-nav">🧭 Y aller</a></div>`);
+    altMarkers.push(marker);
+    bounds.extend([item.lat, item.lng]);
+  });
+  qfMapInstance.fitBounds(bounds, { padding: [30, 30], maxZoom: 15 });
+}
+
+// === Hotel Map ===
+function initHotelMap() {
+  const mapEl = document.getElementById('hotelMap');
+  if (!mapEl || mapEl._leaflet_id) return;
+  const map = L.map('hotelMap', { zoomControl: true }).setView(HOTEL_COORDS, 15);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19, attribution: '&copy; OSM &copy; Carto'
+  }).addTo(map);
+  L.marker(HOTEL_COORDS, { icon: makeIcon('<div class="map-pin map-pin-hotel">🏨</div>', 40) }).addTo(map)
+    .bindPopup('<strong>🏨 Destiny Scotland</strong><br>4 & 18 Hanover Street');
+  const landmarks = [
+    { n: 'Edinburgh Castle', e: '🏰', c: [55.9486, -3.1999] },
+    { n: 'Royal Mile', e: '🛤️', c: [55.9505, -3.1895] },
+    { n: 'Princes St Gardens', e: '🌳', c: [55.9510, -3.2000] },
+    { n: 'Scottish National Gallery', e: '🖼️', c: [55.9510, -3.1958] },
+    { n: 'National Museum', e: '🏛️', c: [55.9470, -3.1893] },
+    { n: 'St Andrew Sq Tram', e: '🚋', c: [55.9545, -3.1910] },
+    { n: 'Dean Village', e: '🏘️', c: [55.9530, -3.2170] }
+  ];
+  landmarks.forEach(lm => {
+    L.marker(lm.c, { icon: makeIcon(`<div class="map-pin map-pin-landmark">${lm.e}</div>`, 28) }).addTo(map)
+      .bindPopup(`<strong>${lm.n}</strong>`);
+  });
+  L.circle(HOTEL_COORDS, { radius: 400, color: '#c9a84c', fillOpacity: 0.04, weight: 1, dashArray: '4 6' }).addTo(map);
+  L.circle(HOTEL_COORDS, { radius: 800, color: '#c9a84c', fillOpacity: 0.02, weight: 1, dashArray: '4 6' }).addTo(map);
+}
+
+const hotelMapObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) { initHotelMap(); hotelMapObserver.disconnect(); }
+  });
+}, { threshold: 0.1 });
+const hotelMapEl = document.getElementById('hotelMap');
+if (hotelMapEl) hotelMapObserver.observe(hotelMapEl);
+
+// === Day Maps ===
+const DAY_MAPS = {
+  2: [
+    { n: 'Edinburgh Castle', e: '🏰', c: [55.9486, -3.1999] },
+    { n: "Bertie's Fish & Chips", e: '🍟', c: [55.9489, -3.1946] },
+    { n: 'Victoria Street & Royal Mile', e: '🌈', c: [55.9489, -3.1948] },
+    { n: 'Sieste hôtel', e: '😴', c: [55.9533, -3.1955] },
+    { n: 'Vittoria', e: '🍝', c: [55.9488, -3.1920] }
+  ],
+  3: [
+    { n: 'Dean Village', e: '🏘️', c: [55.9530, -3.2170] },
+    { n: 'Scran & Scallie', e: '🍽️', c: [55.9612, -3.2150] },
+    { n: 'Sieste hôtel', e: '😴', c: [55.9533, -3.1955] },
+    { n: 'Scottish National Gallery', e: '🖼️', c: [55.9510, -3.1958] },
+    { n: 'Princes Street', e: '🌅', c: [55.9520, -3.1980] }
+  ],
+  4: [
+    { n: 'National Museum', e: '🏛️', c: [55.9470, -3.1893] },
+    { n: 'Déjeuner Old Town', e: '🍽️', c: [55.9475, -3.1900] },
+    { n: 'Princes St Gardens', e: '🌳', c: [55.9510, -3.2000] },
+    { n: 'Calton Hill', e: '⛰️', c: [55.9548, -3.1825] },
+    { n: 'Dîner', e: '🍴', c: [55.9468, -3.1917] }
+  ]
+};
+
+function initDayMap(dayNum) {
+  const mapEl = document.getElementById('dayMap' + dayNum);
+  if (!mapEl || mapEl._leaflet_id) return;
+  const stops = DAY_MAPS[dayNum];
+  if (!stops) return;
+  const map = L.map('dayMap' + dayNum, { zoomControl: false }).setView([55.9510, -3.1960], 15);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19, attribution: '&copy; OSM &copy; Carto'
+  }).addTo(map);
+  const bounds = L.latLngBounds([HOTEL_COORDS]);
+  L.marker(HOTEL_COORDS, { icon: makeIcon('<div class="map-pin map-pin-hotel">🏨</div>', 32) }).addTo(map);
+  stops.forEach((stop, i) => {
+    L.marker(stop.c, { icon: makeIcon(`<div class="map-pin map-pin-day">${i+1}</div>`, 26) }).addTo(map)
+      .bindPopup(`<strong>${stop.e} ${stop.n}</strong>`);
+    bounds.extend(stop.c);
+  });
+  const routeCoords = [HOTEL_COORDS, ...stops.map(s => s.c)];
+  L.polyline(routeCoords, { color: '#2d3561', weight: 2, opacity: 0.4, dashArray: '6 8' }).addTo(map);
+  map.fitBounds(bounds, { padding: [30, 30] });
+  setTimeout(() => map.invalidateSize(), 400);
 }
 </script>
 
