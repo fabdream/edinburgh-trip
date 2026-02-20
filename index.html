@@ -2452,7 +2452,11 @@ async function generateAdaptedPlan() {
       })
     });
 
-    if (!response.ok) throw new Error(`Erreur serveur : ${response.status}`);
+    if (!response.ok) {
+      let errMsg = `Erreur serveur : ${response.status}`;
+      try { const errData = await response.json(); errMsg = errData.error || errMsg; } catch {}
+      throw new Error(errMsg);
+    }
     const data = await response.json();
     if (data.error) throw new Error(data.error);
 
@@ -2665,7 +2669,11 @@ async function runQFSearch() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(qfState)
     });
-    if (!res.ok) throw new Error(`Erreur ${res.status}`);
+    if (!res.ok) {
+      let errMsg = `Erreur ${res.status}`;
+      try { const errData = await res.json(); errMsg = errData.error || errMsg; } catch {}
+      throw new Error(errMsg);
+    }
     const data = await res.json();
     if (data.error) throw new Error(data.error);
 
