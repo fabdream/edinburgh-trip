@@ -102,7 +102,9 @@ exports.handler = async (event) => {
   const locationLabels = {
     hotel: 'près de l\'hôtel au 4 Hanover Street (New Town)',
     oldtown: 'dans ou près de l\'Old Town / Royal Mile',
+    grassmarket: 'dans le quartier Grassmarket / Victoria Street',
     stockbridge: 'vers Stockbridge / Dean Village',
+    leith: 'dans le quartier de Leith (port, Ocean Terminal)',
     autre: 'quelque part dans Édimbourg'
   };
 
