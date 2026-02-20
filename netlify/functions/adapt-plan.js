@@ -35,7 +35,7 @@ exports.handler = async (event) => {
 Contexte de la journée :
 - Heure de réveil : ${wakeUpTime}
 - Énergie de la famille : ${energyLabels[energyLevel] || energyLevel}
-- Sieste de Giulia prévue autour de : ${napTime}
+- Sieste de Giulia : ${napTime === 'pas de sieste' ? 'PAS DE SIESTE prévue aujourd\'hui — Giulia ne dort pas, on peut enchaîner les activités sans pause sieste' : 'prévue autour de ' + napTime}
 - Météo : ${weatherLabels[weather] || weather}
 
 Programme original prévu :
@@ -45,7 +45,7 @@ ${activitiesText}
 - Si la famille est **fatiguée** → Décale les horaires si réveil tardif, propose des activités plus calmes, intègre des pauses café, favorise les activités gratuites ou peu exigeantes physiquement.
 - Si la famille est **en forme** → Tu peux ajouter une activité bonus ou enrichir les descriptions.
 - En cas de **pluie** → Privilégie les activités couvertes (musées, cafés, galeries), signale les alternatives indoor.
-- Respecte toujours la sieste de Giulia en créant un créneau calme autour de l'heure indiquée.
+- Si une sieste est prévue, respecte-la en créant un créneau calme autour de l'heure indiquée. Si PAS DE SIESTE, profites-en pour proposer un programme plus rempli et enchaîner les activités.
 - Adapte les heures en fonction du réveil (si réveil à 10h, ne commence pas à 8h30).
 - Garde un ton chaleureux et pratique, en français.
 
