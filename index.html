@@ -636,6 +636,27 @@ section {
   color: var(--text-light);
 }
 
+.day-weather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  min-width: 70px;
+  gap: 2px;
+}
+.day-weather-icon { font-size: 1.5rem; line-height: 1; }
+.day-weather-temp { font-size: 0.85rem; font-weight: 700; color: var(--navy); white-space: nowrap; }
+.day-weather-desc { font-size: 0.65rem; color: var(--text-light); text-align: center; white-space: nowrap; }
+.day-weather-rain { font-size: 0.6rem; color: var(--sky); font-weight: 600; }
+.day-weather.loading .day-weather-icon { animation: pulse 1.5s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+@media (max-width: 600px) {
+  .day-weather { min-width: 55px; padding: 6px 8px; }
+  .day-weather-icon { font-size: 1.2rem; }
+  .day-weather-temp { font-size: 0.75rem; }
+}
+
 .day-toggle {
   flex-shrink: 0;
   width: 60px;
@@ -1961,6 +1982,7 @@ footer p {
             <div class="day-title">Arrivée à Édimbourg</div>
             <div class="day-tagline">Vol du soir, taxi jusqu'à l'hôtel, première nuit en Écosse</div>
           </div>
+          <div class="day-weather loading" data-date="2026-02-20"><div class="day-weather-icon">...</div></div>
           <div class="day-toggle">▼</div>
         </div>
         <div class="day-body">
@@ -2005,6 +2027,7 @@ footer p {
             <div class="day-title">Old Town, Château & Royal Mile</div>
             <div class="day-tagline">Le gros morceau ! Château, Grassmarket, Victoria Street, Royal Mile</div>
           </div>
+          <div class="day-weather loading" data-date="2026-02-21"><div class="day-weather-icon">...</div></div>
           <div class="day-toggle">▼</div>
         </div>
         <div class="day-body">
@@ -2110,6 +2133,7 @@ footer p {
             <div class="day-title">Balade, Stockbridge & Spots Photos</div>
             <div class="day-tagline">Quartier bohème, architecture wow, canards — au choix !</div>
           </div>
+          <div class="day-weather loading" data-date="2026-02-22"><div class="day-weather-icon">...</div></div>
           <div class="day-toggle">▼</div>
         </div>
         <div class="day-body">
@@ -2251,6 +2275,7 @@ footer p {
             <div class="day-title">Musée National & Jardins</div>
             <div class="day-tagline">Dinosaures, sciences interactives, playground avec vue sur le château</div>
           </div>
+          <div class="day-weather loading" data-date="2026-02-23"><div class="day-weather-icon">...</div></div>
           <div class="day-toggle">▼</div>
         </div>
         <div class="day-body">
@@ -2340,6 +2365,7 @@ footer p {
             <div class="day-title">Aventure Indoor + Shopping</div>
             <div class="day-tagline">Activités adaptées aux tout-petits, shopping & dîner d'anniversaire</div>
           </div>
+          <div class="day-weather loading" data-date="2026-02-24"><div class="day-weather-icon">...</div></div>
           <div class="day-toggle">▼</div>
         </div>
         <div class="day-body">
@@ -2422,6 +2448,7 @@ footer p {
             <div class="day-title">Dernière Matinée & Retour</div>
             <div class="day-tagline">Coups de cœur, derniers souvenirs, tram vers l'aéroport</div>
           </div>
+          <div class="day-weather loading" data-date="2026-02-25"><div class="day-weather-icon">...</div></div>
           <div class="day-toggle">▼</div>
         </div>
         <div class="day-body">
@@ -3001,9 +3028,14 @@ function openAdaptModal(card, dayTitle) {
   document.getElementById('adaptModal').classList.add('open');
   document.body.style.overflow = 'hidden';
   selectedAdaptEnergy = 'normal';
-  selectedAdaptWeather = 'sun';
+  // Auto-detect weather from Open-Meteo data
+  const dayWeatherEl = card.querySelector('.day-weather[data-date]');
+  const dayDate = dayWeatherEl ? dayWeatherEl.dataset.date : null;
+  const realWeather = dayDate && weatherByDate[dayDate];
+  const autoWeather = realWeather && realWeather.isRainy ? 'rain' : 'sun';
+  selectedAdaptWeather = autoWeather;
   document.querySelectorAll('[data-group="energy"]').forEach(b => b.classList.toggle('active', b.dataset.value === 'normal'));
-  document.querySelectorAll('[data-group="weather"]').forEach(b => b.classList.toggle('active', b.dataset.value === 'sun'));
+  document.querySelectorAll('[data-group="weather"]').forEach(b => b.classList.toggle('active', b.dataset.value === autoWeather));
   const noNapToggle = document.getElementById('noNapToggle');
   noNapToggle.checked = false;
   toggleNoNap(false);
@@ -3615,6 +3647,67 @@ const hotelMapObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 const hotelMapEl = document.getElementById('hotelMap');
 if (hotelMapEl) hotelMapObserver.observe(hotelMapEl);
+
+// === Weather (Open-Meteo — free, no API key) ===
+const WMO_CODES = {
+  0: ['Ciel dégagé', '☀️'], 1: ['Peu nuageux', '🌤️'], 2: ['Partiellement couvert', '⛅'], 3: ['Couvert', '☁️'],
+  45: ['Brouillard', '🌫️'], 48: ['Brouillard givrant', '🌫️'],
+  51: ['Bruine légère', '🌦️'], 53: ['Bruine', '🌦️'], 55: ['Bruine forte', '🌧️'],
+  56: ['Bruine verglaçante', '🌧️'], 57: ['Bruine verglaçante forte', '🌧️'],
+  61: ['Pluie légère', '🌦️'], 63: ['Pluie', '🌧️'], 65: ['Forte pluie', '🌧️'],
+  66: ['Pluie verglaçante', '🌧️'], 67: ['Forte pluie verglaçante', '🌧️'],
+  71: ['Neige légère', '🌨️'], 73: ['Neige', '🌨️'], 75: ['Forte neige', '❄️'],
+  77: ['Grains de neige', '❄️'],
+  80: ['Averses légères', '🌦️'], 81: ['Averses', '🌧️'], 82: ['Fortes averses', '🌧️'],
+  85: ['Averses de neige', '🌨️'], 86: ['Fortes averses neige', '❄️'],
+  95: ['Orage', '⛈️'], 96: ['Orage grêle', '⛈️'], 99: ['Orage forte grêle', '⛈️']
+};
+
+const RAIN_CODES = new Set([51,53,55,56,57,61,63,65,66,67,80,81,82,85,86,95,96,99]);
+
+// Store fetched weather per date for Adapt modal
+const weatherByDate = {};
+
+async function fetchWeather() {
+  try {
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=55.9533&longitude=-3.1883&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe/London&forecast_days=7';
+    const res = await fetch(url);
+    const data = await res.json();
+
+    // Populate day badges
+    document.querySelectorAll('.day-weather[data-date]').forEach(badge => {
+      const date = badge.dataset.date;
+      const idx = data.daily.time.indexOf(date);
+      if (idx === -1) {
+        badge.classList.remove('loading');
+        badge.innerHTML = '<div class="day-weather-icon">—</div><div class="day-weather-desc">Pas dispo</div>';
+        return;
+      }
+      const code = data.daily.weather_code[idx];
+      const tMax = Math.round(data.daily.temperature_2m_max[idx]);
+      const tMin = Math.round(data.daily.temperature_2m_min[idx]);
+      const rain = data.daily.precipitation_probability_max[idx];
+      const [desc, icon] = WMO_CODES[code] || ['Inconnu', '❓'];
+      const isRainy = RAIN_CODES.has(code) || rain > 50;
+
+      weatherByDate[date] = { code, tMax, tMin, rain, desc, icon, isRainy };
+
+      badge.classList.remove('loading');
+      badge.innerHTML = `
+        <div class="day-weather-icon">${icon}</div>
+        <div class="day-weather-temp">${tMin}° / ${tMax}°</div>
+        <div class="day-weather-desc">${desc}</div>
+        ${rain > 20 ? `<div class="day-weather-rain">💧 ${rain}%</div>` : ''}
+      `;
+    });
+  } catch (e) {
+    document.querySelectorAll('.day-weather.loading').forEach(b => {
+      b.classList.remove('loading');
+      b.innerHTML = '<div class="day-weather-icon">🌦️</div><div class="day-weather-desc">Météo indispo</div>';
+    });
+  }
+}
+fetchWeather();
 
 // === Day Maps ===
 const DAY_MAPS = {
