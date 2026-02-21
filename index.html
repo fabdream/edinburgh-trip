@@ -1516,10 +1516,72 @@ footer p {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
+.hidden-by-adapt { display: none !important; }
+
+.adapted-plan { margin-bottom: 20px; }
+
+.ai-override-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 14px 20px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+.ai-override-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  display: block;
+}
+
+.ai-override-meta {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  display: block;
+  margin-top: 2px;
+}
+
+.ai-override-restore {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.ai-override-restore:hover { background: rgba(255,255,255,0.35); }
+
+.adapted-plan .activity {
+  border-left: 3px solid #667eea;
+  padding-left: 16px;
+  margin-left: 4px;
+}
+
+.adapted-plan .ai-activity-conseil {
+  font-size: 0.8rem;
+  color: #5a67d8;
+  font-style: italic;
+  margin-top: 5px;
+}
+
 @media (max-width: 600px) {
   .adapt-btn { padding: 6px 10px; font-size: 0.68rem; margin: auto 4px; }
   .ai-result { margin: 0 16px 24px; }
   .ai-activity { grid-template-columns: 68px 1fr; }
+  .ai-override-banner { flex-direction: column; text-align: center; gap: 8px; padding: 12px 16px; }
+  .adapted-plan .activity { padding-left: 12px; }
 }
 
 /* ===== QUE FAIRE FEATURE ===== */
@@ -2100,10 +2162,21 @@ footer p {
               </div>
             </div>
             <div class="activity">
+              <div class="activity-time">14h45</div>
+              <div class="activity-info">
+                <h4>🛒 Courses rapides — M&S Foodhall</h4>
+                <p>Sur le chemin du retour vers l'hôtel, arrêt rapide au <strong>Marks & Spencer</strong> Foodhall (Princes St, 3 min de l'hôtel). Croissants, fruits, yaourts, lait, snacks pour Giulia, petits plats préparés pour les dîners à l'appart. Le M&S Foodhall est top qualité et super pratique. Alternative : <strong>Tesco Express</strong> (Nicolson St, 12 min) pour un budget plus serré.</p>
+                <div class="activity-tags">
+                  <span class="tag tag-walk">🚶 Sur le chemin</span>
+                  <span class="tag tag-baby">👶 10 min rapide</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity">
               <div class="activity-time">15h–17h</div>
               <div class="activity-info">
                 <h4>😴 Sieste & repos à l'hôtel</h4>
-                <p>Retour tranquille (10 min à pied). Sieste pour bébé, thé et repos pour les parents.</p>
+                <p>Retour tranquille (3 min depuis M&S). Sieste pour bébé, thé et repos pour les parents. Rangez les courses tranquillement.</p>
                 <div class="activity-tags"><span class="tag tag-baby">👶 Nap time</span></div>
               </div>
             </div>
@@ -2565,6 +2638,74 @@ footer p {
           <a href="https://www.google.com/maps/search/?api=1&query=Bertie%27s+Fish+%26+Chips,+Edinburgh" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
         </div>
       </div>
+      <div class="resto-card reveal">
+        <h3>🍕 Civerinos</h3>
+        <div class="resto-location">📍 5 Hunter Square — 8 min à pied (Royal Mile)</div>
+        <p>Pizza style New York à la part ou entière, énorme et délicieuse. Rapide, pas cher, ambiance décontractée. Parfait pour un lunch rapide avec une toddler impatiente. Parts gigantesques !</p>
+        <div style="margin-top:10px;font-size:0.85rem;display:flex;flex-wrap:wrap;gap:8px;">
+          <a href="tel:+441312204485" style="background:var(--gold);color:var(--navy);padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">📞 0131 220 4485</a>
+          <a href="https://www.civerinos.com/" target="_blank" style="background:var(--navy);color:white;padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">Site web</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Civerinos,+Hunter+Square,+Edinburgh" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
+        </div>
+      </div>
+      <div class="resto-card reveal">
+        <h3>🥧 The Piemaker</h3>
+        <div class="resto-location">📍 38 South Bridge — 8 min à pied</div>
+        <p>Les fameuses pies écossaises ! Steak & ale, chicken & mushroom, haggis pie... Portions copieuses à £4–7. Simple, rapide, typiquement écossais. Les enfants adorent les petites pies.</p>
+        <div style="margin-top:10px;font-size:0.85rem;display:flex;flex-wrap:wrap;gap:8px;">
+          <a href="https://www.thepiemaker.co.uk/" target="_blank" style="background:var(--navy);color:white;padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">Site web</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=The+Piemaker,+South+Bridge,+Edinburgh" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
+        </div>
+      </div>
+      <div class="resto-card reveal">
+        <h3>🍔 Bread Meats Bread</h3>
+        <div class="resto-location">📍 2 Lothian Road — 10 min à pied</div>
+        <p>Les meilleurs burgers d'Édimbourg ! Smash burgers juteux, frites croustillantes, milkshakes. Ambiance cool, portions généreuses. Menu enfants avec mini burger + frites. Incontournable pour les fans de burgers.</p>
+        <div style="margin-top:10px;font-size:0.85rem;display:flex;flex-wrap:wrap;gap:8px;">
+          <a href="tel:+441312218990" style="background:var(--gold);color:var(--navy);padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">📞 0131 221 8990</a>
+          <a href="https://www.breadmeatsbread.com/" target="_blank" style="background:var(--navy);color:white;padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">Site web</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Bread+Meats+Bread,+Lothian+Road,+Edinburgh" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
+        </div>
+      </div>
+      <div class="resto-card reveal">
+        <h3>🧁 Loudon's Cafe & Bakery</h3>
+        <div class="resto-location">📍 94b Fountainbridge — 15 min à pied</div>
+        <p>Café-bakery avec une vraie aire de jeux intérieure pour les enfants ! Brunch, gâteaux maison, plats du jour. Giulia peut jouer pendant que vous mangez tranquillement. Le rêve des parents.</p>
+        <div style="margin-top:10px;font-size:0.85rem;display:flex;flex-wrap:wrap;gap:8px;">
+          <a href="tel:+441312285553" style="background:var(--gold);color:var(--navy);padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">📞 0131 228 5553</a>
+          <a href="https://www.loudons.co.uk/" target="_blank" style="background:var(--navy);color:white;padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">Site web</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Loudons+Cafe,+Fountainbridge,+Edinburgh" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
+        </div>
+      </div>
+      <div class="resto-card reveal">
+        <h3>🥤 Hula Juice Bar</h3>
+        <div class="resto-location">📍 103–105 West Bow — 10 min à pied (Grassmarket)</div>
+        <p>Smoothies, jus frais, açaí bowls et bagels sur le Grassmarket. Parfait pour une pause healthy après une balade. Petit mais charmant, ambiance colorée. Giulia va adorer les smoothies fruités !</p>
+        <div style="margin-top:10px;font-size:0.85rem;display:flex;flex-wrap:wrap;gap:8px;">
+          <a href="tel:+441312207670" style="background:var(--gold);color:var(--navy);padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">📞 0131 220 7670</a>
+          <a href="https://www.hulajuicebar.co.uk/" target="_blank" style="background:var(--navy);color:white;padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">Site web</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Hula+Juice+Bar,+Grassmarket,+Edinburgh" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
+        </div>
+      </div>
+      <div class="resto-card reveal">
+        <h3>🍰 Mary's Milk Bar</h3>
+        <div class="resto-location">📍 19 Grassmarket — 10 min à pied</div>
+        <p>Gelato artisanal et chocolat chaud légendaire sur le Grassmarket. Glaces maison aux parfums originaux (lavande, marmelade, gingembre...). Le spot dessert idéal après une balade. Giulia va fondre de bonheur.</p>
+        <div style="margin-top:10px;font-size:0.85rem;display:flex;flex-wrap:wrap;gap:8px;">
+          <a href="https://www.marysmilkbar.com/" target="_blank" style="background:var(--navy);color:white;padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">Site web</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Mary%27s+Milk+Bar,+Grassmarket,+Edinburgh" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
+        </div>
+      </div>
+      <div class="resto-card reveal">
+        <h3>🥞 The Pantry</h3>
+        <div class="resto-location">📍 1 NW Circus Place, Stockbridge — 12 min à pied</div>
+        <p>Le brunch parfait à Stockbridge ! Pancakes moelleux, eggs benedict, porridge. Ambiance chaleureuse dans une petite salle cozy. Arrive tôt le week-end (file d'attente fréquente). Portions copieuses.</p>
+        <div style="margin-top:10px;font-size:0.85rem;display:flex;flex-wrap:wrap;gap:8px;">
+          <a href="tel:+441312293227" style="background:var(--gold);color:var(--navy);padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">📞 0131 229 3227</a>
+          <a href="https://www.thepantryedinburgh.co.uk/" target="_blank" style="background:var(--navy);color:white;padding:5px 12px;border-radius:20px;text-decoration:none;font-weight:600;">Site web</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=The+Pantry,+Stockbridge,+Edinburgh" target="_blank" class="yaller-btn" style="padding:5px 12px;font-size:0.85rem;">🧭 Y aller</a>
+        </div>
+      </div>
     </div>
 
     <!-- BIRTHDAY DINNER -->
@@ -2840,7 +2981,7 @@ footer p {
     </div>
     <div class="adapt-field">
       <label>Quelque chose à préciser ? (optionnel)</label>
-      <textarea id="adaptFreeText" placeholder="Ex : On a envie de rester dans le centre, Giulia est grognon, on veut un truc calme, on a déjà fait le château hier..." style="width:100%;min-height:60px;border:1.5px solid var(--stone);border-radius:10px;padding:10px;font-size:0.85rem;font-family:'Inter',sans-serif;resize:vertical;box-sizing:border-box;"></textarea>
+      <textarea id="adaptFreeText" placeholder="Ex : On a envie de rester dans le centre, Giulia est grognon, on veut un truc calme, on a déjà fait le château hier..." style="width:100%;min-height:60px;border:1.5px solid var(--stone);border-radius:10px;padding:10px;font-size:16px;font-family:'Inter',sans-serif;resize:vertical;box-sizing:border-box;"></textarea>
     </div>
     <div class="adapt-modal-footer">
       <button class="adapt-cancel" onclick="closeAdaptModal()">Annuler</button>
@@ -2961,6 +3102,10 @@ const MAPS_PLACES = {
   'The Pantry': 'The Pantry, Stockbridge, Edinburgh',
   "Loudon's": "Loudon's Cafe, Fountainbridge, Edinburgh",
   'Bread Meats Bread': 'Bread Meats Bread, Lothian Road, Edinburgh',
+  "Loudon's Cafe": "Loudon's Cafe, Fountainbridge, Edinburgh",
+  "Loudon's": "Loudon's Cafe, Fountainbridge, Edinburgh",
+  'Hula Juice Bar': 'Hula Juice Bar, Grassmarket, Edinburgh',
+  'The Piemaker': 'The Piemaker, South Bridge, Edinburgh',
   "Marks & Spencer": "Marks & Spencer, Princes Street, Edinburgh",
   'Tesco Express': 'Tesco Express, Nicolson Street, Edinburgh',
   'Scott Monument': 'Scott Monument, Edinburgh',
@@ -3079,7 +3224,7 @@ function extractDayActivities(dayCard) {
 async function generateAdaptedPlan() {
   if (!currentAdaptCard) return;
 
-  const wakeUpTime = document.getElementById('wakeUpTime').value.replace(':', 'h'); // departure time
+  const wakeUpTime = document.getElementById('wakeUpTime').value.replace(':', 'h');
   const noNap = document.getElementById('noNapToggle').checked;
   const napTime = noNap ? 'pas de sieste' : document.getElementById('napTime').value.replace(':', 'h');
   const freeText = document.getElementById('adaptFreeText').value.trim();
@@ -3093,20 +3238,40 @@ async function generateAdaptedPlan() {
   genBtn.disabled = true;
   genBtn.textContent = '⏳ Génération...';
 
-  const resultDiv = currentAdaptCard.querySelector('.ai-result');
-  if (resultDiv) {
-    resultDiv.innerHTML = `<div class="adapt-loading"><div class="adapt-loading-spinner"></div><p style="font-size:0.95rem">L'IA adapte votre planning...</p></div>`;
-    resultDiv.classList.add('visible');
-    currentAdaptCard.classList.add('open');
-  }
-
+  // Close modal first, reset viewport zoom (fixes iOS zoom bug)
   document.getElementById('adaptModal').classList.remove('open');
   document.body.style.overflow = '';
+  document.activeElement?.blur();
 
-  setTimeout(() => currentAdaptCard.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  // Open the card and show loading in place
+  currentAdaptCard.classList.add('open');
+  const dayContent = currentAdaptCard.querySelector('.day-content');
+
+  // Hide original activities, keep map and other structural elements
+  dayContent.querySelectorAll(':scope > .activity, :scope > [style*="background"]').forEach(el => {
+    if (!el.classList.contains('day-map') && !el.classList.contains('adapted-plan')) {
+      el.classList.add('hidden-by-adapt');
+    }
+  });
+
+  // Create or update adapted plan container
+  let adaptedContainer = dayContent.querySelector('.adapted-plan');
+  if (!adaptedContainer) {
+    adaptedContainer = document.createElement('div');
+    adaptedContainer.className = 'adapted-plan';
+    dayContent.insertBefore(adaptedContainer, dayContent.firstChild);
+  }
+  adaptedContainer.innerHTML = `<div class="adapt-loading"><div class="adapt-loading-spinner"></div><p style="font-size:0.95rem">L'IA adapte votre planning...</p></div>`;
+
+  // Scroll to card gently after a delay (avoids iOS zoom glitch)
+  setTimeout(() => {
+    const y = currentAdaptCard.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }, 200);
 
   const energyLabels = { tired: '😴 Fatigués', normal: '😊 Normal', energetic: '💪 En forme' };
   const weatherLabels = { sun: '☀️ Soleil', rain: '☔ Pluie' };
+  const meta = `${energyLabels[selectedAdaptEnergy]} · Sortie ${wakeUpTime} · ${weatherLabels[selectedAdaptWeather]}`;
 
   try {
     const response = await fetch('/.netlify/functions/adapt-plan', {
@@ -3132,54 +3297,66 @@ async function generateAdaptedPlan() {
       const cleaned = data.adapted.trim().replace(/^```json\n?/, '').replace(/\n?```$/, '').trim();
       adapted = JSON.parse(cleaned);
     } catch {
-      if (resultDiv) renderRawResult(resultDiv, data.adapted, wakeUpTime, energyLabels, weatherLabels);
+      // Fallback: render raw text in place
+      adaptedContainer.innerHTML = `
+        <div class="ai-override-banner">
+          <div class="ai-override-info">
+            <span class="ai-override-title">✨ Planning adapté</span>
+            <span class="ai-override-meta">${meta}</span>
+          </div>
+          <button class="ai-override-restore" onclick="restoreOriginalPlan(this)">↩ Original</button>
+        </div>
+        <div style="background:white;border-radius:12px;padding:16px;margin-top:8px;">
+          <p style="white-space:pre-line;font-size:0.9rem;line-height:1.7">${data.adapted}</p>
+        </div>`;
       return;
     }
 
-    if (resultDiv && Array.isArray(adapted)) {
-      const meta = `${energyLabels[selectedAdaptEnergy]} · Sortie ${wakeUpTime} · ${weatherLabels[selectedAdaptWeather]}`;
+    if (Array.isArray(adapted)) {
       const activitiesHTML = adapted.map(act => `
-        <div class="ai-activity">
-          <div class="ai-activity-time">${act.heure || ''}</div>
-          <div>
-            <div class="ai-activity-title">${act.titre || ''}</div>
-            <div class="ai-activity-desc">${act.description || ''}</div>
-            ${act.conseil ? `<div class="ai-activity-conseil">💡 ${act.conseil}</div>` : ''}
+        <div class="activity">
+          <div class="activity-time">${act.heure || ''}</div>
+          <div class="activity-info">
+            <h4>${act.titre || ''}</h4>
+            <p>${act.description || ''}${act.conseil ? `<br><span class="ai-activity-conseil">💡 ${act.conseil}</span>` : ''}</p>
           </div>
         </div>`).join('');
-      resultDiv.innerHTML = `
-        <div class="ai-result-header">
-          <div>
-            <h4>✨ Planning adapté par l'IA</h4>
-            <div class="ai-result-meta">${meta}</div>
+      adaptedContainer.innerHTML = `
+        <div class="ai-override-banner">
+          <div class="ai-override-info">
+            <span class="ai-override-title">✨ Planning adapté</span>
+            <span class="ai-override-meta">${meta}</span>
           </div>
-          <button class="ai-result-close" onclick="this.closest('.ai-result').classList.remove('visible')">Fermer ✕</button>
+          <button class="ai-override-restore" onclick="restoreOriginalPlan(this)">↩ Original</button>
         </div>
-        <div class="ai-result-body">${activitiesHTML}</div>`;
+        ${activitiesHTML}`;
     }
   } catch (err) {
-    if (resultDiv) {
-      resultDiv.innerHTML = `
-        <div class="ai-result-header" style="background:#c53030">
-          <div><h4>Erreur de génération</h4></div>
-          <button class="ai-result-close" onclick="this.closest('.ai-result').classList.remove('visible')">Fermer ✕</button>
+    adaptedContainer.innerHTML = `
+      <div class="ai-override-banner" style="background:linear-gradient(135deg,#c53030,#9b2c2c)">
+        <div class="ai-override-info">
+          <span class="ai-override-title">Erreur de génération</span>
+          <span class="ai-override-meta">${err.message}</span>
         </div>
-        <div class="ai-result-body">
-          <p style="color:#c53030;font-weight:600">${err.message}</p>
-          <p style="color:var(--text-light);font-size:0.85rem;margin-top:8px">Vérifiez que la variable GEMINI_API_KEY est bien configurée dans Netlify.</p>
-        </div>`;
-    }
+        <button class="ai-override-restore" onclick="restoreOriginalPlan(this)">↩ Original</button>
+      </div>
+      <div style="background:white;border-radius:12px;padding:16px;margin-top:8px;">
+        <p style="color:#c53030;font-size:0.85rem">Vérifiez que la variable GEMINI_API_KEY est bien configurée dans Netlify.</p>
+      </div>`;
+  } finally {
+    genBtn.disabled = false;
+    genBtn.textContent = '✨ Générer le planning';
   }
 }
 
-function renderRawResult(resultDiv, text, wakeUpTime, energyLabels, weatherLabels) {
-  const meta = `${energyLabels[selectedAdaptEnergy]} · Sortie ${wakeUpTime} · ${weatherLabels[selectedAdaptWeather]}`;
-  resultDiv.innerHTML = `
-    <div class="ai-result-header">
-      <div><h4>✨ Planning adapté</h4><div class="ai-result-meta">${meta}</div></div>
-      <button class="ai-result-close" onclick="this.closest('.ai-result').classList.remove('visible')">Fermer ✕</button>
-    </div>
-    <div class="ai-result-body"><p style="white-space:pre-line;font-size:0.9rem;line-height:1.7">${text}</p></div>`;
+function restoreOriginalPlan(btn) {
+  const dayContent = btn.closest('.day-content');
+  if (!dayContent) return;
+  // Remove adapted plan container
+  const adaptedPlan = dayContent.querySelector('.adapted-plan');
+  if (adaptedPlan) adaptedPlan.remove();
+  // Show original activities
+  dayContent.querySelectorAll('.hidden-by-adapt').forEach(el => el.classList.remove('hidden-by-adapt'));
 }
 
 // ===== QUE FAIRE FEATURE =====
@@ -3470,6 +3647,7 @@ const PLACE_COORDS = {
   'Water of Leith Walkway': [55.9540, -3.2170], 'Old Town Discovery': [55.9500, -3.1900],
   'New Town Architecture Walk': [55.9535, -3.2070], 'Dean Village Loop': [55.9530, -3.2170],
   'Calton Hill Sunset Walk': [55.9548, -3.1825], 'Stockbridge & Circus Lane': [55.9580, -3.2080],
+  'Hula Juice Bar': [55.9478, -3.1960],
   'Mums': [55.9468, -3.1917], 'Bertie\'s': [55.9489, -3.1946]
 };
 
@@ -3494,7 +3672,8 @@ const CLIENT_DB = {
     { nom: 'The Scran & Scallie', lat: 55.9612, lng: -3.2150, short: 'Gastropub + salle de jeux', budget: '€€€' },
     { nom: "Loudon's Cafe & Bakery", lat: 55.9443, lng: -3.2120, short: 'Brunch + aire de jeux', budget: '€€' },
     { nom: 'La Favorita', lat: 55.9655, lng: -3.1730, short: 'Pizza napolitaine feu de bois', budget: '€€' },
-    { nom: 'Little Foxes Play Cafe', lat: 55.9275, lng: -3.2060, short: 'Café + soft play 0–4 ans', budget: '€' }
+    { nom: 'Little Foxes Play Cafe', lat: 55.9275, lng: -3.2060, short: 'Café + soft play 0–4 ans', budget: '€' },
+    { nom: 'Hula Juice Bar', lat: 55.9478, lng: -3.1960, short: 'Smoothies, açaí bowls, bagels', budget: '€' }
   ],
   activite: [
     { nom: 'National Museum of Scotland', lat: 55.9470, lng: -3.1893, short: 'Musée gratuit, galerie toddler', prix: 'Gratuit' },
@@ -3817,6 +3996,7 @@ const EXPLORER_POIS = [
   { id:'loudons', nom:"Loudon's Cafe & Bakery", cat:'manger', emoji:'☕', desc:'Café-boulangerie avec aire de jeux enfants', lat:55.9443, lng:-3.2120, prix:'€€', indoor:true, baby:'top' },
   { id:'la-favorita', nom:'La Favorita', cat:'manger', emoji:'🍕', desc:'Pizza napolitaine au feu de bois, Leith Walk', lat:55.9655, lng:-3.1730, prix:'€€', indoor:true, baby:'ok' },
   { id:'newtown-fox', nom:'Newtown Fox', cat:'manger', emoji:'🦊', desc:'Café-resto brunch all-day, décontracté', lat:55.9560, lng:-3.1925, prix:'€€', indoor:true, baby:'ok' },
+  { id:'hula', nom:'Hula Juice Bar', cat:'manger', emoji:'🥤', desc:'Smoothies, açaí bowls, bagels sur Grassmarket', lat:55.9478, lng:-3.1960, prix:'€', indoor:true, baby:'ok' },
   // Shopping
   { id:'victoria-st', nom:'Victoria Street', cat:'shopping', emoji:'🌈', desc:'Rue colorée en courbe, boutiques indépendantes, Harry Potter vibes', lat:55.9489, lng:-3.1948, prix:'Gratuit', indoor:false, baby:'ok' },
   { id:'george-st', nom:'George Street', cat:'shopping', emoji:'🛍️', desc:'Boutiques élégantes, cafés chics, New Town', lat:55.9535, lng:-3.2020, prix:'Gratuit', indoor:false, baby:'ok' },
