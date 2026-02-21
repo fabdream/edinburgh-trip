@@ -19,7 +19,7 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: 'Corps de requête invalide.' }) };
   }
 
-  const { dayTitle, dayDate, activities, wakeUpTime, energyLevel, napTime, weather } = body;
+  const { dayTitle, dayDate, activities, wakeUpTime, energyLevel, napTime, weather, freeText } = body;
 
   const energyLabels = { tired: 'Fatigués 😴', normal: 'Énergie normale 😊', energetic: 'En pleine forme 💪' };
   const weatherLabels = { sun: 'Ensoleillé ☀️', rain: 'Pluie prévue ☔' };
@@ -37,6 +37,7 @@ Contexte de la journée :
 - Énergie de la famille : ${energyLabels[energyLevel] || energyLevel}
 - Sieste de Giulia : ${napTime === 'pas de sieste' ? 'PAS DE SIESTE prévue aujourd\'hui — Giulia ne dort pas, on peut enchaîner les activités sans pause sieste' : 'prévue autour de ' + napTime}
 - Météo : ${weatherLabels[weather] || weather}
+${freeText ? `- Message de la famille : "${freeText}"` : ''}
 
 Programme original prévu :
 ${activitiesText}
@@ -63,6 +64,8 @@ ${activitiesText}
 - En cas de **pluie** → Remplace les activités extérieures par des alternatives indoor variées (pas toujours le même musée !). Pense aux play cafes, Camera Obscura, Museum of Childhood, galeries.
 - Si une sieste est prévue, respecte-la en créant un créneau calme autour de l'heure indiquée. Si PAS DE SIESTE, profites-en pour proposer un programme plus rempli et enchaîner les activités.
 - Adapte les heures en fonction du réveil (si réveil à 10h, ne commence pas à 8h30).
+- Si la famille a laissé un message libre, prends-le en compte en PRIORITÉ et adapte le programme en conséquence.
+- Commence toujours par un petit-déj/brunch (Urban Angel, Newtown Fox, The Pantry, ou café rapide selon le contexte).
 - Garde un ton chaleureux et pratique, en français.
 
 Réponds UNIQUEMENT avec un tableau JSON valide, sans markdown, sans texte avant ou après. Format exact :
