@@ -2022,38 +2022,55 @@ footer p {
                 </div>
               </div>
             </div>
+            <div style="background: linear-gradient(135deg, #e8f4fd, #f0f7ff); border-radius: 12px; padding: 20px; margin-bottom: 20px; border-left: 4px solid var(--royal);">
+              <p style="font-weight: 600; color: var(--navy); margin-bottom: 8px;">☀️ Il fait beau ? Imprégnez-vous d'Édimbourg d'abord !</p>
+              <p style="font-size: 0.9rem; color: var(--text-light);">Avant de foncer au château, profitez du beau temps pour une balade matinale. Descendez vers <strong>Princes Street Gardens</strong> (3 min à pied) — la vue sur le château depuis en bas est spectaculaire. Giulia peut courir sur les pelouses, il y a un petit parc de jeux. Puis remontez tranquillement vers le château par The Mound. Vous arriverez vers 11h quand c'est encore calme.</p>
+            </div>
             <div class="activity">
               <div class="activity-time">10h</div>
               <div class="activity-info">
+                <h4>🌿 Princes Street Gardens — balade matinale</h4>
+                <p>Sortez de l'hôtel, descendez 3 min vers les jardins. Vue spectaculaire sur le château perché au-dessus de vous, la Scott Monument, les pelouses. Giulia peut courir librement, petit aire de jeux côté ouest. Prenez un café à emporter chez <strong>Pret a Manger</strong> (Princes St) en passant. Flânez ~45 min puis remontez par The Mound vers le château.</p>
+                <div class="activity-tags">
+                  <span class="tag tag-must">📸 Vue iconique</span>
+                  <span class="tag tag-walk">🚶 3 min de l'hôtel</span>
+                  <span class="tag tag-free">Gratuit</span>
+                  <span class="tag tag-baby">👶 Pelouses + aire de jeux</span>
+                </div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">11h</div>
+              <div class="activity-info">
                 <h4>🏰 Edinburgh Castle</h4>
-                <p>10 min à pied depuis l'hôtel en remontant The Mound. Les Joyaux de la Couronne, la Pierre du Destin, les vues panoramiques depuis les remparts, le canon Mons Meg. Comptez 1h30–2h. Arrivez vers 10h pour éviter la foule du midi.</p>
+                <p>Remontez The Mound (10 min de marche progressive). Les Joyaux de la Couronne, la Pierre du Destin, les vues panoramiques depuis les remparts, le canon Mons Meg. Arriver à 11h = moins de monde qu'à l'ouverture. Comptez 1h30.</p>
                 <div class="activity-tags">
                   <span class="tag tag-must">⭐ Incontournable</span>
-                  <span class="tag tag-walk">🚶 10 min</span>
+                  <span class="tag tag-walk">🚶 10 min montée</span>
                   <span class="tag tag-paid">💷 ~£19.50/adulte</span>
                   <span class="tag tag-baby">👶 Porte-bébé obligatoire</span>
                 </div>
               </div>
             </div>
             <div class="activity">
-              <div class="activity-time">12h</div>
+              <div class="activity-time">12h30</div>
               <div class="activity-info">
-                <h4>🍽️ Déjeuner — Bertie's Fish & Chips</h4>
-                <p>Redescendez vers Victoria Street (la rue colorée !) et arrêtez-vous chez Bertie's au n°9 pour un vrai fish & chips écossais. Menu enfants, cuisine ouverte. Ou continuez au Grassmarket pour les pubs. <a href="tel:+441313221000" style="color:var(--gold);font-weight:600;">📞 0131 322 1000</a></p>
+                <h4>🌈 Victoria Street & déj</h4>
+                <p>Redescendez du château par la sortie → <strong>Victoria Street</strong>, la fameuse rue colorée en courbe qui a inspiré le Chemin de Traverse ! Photos, boutiques, fudge. Puis déjeuner chez <strong>Bertie's Fish & Chips</strong> (n°9 Victoria St) — vrai fish & chips écossais, menu enfants. Ou descendez au <strong>Grassmarket</strong> juste en bas pour plus de choix. <a href="tel:+441313221000" style="color:var(--gold);font-weight:600;">📞 0131 322 1000</a></p>
                 <div class="activity-tags">
+                  <span class="tag tag-must">📸 Chemin de Traverse !</span>
                   <span class="tag tag-food">🍴 Fish & Chips</span>
-                  <span class="tag tag-walk">🚶 5 min du château</span>
                   <span class="tag tag-baby">👶 Menu enfants</span>
                 </div>
               </div>
             </div>
             <div class="activity">
-              <div class="activity-time">13h30</div>
+              <div class="activity-time">14h</div>
               <div class="activity-info">
-                <h4>🌈 Victoria Street & Royal Mile</h4>
-                <p>Victoria Street : la fameuse rue colorée en courbe qui a inspiré le Chemin de Traverse de Harry Potter ! Puis remontez le Royal Mile, explorez les « closes » (ruelles médiévales), goûtez du fudge et du shortbread.</p>
+                <h4>🏘️ Royal Mile — flânerie</h4>
+                <p>Remontez le Royal Mile depuis Victoria St. Explorez les « closes » (ruelles médiévales), goûtez du fudge et du shortbread dans les boutiques. Giulia va adorer les musiciens de rue. Pas besoin de tout faire — prenez votre temps, c'est la balade qui compte.</p>
                 <div class="activity-tags">
-                  <span class="tag tag-must">📸 Photo spot</span>
+                  <span class="tag tag-must">📸 Photo spots</span>
                   <span class="tag tag-walk">🚶 À pied</span>
                   <span class="tag tag-free">Gratuit</span>
                 </div>
@@ -3602,9 +3619,10 @@ if (hotelMapEl) hotelMapObserver.observe(hotelMapEl);
 // === Day Maps ===
 const DAY_MAPS = {
   2: [
+    { n: 'Princes Street Gardens', e: '🌿', c: [55.9510, -3.2000] },
     { n: 'Edinburgh Castle', e: '🏰', c: [55.9486, -3.1999] },
-    { n: "Bertie's Fish & Chips", e: '🍟', c: [55.9489, -3.1946] },
-    { n: 'Victoria Street & Royal Mile', e: '🌈', c: [55.9489, -3.1948] },
+    { n: 'Victoria St & Bertie\'s', e: '🌈', c: [55.9489, -3.1948] },
+    { n: 'Royal Mile', e: '🏘️', c: [55.9504, -3.1900] },
     { n: 'Sieste hôtel', e: '😴', c: [55.9533, -3.1955] },
     { n: 'Vittoria', e: '🍝', c: [55.9488, -3.1920] }
   ],
