@@ -43,6 +43,10 @@ Programme original prévu :
 ${activitiesText}
 
 **Activités alternatives disponibles à Édimbourg** (utilise-les pour remplacer ou enrichir le programme selon le contexte) :
+- The Vennel Viewpoint (escalier en pierre avec vue iconique sur le château — LE spot photo !)
+- Greyfriars Bobby (statue du chien fidèle, cimetière paisible, les enfants adorent)
+- Victoria Street (rue colorée Harry Potter, boutiques magiques)
+- Grassmarket (place animée au pied du château, architecture typique, cafés)
 - Museum of Childhood (Royal Mile, gratuit, jouets historiques — parfait toddler)
 - Camera Obscura & World of Illusions (Castlehill, £19.50, illusions interactives)
 - Royal Botanic Garden (gratuit, serres tropicales, écureuils, playground)
@@ -53,9 +57,9 @@ ${activitiesText}
 - Mary's Milk Bar (gelato artisanal + hot chocolate, Grassmarket)
 - Portobello Beach (plage de sable, promenade, 20 min en bus)
 - Circus Lane (ruelle pavée instagrammable, Stockbridge)
-- Victoria Street (rue colorée Harry Potter)
 - Princes Street Gardens playground (gratuit, vue château)
 - Scottish Storytelling Centre (contes pour enfants, gratuit)
+- Soirée appart : Deliveroo/Uber Eats, fish & chips Bertie's à emporter, M&S Dine In
 
 **Ta mission :** Réorganise et adapte ce programme intelligemment :
 - **IMPORTANT : Ne propose PAS toujours les mêmes activités.** Sois créatif et varie les suggestions. Propose des alternatives différentes du programme original en piochant dans la liste ci-dessus.

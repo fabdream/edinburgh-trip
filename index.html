@@ -968,6 +968,24 @@ footer p {
   box-shadow: 0 1px 4px rgba(61,107,79,0.25);
 }
 .activity-maps-btn:active { transform: scale(0.96); }
+.inline-maps-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background: linear-gradient(135deg, #3d6b4f, #5a9e6f);
+  color: white;
+  text-decoration: none;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  margin-left: 4px;
+  vertical-align: middle;
+  box-shadow: 0 1px 3px rgba(61,107,79,0.2);
+  transition: all 0.2s;
+}
+.inline-maps-btn:active { transform: scale(0.96); }
 
 /* ===== EXPLORER TOOL ===== */
 .explorer-fab {
@@ -1836,7 +1854,7 @@ footer p {
           <li><span class="icon">🏰</span> Edinburgh Castle — 10 min à pied</li>
           <li><span class="icon">🛤️</span> Royal Mile — 10 min à pied</li>
           <li><span class="icon">🌳</span> Princes Street Gardens — 3 min à pied</li>
-          <li><span class="icon">🖼️</span> Scottish National Gallery — 5 min à pied</li>
+          <li><span class="icon">📸</span> The Vennel (vue château iconique) — 5 min à pied</li>
           <li><span class="icon">🏛️</span> National Museum — 10 min à pied</li>
           <li><span class="icon">🚋</span> Arrêt tram St Andrew Sq. — 2 min à pied</li>
           <li><span class="icon">🏘️</span> Dean Village — 15 min à pied</li>
@@ -2073,8 +2091,8 @@ footer p {
             <div class="day-weekday">Dimanche</div>
           </div>
           <div class="day-summary">
-            <div class="day-title">Balade, Stockbridge & Galeries</div>
-            <div class="day-tagline">Quartier bohème, brunch, art gratuit — au choix !</div>
+            <div class="day-title">Balade, Stockbridge & Spots Photos</div>
+            <div class="day-tagline">Quartier bohème, architecture wow, canards — au choix !</div>
           </div>
           <div class="day-toggle">▼</div>
         </div>
@@ -2160,12 +2178,17 @@ footer p {
             <div class="activity">
               <div class="activity-time">15h30</div>
               <div class="activity-info">
-                <h4>🖼️ Scottish National Gallery</h4>
-                <p>À 5 min à pied de l'hôtel sur The Mound. Gratuit et accessible en poussette. Rembrandt, Monet, Van Gogh, Botticelli... Votre fille sera fascinée par les grands tableaux colorés. 1h suffit.</p>
+                <h4>📸 Spots Photos & Architecture Wow</h4>
+                <p>Enchaînez les pépites à pied depuis l'hôtel — tout est à 5–10 min :<br>
+                <strong>The Vennel</strong> — escalier en pierre avec LA vue iconique sur le château. LE spot photo d'Édimbourg, Giulia en écharpe + château = photo parfaite.<br>
+                <strong>Victoria Street</strong> — rue colorée en courbe qui a inspiré le Chemin de Traverse (Harry Potter). Boutiques magiques, façades incroyables.<br>
+                <strong>Greyfriars Bobby</strong> — la statue du petit chien fidèle, les enfants adorent ! Touchez son nez pour la chance. À côté, le cimetière de Greyfriars est magnifique et paisible.<br>
+                <strong>Grassmarket</strong> — place animée au pied du château, architecture typique, cafés, vue spectaculaire en levant les yeux.</p>
                 <div class="activity-tags">
+                  <span class="tag tag-must">📸 Incontournable</span>
+                  <span class="tag tag-walk">🚶 5–10 min</span>
                   <span class="tag tag-free">Gratuit</span>
-                  <span class="tag tag-walk">🚶 5 min</span>
-                  <span class="tag tag-rain">☔ Parfait si pluie</span>
+                  <span class="tag tag-baby">👶 Wow garanti</span>
                 </div>
               </div>
             </div>
@@ -2175,6 +2198,23 @@ footer p {
                 <h4>🌅 Balade sur Princes Street</h4>
                 <p>Le château illuminé au coucher du soleil avec les jardins en contrebas — c'est magique. C'est au bout de votre rue.</p>
                 <div class="activity-tags"><span class="tag tag-must">📸 Sunset spot</span></div>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="activity-time">19h</div>
+              <div class="activity-info">
+                <h4>🏠 Soirée à l'appart — Dîner tranquille</h4>
+                <p>Ce soir, profitez de votre appartement ! Giulia sera fatiguée, c'est le moment parfait pour une soirée cocooning.<br>
+                <strong>Deliveroo / Uber Eats</strong> — commandez directement depuis l'appli, large choix à Édimbourg (thaï, indien, pizza, burgers…).<br>
+                <strong>Bertie's Fish & Chips</strong> (Victoria St, 10 min) — commandez à emporter le meilleur fish & chips de la ville !<br>
+                <strong>Civerinos Slice</strong> (Hunter Square, 10 min) — pizza à la part XXL à emporter, rapide et délicieux.<br>
+                <strong>Marks & Spencer</strong> (Princes St, 3 min) — plats préparés de qualité, snacks, vin, desserts. Le « Dine In for Two » est top.<br>
+                <strong>Tesco Express</strong> (Nicolson St, 12 min) — courses rapides si vous voulez cuisiner simple.</p>
+                <div class="activity-tags">
+                  <span class="tag tag-baby">👶 Parfait si fatiguée</span>
+                  <span class="tag tag-food">🍴 Takeaway & delivery</span>
+                  <span class="tag tag-must">🛋️ Soirée cocooning</span>
+                </div>
               </div>
             </div>
             <div class="day-map">
@@ -2842,59 +2882,95 @@ document.querySelectorAll('.day-card').forEach((card) => {
   }
 });
 
-// Inject Google Maps buttons into each activity
-const ACTIVITY_COORDS = {
-  'Edinburgh Castle': [55.9486, -3.1999],
-  "Bertie's Fish & Chips": [55.9489, -3.1946],
-  'Victoria Street': [55.9489, -3.1948],
-  'Royal Mile': [55.9505, -3.1895],
-  'Vittoria': [55.9488, -3.1920],
-  'Dean Village': [55.9530, -3.2170],
-  'Water of Leith': [55.9530, -3.2170],
-  'Scran & Scallie': [55.9612, -3.2150],
-  'Scottish National Gallery': [55.9510, -3.1958],
-  'Princes Street': [55.9520, -3.1980],
-  'National Museum': [55.9470, -3.1893],
-  'Museum of Childhood': [55.9504, -3.1865],
-  'Princes Street Gardens': [55.9510, -3.2000],
-  'Calton Hill': [55.9548, -3.1825],
-  'Mums': [55.9468, -3.1917],
-  'Newtown Fox': [55.9560, -3.1925],
-  'Royal Botanic Garden': [55.9650, -3.2090],
-  'Chaophraya': [55.9522, -3.2020],
-  'George Street': [55.9535, -3.2020],
-  'Urban Angel': [55.9547, -3.1958],
-  'Destiny Scotland': [55.9533, -3.1955],
-  'Shopping': [55.9535, -3.2020],
-  'Grassmarket': [55.9474, -3.1955],
-  'Stockbridge': [55.9580, -3.2080],
-  'Camera Obscura': [55.9498, -3.1985],
-  'Holyrood Park': [55.9445, -3.1620],
-  'Holyrood': [55.9445, -3.1620],
-  "Mary's Milk Bar": [55.9477, -3.1970],
-  'Circus Lane': [55.9575, -3.2085],
-  'Civerinos': [55.9503, -3.1882],
-  'Piemaker': [55.9492, -3.1878],
-  'The Pantry': [55.9585, -3.2085],
-  "Loudon's": [55.9443, -3.2120],
-  'Bread Meats Bread': [55.9493, -3.2055]
+// Inject Google Maps buttons into each activity — both main button and inline buttons per option
+const MAPS_PLACES = {
+  'Edinburgh Castle': 'Edinburgh Castle, Edinburgh',
+  "Bertie's Fish & Chips": "Bertie's Fish & Chips, Victoria Street, Edinburgh",
+  'Bertie\'s': "Bertie's Fish & Chips, Victoria Street, Edinburgh",
+  'Victoria Street': 'Victoria Street, Edinburgh',
+  'Royal Mile': 'Royal Mile, Edinburgh',
+  'Vittoria': 'Vittoria Restaurant, George IV Bridge, Edinburgh',
+  'Dean Village': 'Dean Village, Edinburgh',
+  'Water of Leith': 'Water of Leith Walkway, Edinburgh',
+  'Scran & Scallie': 'The Scran & Scallie, Stockbridge, Edinburgh',
+  'The Vennel': 'The Vennel, Edinburgh',
+  'Greyfriars Bobby': 'Greyfriars Bobby Statue, Edinburgh',
+  'Greyfriars': 'Greyfriars Bobby Statue, Edinburgh',
+  'Princes Street': 'Princes Street, Edinburgh',
+  'National Museum': 'National Museum of Scotland, Edinburgh',
+  'Museum of Childhood': 'Museum of Childhood, Royal Mile, Edinburgh',
+  'Princes Street Gardens': 'Princes Street Gardens, Edinburgh',
+  'Calton Hill': 'Calton Hill, Edinburgh',
+  'Mums': 'Mums Great Comfort Food, Forrest Road, Edinburgh',
+  'Newtown Fox': 'Newtown Fox, Dundas Street, Edinburgh',
+  'Royal Botanic Garden': 'Royal Botanic Garden Edinburgh',
+  'Chaophraya': 'Chaophraya, Castle Street, Edinburgh',
+  'George Street': 'George Street, Edinburgh',
+  'Urban Angel': 'Urban Angel, Hanover Street, Edinburgh',
+  'Grassmarket': 'Grassmarket, Edinburgh',
+  'Stockbridge': 'Stockbridge, Edinburgh',
+  'Camera Obscura': 'Camera Obscura, Castlehill, Edinburgh',
+  'Holyrood Park': 'Holyrood Park, Edinburgh',
+  "Mary's Milk Bar": "Mary's Milk Bar, Grassmarket, Edinburgh",
+  'Circus Lane': 'Circus Lane, Stockbridge, Edinburgh',
+  'Civerinos': 'Civerinos Slice, Hunter Square, Edinburgh',
+  'Piemaker': 'The Piemaker, South Bridge, Edinburgh',
+  'The Pantry': 'The Pantry, Stockbridge, Edinburgh',
+  "Loudon's": "Loudon's Cafe, Fountainbridge, Edinburgh",
+  'Bread Meats Bread': 'Bread Meats Bread, Lothian Road, Edinburgh',
+  "Marks & Spencer": "Marks & Spencer, Princes Street, Edinburgh",
+  'Tesco Express': 'Tesco Express, Nicolson Street, Edinburgh',
+  'Scott Monument': 'Scott Monument, Edinburgh',
+  'Portobello Beach': 'Portobello Beach, Edinburgh'
 };
 
+function mapsUrl(placeName) {
+  const query = MAPS_PLACES[placeName] || (placeName + ', Edinburgh, Scotland');
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
+// Inject inline 📍 buttons next to each <strong> place name in activity descriptions
+document.querySelectorAll('.day-card .activity .activity-info p').forEach(p => {
+  p.querySelectorAll('strong').forEach(strong => {
+    const text = strong.textContent.trim();
+    // Skip non-place strong tags
+    if (/option|beau temps|pluie|si en forme|si fatigu|alternative|deliveroo|uber/i.test(text)) return;
+    // Find matching place
+    let matched = null;
+    for (const name of Object.keys(MAPS_PLACES)) {
+      if (text.toLowerCase().includes(name.toLowerCase())) { matched = name; break; }
+    }
+    if (!matched) return;
+    // Don't add duplicate
+    if (strong.nextElementSibling && strong.nextElementSibling.classList && strong.nextElementSibling.classList.contains('inline-maps-btn')) return;
+    const link = document.createElement('a');
+    link.href = mapsUrl(matched);
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.className = 'inline-maps-btn';
+    link.textContent = '📍';
+    strong.after(link);
+  });
+});
+
+// Also add a main Maps button on activities with a single clear location (not multi-option)
 document.querySelectorAll('.day-card .activity').forEach(activity => {
   const titleEl = activity.querySelector('.activity-info h4');
   if (!titleEl) return;
   const title = titleEl.textContent.trim();
-  // Skip nap/rest/flight/hotel activities
-  if (/sieste|repos|décollage|arrivée|installation|départ|aéroport/i.test(title)) return;
+  if (/sieste|repos|décollage|arrivée|installation|départ|aéroport|petit-déj|brunch|déjeuner|soirée.*appart/i.test(title)) return;
   const descEl = activity.querySelector('.activity-info p');
   const searchText = title.toLowerCase() + ' ' + (descEl ? descEl.textContent.toLowerCase() : '');
   let matchedName = null;
-  for (const name of Object.keys(ACTIVITY_COORDS)) {
+  for (const name of Object.keys(MAPS_PLACES)) {
     if (searchText.includes(name.toLowerCase())) { matchedName = name; break; }
   }
   if (!matchedName) return;
+  // Skip if this activity already has multiple inline maps buttons (multi-option)
+  const inlineCount = activity.querySelectorAll('.inline-maps-btn').length;
+  if (inlineCount > 1) return;
   const link = document.createElement('a');
-  link.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(matchedName + ', Edinburgh, Scotland')}`;
+  link.href = mapsUrl(matchedName);
   link.target = '_blank';
   link.rel = 'noopener';
   link.className = 'activity-maps-btn';
@@ -3329,7 +3405,7 @@ const PLACE_COORDS = {
   'La Favorita': [55.9655, -3.1730], 'Little Foxes Play Cafe': [55.9275, -3.2060],
   'National Museum of Scotland': [55.9470, -3.1893], 'Dynamic Earth': [55.9510, -3.1744],
   'Camera Obscura & World of Illusions': [55.9498, -3.1985], 'Camera Obscura': [55.9498, -3.1985],
-  'Scottish National Gallery': [55.9510, -3.1958], 'Museum of Childhood': [55.9504, -3.1865],
+  'The Vennel': [55.9469, -3.1960], 'Greyfriars Bobby': [55.9468, -3.1910], 'Museum of Childhood': [55.9504, -3.1865],
   'Edinburgh Butterfly & Insect World': [55.8785, -3.1385], 'Royal Yacht Britannia': [55.9820, -3.1770],
   'Palace of Holyroodhouse': [55.9527, -3.1718], 'Scottish Storytelling Centre': [55.9510, -3.1850],
   'Playtown Edinburgh': [55.9818, -3.1775], 'Clambers (Royal Commonwealth Pool)': [55.9400, -3.1760],
@@ -3376,7 +3452,7 @@ const CLIENT_DB = {
     { nom: 'National Museum of Scotland', lat: 55.9470, lng: -3.1893, short: 'Musée gratuit, galerie toddler', prix: 'Gratuit' },
     { nom: 'Dynamic Earth', lat: 55.9510, lng: -3.1744, short: 'Volcans 4D, forêt tropicale', prix: '£17.50' },
     { nom: 'Camera Obscura', lat: 55.9498, lng: -3.1985, short: 'Illusions, miroirs, lumières', prix: '£19.50' },
-    { nom: 'Scottish National Gallery', lat: 55.9510, lng: -3.1958, short: 'Monet, Rembrandt — gratuit', prix: 'Gratuit' },
+    { nom: 'The Vennel Viewpoint', lat: 55.9469, lng: -3.1960, short: 'Vue iconique sur le château', prix: 'Gratuit' },
     { nom: 'Museum of Childhood', lat: 55.9504, lng: -3.1865, short: 'Jouets historiques', prix: 'Gratuit' },
     { nom: 'Butterfly World', lat: 55.8785, lng: -3.1385, short: 'Serre tropicale, papillons', prix: '£7.95' },
     { nom: 'Royal Yacht Britannia', lat: 55.9820, lng: -3.1770, short: 'Yacht royal à explorer', prix: '£18.50' },
@@ -3502,7 +3578,8 @@ function initHotelMap() {
     { n: 'Edinburgh Castle', e: '🏰', c: [55.9486, -3.1999] },
     { n: 'Royal Mile', e: '🛤️', c: [55.9505, -3.1895] },
     { n: 'Princes St Gardens', e: '🌳', c: [55.9510, -3.2000] },
-    { n: 'Scottish National Gallery', e: '🖼️', c: [55.9510, -3.1958] },
+    { n: 'The Vennel', e: '📸', c: [55.9469, -3.1960] },
+    { n: 'Greyfriars Bobby', e: '🐕', c: [55.9468, -3.1910] },
     { n: 'National Museum', e: '🏛️', c: [55.9470, -3.1893] },
     { n: 'St Andrew Sq Tram', e: '🚋', c: [55.9545, -3.1910] },
     { n: 'Dean Village', e: '🏘️', c: [55.9530, -3.2170] }
@@ -3538,7 +3615,10 @@ const DAY_MAPS = {
     { n: 'Camera Obscura', e: '🔮', c: [55.9498, -3.1985] },
     { n: 'Scran & Scallie', e: '🍽️', c: [55.9612, -3.2150] },
     { n: 'Sieste hôtel', e: '😴', c: [55.9533, -3.1955] },
-    { n: 'Scottish National Gallery', e: '🖼️', c: [55.9510, -3.1958] },
+    { n: 'The Vennel (vue château)', e: '📸', c: [55.9469, -3.1960] },
+    { n: 'Victoria Street', e: '🌈', c: [55.9489, -3.1948] },
+    { n: 'Greyfriars Bobby', e: '🐕', c: [55.9468, -3.1910] },
+    { n: 'Grassmarket', e: '🏘️', c: [55.9474, -3.1955] },
     { n: 'Princes Street', e: '🌅', c: [55.9520, -3.1980] }
   ],
   4: [
@@ -3584,7 +3664,8 @@ const EXPLORER_POIS = [
   { id:'castle', nom:'Edinburgh Castle', cat:'culture', emoji:'🏰', desc:'Château emblématique, Joyaux de la Couronne, vue panoramique', lat:55.9486, lng:-3.1999, prix:'£19.50', indoor:true, baby:'ok', duree:'1h30–2h' },
   { id:'national-museum', nom:'National Museum of Scotland', cat:'culture', emoji:'🏛️', desc:'Dinosaures, sciences interactives, galerie Imagine pour toddlers', lat:55.9470, lng:-3.1893, prix:'Gratuit', indoor:true, baby:'top', duree:'1h30–2h' },
   { id:'camera-obscura', nom:'Camera Obscura & World of Illusions', cat:'culture', emoji:'🔮', desc:'Illusions d\'optique, miroirs déformants, magie — super interactif', lat:55.9498, lng:-3.1985, prix:'£19.50', indoor:true, baby:'ok', duree:'1h–1h30' },
-  { id:'national-gallery', nom:'Scottish National Gallery', cat:'culture', emoji:'🖼️', desc:'Monet, Rembrandt, Van Gogh — gratuit, accessible poussette', lat:55.9510, lng:-3.1958, prix:'Gratuit', indoor:true, baby:'ok', duree:'1h' },
+  { id:'the-vennel', nom:'The Vennel Viewpoint', cat:'balade', emoji:'📸', desc:'Escalier en pierre avec LA vue iconique sur le château — LE spot photo', lat:55.9469, lng:-3.1960, prix:'Gratuit', indoor:false, baby:'top', duree:'15min' },
+  { id:'greyfriars-bobby', nom:'Greyfriars Bobby', cat:'balade', emoji:'🐕', desc:'Statue du petit chien fidèle + cimetière magnifique et paisible', lat:55.9468, lng:-3.1910, prix:'Gratuit', indoor:false, baby:'top', duree:'15min' },
   { id:'museum-childhood', nom:'Museum of Childhood', cat:'culture', emoji:'🧸', desc:'Jouets anciens et modernes, poupées, trains miniatures', lat:55.9504, lng:-3.1865, prix:'Gratuit', indoor:true, baby:'top', duree:'45min–1h' },
   { id:'holyroodhouse', nom:'Palace of Holyroodhouse', cat:'culture', emoji:'👑', desc:'Résidence royale, espace famille avec déguisements', lat:55.9527, lng:-3.1718, prix:'£18', indoor:true, baby:'ok', duree:'1h–1h30' },
   { id:'britannia', nom:'Royal Yacht Britannia', cat:'culture', emoji:'🚢', desc:'Yacht royal à explorer, audio-guide famille', lat:55.9820, lng:-3.1770, prix:'£18.50', indoor:true, baby:'ok', duree:'1h30' },
